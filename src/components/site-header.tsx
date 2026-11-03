@@ -1,7 +1,35 @@
 import Link from "next/link";
 import { HEADER_NAV } from "@/lib/site";
 
-export function SiteHeader({ ctaHref = "#contact", ctaLabel = "Get a quote" }: { ctaHref?: string; ctaLabel?: string }) {
+export function SiteHeader({
+  ctaHref = "#contact",
+  ctaLabel = "Get a quote",
+  minimal,
+}: {
+  ctaHref?: string;
+  ctaLabel?: string;
+  /** Logo + CTA only, exactly like the design */
+  minimal?: boolean;
+}) {
+  if (minimal) {
+    return (
+      <header className="sticky top-0 z-20 border-b border-line bg-canvas/88 backdrop-blur-[10px]">
+        <div className="mx-auto flex max-w-[1180px] flex-wrap items-center gap-7 px-6 py-3.5">
+          <Link href="/" className="font-display text-[22px] tracking-[0.01em] text-ink">
+            FINLOA
+          </Link>
+          <div className="ml-auto flex items-center gap-3.5">
+            <Link
+              href={ctaHref}
+              className="whitespace-nowrap rounded-[9px] bg-ink px-4 py-[9px] text-[14.5px] font-medium text-white transition-colors hover:bg-ink-2"
+            >
+              {ctaLabel}
+            </Link>
+          </div>
+        </div>
+      </header>
+    );
+  }
   return (
     <header className="sticky top-0 z-20 border-b border-line bg-canvas/88 backdrop-blur-[10px]">
       <div className="mx-auto flex max-w-[1180px] items-center gap-7 px-6 py-3.5">

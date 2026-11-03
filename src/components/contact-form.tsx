@@ -17,6 +17,8 @@ export type ContactFormProps = {
   plans?: PlanOption[];
   showPlatforms?: boolean;
   showVideosPerMonth?: boolean;
+  /** Silently attach the plan whose pricing-card button was clicked */
+  trackPlanSelection?: boolean;
 };
 
 const inputClass =
@@ -68,6 +70,7 @@ export function ContactForm({
   plans,
   showPlatforms,
   showVideosPerMonth,
+  trackPlanSelection,
 }: ContactFormProps) {
   const [planSlug, setPlanSlug] = useState("");
   const [platforms, setPlatforms] = useState<PlatformValue[]>([]);
@@ -76,11 +79,11 @@ export function ContactForm({
   const [formError, setFormError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!plans) return;
+    if (!plans && !trackPlanSelection) return;
     const onSelect = (e: Event) => setPlanSlug((e as CustomEvent<string>).detail);
     window.addEventListener(SELECT_PLAN_EVENT, onSelect);
     return () => window.removeEventListener(SELECT_PLAN_EVENT, onSelect);
-  }, [plans]);
+  }, [plans, trackPlanSelection]);
 
   const togglePlatform = (p: PlatformValue) =>
     setPlatforms((cur) => (cur.includes(p) ? cur.filter((x) => x !== p) : [...cur, p]));

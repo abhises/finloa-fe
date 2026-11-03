@@ -35,12 +35,12 @@ export function SiteFooter() {
             >
               Plan Your Growth ↗
             </Link>
-            <Link
-              href="/#contact"
+            <a
+              href="#"
               className="whitespace-nowrap rounded-full border border-brand px-6 py-[13px] text-[15px] font-semibold text-ink transition-colors hover:bg-white"
             >
-              Get a quote ↗
-            </Link>
+              Client Login ↗
+            </a>
           </div>
         </div>
         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,180px),1fr))] gap-x-8 gap-y-10">

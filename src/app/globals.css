@@ -36,6 +36,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* The designs use the browser default line-height, not Tailwind's 1.5 */
+  line-height: normal;
 }
 
 body {

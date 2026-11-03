@@ -89,3 +89,14 @@ export async function subscribe(email: string, source = "blog") {
     throw body;
   }
 }
+
+export type VideoKind = "LONG" | "SHORT";
+
+export type PortfolioVideo = {
+  id: string;
+  niche: string;
+  kind: VideoKind;
+  youtubeId: string;
+  title: string | null;
+  sortOrder: number;
+};
