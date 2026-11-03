@@ -1,4 +1,8 @@
-export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+/**
+ * Base URL the browser uses for the API. In production this is "/" (same origin, proxied by Caddy),
+ * which becomes "" so requests go to "/api/...".
+ */
+export const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000").replace(/\/+$/, "");
 
 export type Plan = {
   id: string;

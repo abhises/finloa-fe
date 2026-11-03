@@ -2,6 +2,9 @@ import "server-only";
 import { cacheLife } from "next/cache";
 import { API_URL, type Plan, type Post } from "./api";
 
+/** Server-side fetches use the internal address when running in Docker (e.g. http://backend:4000). */
+const SERVER_API_URL = process.env.API_INTERNAL_URL ?? API_URL;
+
 /** Used when the API is unreachable (e.g. building without the backend running). */
 const FALLBACK_PLANS: Plan[] = [
   {
@@ -83,12 +86,12 @@ export async function getPlans(): Promise<Plan[]> {
   "use cache";
   cacheLife("minutes");
   try {
-    const res = await fetch(`${API_URL}/api/plans`, { signal: AbortSignal.timeout(4000) });
+    const res = await fetch(`${SERVER_API_URL}/api/plans`, { signal: AbortSignal.timeout(4000) });
     if (!res.ok) throw new Error(`API responded ${res.status}`);
     const json = (await res.json()) as { data: Plan[] };
     return json.data.length ? json.data : FALLBACK_PLANS;
   } catch (err) {
-    console.warn(`[finloa] Could not load plans from ${API_URL}, using fallback.`, err);
+    console.warn(`[finloa] Could not load plans from ${SERVER_API_URL}, using fallback.`, err);
     return FALLBACK_PLANS;
   }
 }
@@ -97,11 +100,11 @@ export async function getPosts(): Promise<Post[]> {
   "use cache";
   cacheLife("minutes");
   try {
-    const res = await fetch(`${API_URL}/api/posts`, { signal: AbortSignal.timeout(4000) });
+    const res = await fetch(`${SERVER_API_URL}/api/posts`, { signal: AbortSignal.timeout(4000) });
     if (!res.ok) throw new Error(`API responded ${res.status}`);
     return ((await res.json()) as { data: Post[] }).data;
   } catch (err) {
-    console.warn(`[finloa] Could not load posts from ${API_URL}.`, err);
+    console.warn(`[finloa] Could not load posts from ${SERVER_API_URL}.`, err);
     return [];
   }
 }

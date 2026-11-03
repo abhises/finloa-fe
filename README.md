@@ -25,3 +25,13 @@ Blog posts come from `GET /api/posts`; the subscribe box posts to `POST /api/sub
 Shared building blocks live in `src/components/ui.tsx`; nav and footer links in `src/lib/site.ts`.
 
 Design tokens (colours, fonts) live in `src/app/globals.css` under `@theme`.
+
+## Deployment
+
+Pushing to `main` runs `.github/workflows/deploy.yml`: lint + type-check, build the Docker image
+(`output: "standalone"`), push it to `ghcr.io/abhises/finloa-fe`, then SSH to the server and restart the
+`frontend` service in `/opt/finloa`. In production the browser calls the API on the same origin (`/api/...`,
+routed by Caddy) and server-side fetches use `API_INTERNAL_URL=http://backend:4000`.
+
+The stack itself (Compose file, Caddy, secrets) is managed from the `finloa-be` repo — deploy the backend first.
+See `../finloa-be/README.md` → Deployment for the required GitHub secrets.
