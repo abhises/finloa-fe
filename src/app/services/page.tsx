@@ -31,7 +31,7 @@ const services: {
     eyebrow: "Video creation",
     title: "Affordable videos that grow your audience.",
     body: "Professional videos for YouTube, TikTok, Instagram and LinkedIn at a clear monthly price. We edit, optimise and post.",
-    href: "/video-creation",
+    href: "/videos",
     cta: "Explore video plans →",
     rows: [
       ["01", "Editing, thumbnails, titles and descriptions"],
@@ -102,7 +102,7 @@ const paths = [
     body: "For YouTube channels, podcasts, newsletters and social accounts that want to earn more than ad and sponsor revenue.",
   },
   {
-    href: "/video-creation",
+    href: "/videos",
     eyebrow: "FOR BUSINESSES",
     title: "Grow what already works",
     body: "For small, mid-size and established companies ready for consistent video, a better website and new revenue beyond their core offer.",

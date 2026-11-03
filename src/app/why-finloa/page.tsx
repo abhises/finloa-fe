@@ -16,7 +16,7 @@ const reasons: NumberedItem[] = [
 ];
 
 const services: NumberedItem[] = [
-  { title: "Video Creation", body: "Affordable videos that grow your audience on every platform.", href: "/video-creation" },
+  { title: "Video Creation", body: "Affordable videos that grow your audience on every platform.", href: "/videos" },
   { title: "AI Marketing", body: "A marketing system built on a strong foundation, powered by AI.", href: "/ai-marketing" },
   { title: "SEO", body: "Get found on Google and cited in AI answers.", href: "/seo" },
   { title: "Content Marketing", body: "Content that builds authority and brings in leads.", href: "/content-marketing" },

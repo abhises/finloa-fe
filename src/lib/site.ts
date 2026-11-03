@@ -4,7 +4,7 @@ export const FOOTER_COLUMNS = [
     links: [
       { href: "/ai-marketing", label: "AI Marketing" },
       { href: "/website-design", label: "Website Design & Development" },
-      { href: "/video-creation", label: "Video Creation" },
+      { href: "/videos", label: "Video Creation" },
     ],
   },
   {
@@ -27,7 +27,7 @@ export const FOOTER_COLUMNS = [
 ] as const;
 
 export const HEADER_NAV = [
-  { href: "/video-creation", label: "Video Creation" },
+  { href: "/videos", label: "Video Creation" },
   { href: "/services", label: "Services" },
   { href: "/for-creators", label: "For Creators" },
   { href: "/why-finloa", label: "Why Finloa" },

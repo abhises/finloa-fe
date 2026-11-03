@@ -43,7 +43,7 @@ const paths = [
     body: "For YouTube channels, podcasts, newsletters and social accounts that want to earn more than ad and sponsor revenue.",
   },
   {
-    href: "/video-creation",
+    href: "/videos",
     eyebrow: "FOR BUSINESSES",
     title: "Grow what already works",
     body: "For small, mid-size and established companies ready for a better website and new revenue beyond their core offer.",
@@ -250,7 +250,7 @@ export default async function LandingPage() {
               </ul>
               <div className="mt-1.5 flex flex-wrap items-center gap-5">
                 <Link
-                  href="/video-creation"
+                  href="/videos"
                   className="whitespace-nowrap rounded-[11px] bg-ink px-[22px] py-3.5 text-[15.5px] font-medium text-white transition-colors hover:bg-ink-2 hover:text-white"
                 >
                   See video packages →
