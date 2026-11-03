@@ -8,15 +8,17 @@ export function PageShell({
   ctaHref,
   ctaLabel,
   minimalHeader,
+  brandHeader,
 }: {
   children: ReactNode;
   ctaHref?: string;
   ctaLabel?: string;
   minimalHeader?: boolean;
+  brandHeader?: boolean;
 }) {
   return (
     <div className="flex min-h-screen flex-col">
-      <SiteHeader ctaHref={ctaHref} ctaLabel={ctaLabel} minimal={minimalHeader} />
+      <SiteHeader ctaHref={ctaHref} ctaLabel={ctaLabel} minimal={minimalHeader} brand={brandHeader} />
       <main className="flex flex-col">{children}</main>
       <SiteFooter />
     </div>

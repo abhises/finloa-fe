@@ -30,7 +30,7 @@ export function SiteFooter() {
               </a>
             </div>
             <Link
-              href="/services#goals"
+              href="/#goals"
               className="whitespace-nowrap rounded-full bg-brand px-6 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-brand-hover"
             >
               Plan Your Growth ↗

@@ -5,23 +5,32 @@ export function SiteHeader({
   ctaHref = "#contact",
   ctaLabel = "Get a quote",
   minimal,
+  brand,
 }: {
   ctaHref?: string;
   ctaLabel?: string;
   /** Logo + CTA only, exactly like the design */
   minimal?: boolean;
+  /** Blue header used on the landing page (v2 design) */
+  brand?: boolean;
 }) {
-  if (minimal) {
+  if (minimal || brand) {
     return (
-      <header className="sticky top-0 z-20 border-b border-line bg-canvas/88 backdrop-blur-[10px]">
-        <div className="mx-auto flex max-w-[1180px] flex-wrap items-center gap-7 px-6 py-3.5">
-          <Link href="/" className="font-display text-[22px] tracking-[0.01em] text-ink">
+      <header
+        className={`sticky top-0 z-20 ${
+          brand ? "bg-brand text-white" : "border-b border-line bg-canvas/88 backdrop-blur-[10px]"
+        }`}
+      >
+        <div className={`mx-auto flex max-w-[1180px] flex-wrap items-center gap-7 px-6 ${brand ? "py-4" : "py-3.5"}`}>
+          <Link href="/" className={`font-display text-[22px] tracking-[0.01em] ${brand ? "text-white" : "text-ink"}`}>
             FINLOA
           </Link>
           <div className="ml-auto flex items-center gap-3.5">
             <Link
               href={ctaHref}
-              className="whitespace-nowrap rounded-[9px] bg-ink px-4 py-[9px] text-[14.5px] font-medium text-white transition-colors hover:bg-ink-2"
+              className={`whitespace-nowrap rounded-[9px] px-4 py-[9px] text-[14.5px] font-medium transition-colors ${
+                brand ? "bg-white text-ink hover:bg-[#E8EEFF]" : "bg-ink text-white hover:bg-ink-2"
+              }`}
             >
               {ctaLabel}
             </Link>
