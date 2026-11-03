@@ -1,26 +1,69 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Finloa design tokens — taken from the "Finloa Landing Page Design" files */
+@theme {
+  --color-ink: #0b1020;
+  --color-ink-2: #1a2236;
+  --color-ink-3: #151c2e;
+  --color-ink-4: #0e1426;
+  --color-ink-line: #263049;
+  --color-ink-line-2: #222a3d;
+
+  --color-brand: #2f6bff;
+  --color-brand-hover: #1f57e8;
+  --color-brand-light: #4a7fff;
+  --color-brand-soft: #6e95ff;
+  --color-brand-pale: #7ea2ff;
+
+  --color-canvas: oklch(0.985 0.004 160);
+  --color-surface: oklch(0.965 0.005 265);
+  --color-surface-2: oklch(0.955 0.006 265);
+  --color-line: oklch(0.92 0.008 265);
+  --color-line-2: oklch(0.9 0.008 265);
+  --color-grid: #eef1f8;
+
+  --color-muted: oklch(0.42 0.02 265);
+  --color-muted-2: oklch(0.45 0.02 265);
+  --color-subtle: oklch(0.5 0.02 265);
+  --color-body-2: oklch(0.25 0.02 265);
+  --color-on-ink-muted: oklch(0.82 0.01 265);
+  --color-on-ink-muted-2: oklch(0.8 0.015 265);
+
+  --font-sans: var(--font-inter-tight), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --font-display: var(--font-archivo-black), sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::placeholder {
+  color: oklch(0.6 0.02 265);
+}
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(to bottom, transparent 60%, var(--color-canvas)),
+    linear-gradient(var(--color-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    70px 70px,
+    70px 70px;
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-brand);
 }
