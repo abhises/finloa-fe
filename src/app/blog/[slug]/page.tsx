@@ -8,16 +8,18 @@ import { getPost, getPosts } from "@/lib/data";
 import { renderMarkdown } from "@/lib/markdown";
 
 const SITE = "https://finloa.com";
+/** Sample param for builds without the API (Docker). Never a real post, so no real URL gets baked in as a 404. */
+const BUILD_PLACEHOLDER = "__placeholder__";
 
 export async function generateStaticParams() {
   const posts = await getPosts();
   // Cache Components needs at least one sample param; unknown slugs render on first request
-  return posts.length ? posts.map((p) => ({ slug: p.slug })) : [{ slug: "samsung-business-intro" }];
+  return posts.length ? posts.map((p) => ({ slug: p.slug })) : [{ slug: BUILD_PLACEHOLDER }];
 }
 
 export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): Promise<Metadata> {
   const { slug } = await params;
-  const post = await getPost(slug);
+  const post = slug === BUILD_PLACEHOLDER ? null : await getPost(slug);
   if (!post) return { title: "Post not found — Finloa" };
   const url = `${SITE}/blog/${post.slug}`;
   const image = post.coverImage ?? (post.youtubeId ? `https://i.ytimg.com/vi/${post.youtubeId}/hqdefault.jpg` : undefined);
@@ -65,7 +67,7 @@ const initials = (name: string) =>
 
 export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">) {
   const { slug } = await params;
-  const post = await getPost(slug);
+  const post = slug === BUILD_PLACEHOLDER ? null : await getPost(slug);
   if (!post) notFound();
 
   const { html, toc } = renderMarkdown(post.body);

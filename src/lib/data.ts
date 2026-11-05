@@ -124,18 +124,16 @@ export async function getVideos(): Promise<PortfolioVideo[]> {
   }
 }
 
-/** One published article, or null when it doesn't exist (or the API is down). */
+/**
+ * One published article, or null when it doesn't exist. Throws when the API is unreachable, so an outage
+ * shows an error instead of caching a "not found" page for a real post.
+ */
 export async function getPost(slug: string): Promise<PostDetail | null> {
   "use cache";
   cacheLife("minutes");
   cacheTag("posts", `post:${slug}`);
-  try {
-    const res = await fetch(`${SERVER_API_URL}/api/posts/${encodeURIComponent(slug)}`, { signal: AbortSignal.timeout(4000) });
-    if (res.status === 404) return null;
-    if (!res.ok) throw new Error(`API responded ${res.status}`);
-    return ((await res.json()) as { data: PostDetail }).data;
-  } catch (err) {
-    console.warn(`[finloa] Could not load post "${slug}" from ${SERVER_API_URL}.`, err);
-    return null;
-  }
+  const res = await fetch(`${SERVER_API_URL}/api/posts/${encodeURIComponent(slug)}`, { signal: AbortSignal.timeout(4000) });
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(`[finloa] API responded ${res.status} for post "${slug}"`);
+  return ((await res.json()) as { data: PostDetail }).data;
 }
