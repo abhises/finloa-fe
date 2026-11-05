@@ -75,7 +75,23 @@ export type Post = {
   excerpt: string | null;
   coverImage: string | null;
   readMinutes: number;
+  youtubeId: string | null;
   publishedAt: string;
+};
+
+export type Faq = { q: string; a: string };
+
+/** A full article from GET /api/posts/:slug */
+export type PostDetail = Post & {
+  body: string;
+  videoLength: string | null;
+  transcript: string | null;
+  faqs: Faq[];
+  tags: string[];
+  authorName: string | null;
+  authorRole: string | null;
+  authorBio: string | null;
+  updatedAt: string;
 };
 
 export async function subscribe(email: string, source = "blog") {

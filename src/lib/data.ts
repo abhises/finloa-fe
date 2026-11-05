@@ -1,9 +1,9 @@
 import "server-only";
-import { cacheLife } from "next/cache";
-import { API_URL, type Plan, type PortfolioVideo, type Post } from "./api";
+import { cacheLife, cacheTag } from "next/cache";
+import { API_URL, type Plan, type PortfolioVideo, type Post, type PostDetail } from "./api";
 
 /** Server-side fetches use the internal address when running in Docker (e.g. http://backend:4000). */
-const SERVER_API_URL = process.env.API_INTERNAL_URL ?? API_URL;
+export const SERVER_API_URL = process.env.API_INTERNAL_URL ?? API_URL;
 
 /** Used when the API is unreachable (e.g. building without the backend running). */
 const FALLBACK_PLANS: Plan[] = [
@@ -99,6 +99,7 @@ export async function getPlans(): Promise<Plan[]> {
 export async function getPosts(): Promise<Post[]> {
   "use cache";
   cacheLife("minutes");
+  cacheTag("posts");
   try {
     const res = await fetch(`${SERVER_API_URL}/api/posts`, { signal: AbortSignal.timeout(4000) });
     if (!res.ok) throw new Error(`API responded ${res.status}`);
@@ -112,6 +113,7 @@ export async function getPosts(): Promise<Post[]> {
 export async function getVideos(): Promise<PortfolioVideo[]> {
   "use cache";
   cacheLife("minutes");
+  cacheTag("videos");
   try {
     const res = await fetch(`${SERVER_API_URL}/api/videos`, { signal: AbortSignal.timeout(4000) });
     if (!res.ok) throw new Error(`API responded ${res.status}`);
@@ -119,5 +121,21 @@ export async function getVideos(): Promise<PortfolioVideo[]> {
   } catch (err) {
     console.warn(`[finloa] Could not load videos from ${SERVER_API_URL}.`, err);
     return [];
+  }
+}
+
+/** One published article, or null when it doesn't exist (or the API is down). */
+export async function getPost(slug: string): Promise<PostDetail | null> {
+  "use cache";
+  cacheLife("minutes");
+  cacheTag("posts", `post:${slug}`);
+  try {
+    const res = await fetch(`${SERVER_API_URL}/api/posts/${encodeURIComponent(slug)}`, { signal: AbortSignal.timeout(4000) });
+    if (res.status === 404) return null;
+    if (!res.ok) throw new Error(`API responded ${res.status}`);
+    return ((await res.json()) as { data: PostDetail }).data;
+  } catch (err) {
+    console.warn(`[finloa] Could not load post "${slug}" from ${SERVER_API_URL}.`, err);
+    return null;
   }
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { subscribe, type ApiError, type Post } from "@/lib/api";
 
@@ -108,25 +109,37 @@ export function BlogList({ posts }: { posts: Post[] }) {
           </p>
         ) : (
           <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))] gap-6">
-            {visible.map((p) => (
-              <article
-                key={p.id}
-                className="flex flex-col overflow-hidden rounded-2xl border border-line bg-white text-ink transition-colors hover:border-brand"
-              >
-                <div className="relative aspect-[16/7.5] bg-[oklch(0.95_0.008_265)]">
-                  {p.coverImage ? (
-                    <Image src={p.coverImage} alt="" fill sizes="(min-width: 900px) 50vw, 100vw" className="object-cover" />
-                  ) : (
-                    <div className="bg-grid absolute inset-0 opacity-70" aria-hidden />
-                  )}
-                </div>
-                <div className="flex flex-1 flex-col gap-3.5 px-[30px] pt-7 pb-[30px]">
-                  <span className="font-mono text-[12.5px] tracking-[0.08em] text-brand uppercase">{p.topic}</span>
-                  <h2 className="text-[22px] leading-[1.3] font-semibold tracking-[-0.02em] text-pretty">{p.title}</h2>
-                  <span className="mt-auto pt-2.5 text-sm text-subtle">{p.readMinutes} min read</span>
-                </div>
-              </article>
-            ))}
+            {visible.map((p) => {
+              const image = p.coverImage ?? (p.youtubeId ? `https://i.ytimg.com/vi/${p.youtubeId}/hqdefault.jpg` : null);
+              return (
+                <Link
+                  key={p.id}
+                  href={`/blog/${p.slug}`}
+                  className="group flex flex-col overflow-hidden rounded-2xl border border-line bg-white text-ink transition-colors hover:border-brand"
+                >
+                  <div className="relative aspect-[16/7.5] bg-[oklch(0.95_0.008_265)]">
+                    {image ? (
+                      <Image src={image} alt="" fill unoptimized sizes="(min-width: 900px) 50vw, 100vw" className="object-cover" />
+                    ) : (
+                      <div className="bg-grid absolute inset-0 opacity-70" aria-hidden />
+                    )}
+                    {p.youtubeId && (
+                      <span className="absolute top-1/2 left-1/2 flex size-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-lg transition-transform group-hover:scale-105">
+                        <span className="ml-1 h-0 w-0 border-y-[9px] border-l-[15px] border-y-transparent border-l-ink" />
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex flex-1 flex-col gap-3.5 px-[30px] pt-7 pb-[30px]">
+                    <span className="font-mono text-[12.5px] tracking-[0.08em] text-brand uppercase">
+                      {p.topic}
+                      {p.youtubeId && " · Video"}
+                    </span>
+                    <h2 className="text-[22px] leading-[1.3] font-semibold tracking-[-0.02em] text-pretty">{p.title}</h2>
+                    <span className="mt-auto pt-2.5 text-sm text-subtle">{p.readMinutes} min read</span>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         )}
         {filtered.length > shown && (

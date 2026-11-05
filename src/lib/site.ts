@@ -5,6 +5,7 @@ export const FOOTER_COLUMNS = [
       { href: "/ai-marketing", label: "AI Marketing" },
       { href: "/website-design", label: "Website Design & Development" },
       { href: "/videos", label: "Video Creation" },
+      { href: "/netherlands", label: "Launch in the Netherlands ↗" },
     ],
   },
   {
