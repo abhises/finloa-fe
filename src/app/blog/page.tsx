@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BlogList } from "@/components/blog-list";
+import { ContactSection } from "@/components/contact-section";
 import { PageShell } from "@/components/page-shell";
 import { getPosts } from "@/lib/data";
 
@@ -12,7 +13,7 @@ export default async function BlogPage() {
   const posts = await getPosts();
 
   return (
-    <PageShell ctaHref="/#contact">
+    <PageShell ctaHref="#contact">
       <section className="bg-grid px-6 pt-[clamp(28px,5vw,64px)] pb-24">
         <div className="mx-auto flex max-w-[1180px] flex-col gap-[22px]">
           <div className="font-mono text-[13px] tracking-[0.08em] text-brand">FINLOA BLOG</div>
@@ -25,6 +26,11 @@ export default async function BlogPage() {
           <BlogList posts={posts} />
         </div>
       </section>
+      <ContactSection
+        source="blog"
+        intro="Want help putting these ideas to work? Tell us about your goals and we'll come back with next steps."
+        fourthField={{ name: "website", placeholder: "Website" }}
+      />
     </PageShell>
   );
 }

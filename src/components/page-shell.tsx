@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { SiteFooter } from "./site-footer";
 import { SiteHeader } from "./site-header";
 
-/** Header + main + footer. Pages without a contact section should point the CTA at "/#contact". */
+/** Header + main + footer. Every public page ends with a ContactSection (id="contact"). */
 export function PageShell({
   children,
   ctaHref,

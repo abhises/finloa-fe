@@ -66,7 +66,7 @@ function Field({
 export function ContactForm({
   source,
   fourthField = { name: "company", placeholder: "Company or channel" },
-  messagePlaceholder = "What would you like to grow?",
+  messagePlaceholder = "Tell us how we can help you grow",
   plans,
   showPlatforms,
   showVideosPerMonth,

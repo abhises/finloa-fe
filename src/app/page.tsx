@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import type { CSSProperties } from "react";
+import { ContactSection } from "@/components/contact-section";
 import { GoalPicker } from "@/components/goal-picker";
 import { PageShell } from "@/components/page-shell";
 import { Eyebrow } from "@/components/ui";
@@ -99,7 +100,7 @@ export default async function LandingPage() {
               </p>
               <div className="flex flex-wrap gap-3">
                 <a
-                  href="mailto:info@finloa.com"
+                  href="#contact"
                   className="whitespace-nowrap rounded-[11px] bg-ink px-[22px] py-3.5 text-[15.5px] font-medium text-white transition-colors hover:bg-ink-2"
                 >
                   Contact Us →
@@ -343,7 +344,7 @@ export default async function LandingPage() {
               You have the vision. We have the team to get you there.
             </h2>
             <a
-              href="mailto:info@finloa.com"
+              href="#contact"
               className="relative whitespace-nowrap rounded-[11px] bg-ink px-[22px] py-3.5 text-[15.5px] font-medium text-white transition-colors hover:bg-ink-2 hover:text-white"
             >
               Contact Us →
@@ -351,6 +352,11 @@ export default async function LandingPage() {
           </div>
         </section>
       </div>
+      <ContactSection
+        source="home"
+        intro="Share your goals and challenges. We'll come back with a plan for where to start."
+        fourthField={{ name: "website", placeholder: "Website" }}
+      />
     </PageShell>
   );
 }

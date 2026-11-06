@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DismissibleNotice } from "@/components/dismissible-notice";
+import { ContactSection } from "@/components/contact-section";
 import { PageShell } from "@/components/page-shell";
 import { PageHero, Section, SectionHeading, StepList, type NumberedItem } from "@/components/ui";
 
@@ -29,7 +30,7 @@ const traits: NumberedItem[] = [
 
 export default function CareersPage() {
   return (
-    <PageShell ctaHref="/#contact">
+    <PageShell ctaHref="#contact">
       <DismissibleNotice>
         Finloa will never ask candidates for personal financial information or payment as part of hiring. All genuine
         messages come from an @finloa.com address, and all applications go through this Careers page.
@@ -115,6 +116,11 @@ export default function CareersPage() {
           </p>
         </div>
       </section>
+      <ContactSection
+        source="careers"
+        intro="Looking to grow your brand or audience? Share your goals and we'll come back with a plan for where to start."
+        fourthField={{ name: "website", placeholder: "Website" }}
+      />
     </PageShell>
   );
 }

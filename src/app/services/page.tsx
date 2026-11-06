@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { GoalPicker } from "@/components/goal-picker";
+import { ContactSection } from "@/components/contact-section";
 import { PageShell } from "@/components/page-shell";
 import { CtaBand, NumberedCards, Section, SectionHeading, TagList, btn, type NumberedItem } from "@/components/ui";
 
@@ -111,7 +112,7 @@ const paths = [
 
 export default function ServicesPage() {
   return (
-    <PageShell ctaHref="/#contact">
+    <PageShell ctaHref="#contact">
       <section className="bg-grid px-6 pt-[clamp(28px,5vw,64px)] pb-[clamp(56px,8vw,96px)]">
         <div className="mx-auto flex max-w-[1180px] flex-col items-center gap-[26px] text-center">
           <div className="font-mono text-[13px] tracking-[0.08em] text-brand">SIMPLE · FLEXIBLE · REVENUE-DRIVEN</div>
@@ -124,9 +125,9 @@ export default function ServicesPage() {
             businesses of every size.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
-            <Link href="/#contact" className={btn.primary}>
+            <a href="#contact" className={btn.primary}>
               Contact Us →
-            </Link>
+            </a>
             <a href="#goals" className={btn.secondary}>
               What&apos;s your goal?
             </a>
@@ -185,7 +186,12 @@ export default function ServicesPage() {
 
       <CtaBand
         title="You have the vision. We have the team to get you there."
-        actions={[{ href: "/#contact", label: "Contact Us →" }]}
+        actions={[{ href: "#contact", label: "Contact Us →" }]}
+      />
+      <ContactSection
+        source="services"
+        intro="Share your goals and challenges. We'll come back with a plan for where to start."
+        fourthField={{ name: "website", placeholder: "Website" }}
       />
     </PageShell>
   );

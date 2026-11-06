@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ContactSection } from "@/components/contact-section";
 import { PageShell } from "@/components/page-shell";
 import { YoutubePlayer } from "@/components/youtube-player";
 import { getPost, getPosts } from "@/lib/data";
@@ -276,6 +277,11 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
           </div>
         </div>
       </article>
+      <ContactSection
+        source="blog-post"
+        intro="Want help putting these ideas to work? Tell us about your goals and we'll come back with next steps."
+        fourthField={{ name: "website", placeholder: "Website" }}
+      />
     </PageShell>
   );
 }
