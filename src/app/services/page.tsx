@@ -4,6 +4,7 @@ import { GoalPicker } from "@/components/goal-picker";
 import { ContactSection } from "@/components/contact-section";
 import { PageShell } from "@/components/page-shell";
 import { CtaBand, NumberedCards, Section, SectionHeading, TagList, btn, type NumberedItem } from "@/components/ui";
+import { EmailSignup } from "@/components/email-signup";
 
 export const metadata: Metadata = {
   title: "Services — Finloa",
@@ -124,14 +125,7 @@ export default function ServicesPage() {
             Strategy, websites, video, marketing and new income streams from one team working together, for creators and
             businesses of every size.
           </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <a href="#contact" className={btn.primary}>
-              Contact Us →
-            </a>
-            <a href="#goals" className={btn.secondary}>
-              What&apos;s your goal?
-            </a>
-          </div>
+          <EmailSignup source="services" cta="Get started →" />
         </div>
       </section>
 

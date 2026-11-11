@@ -6,6 +6,7 @@ import { GoalPicker } from "@/components/goal-picker";
 import { PageShell } from "@/components/page-shell";
 import { Eyebrow } from "@/components/ui";
 import { getVideos } from "@/lib/data";
+import { EmailSignup } from "@/components/email-signup";
 
 export const metadata: Metadata = {
   title: "Finloa — We grow brands and audiences",
@@ -98,20 +99,7 @@ export default async function LandingPage() {
                 Built to deliver revenue. Strategy, websites, marketing and new income streams from one team, for
                 creators and businesses of every size.
               </p>
-              <div className="flex flex-wrap gap-3">
-                <a
-                  href="#contact"
-                  className="whitespace-nowrap rounded-[11px] bg-ink px-[22px] py-3.5 text-[15.5px] font-medium text-white transition-colors hover:bg-ink-2"
-                >
-                  Contact Us →
-                </a>
-                <a
-                  href="#goals"
-                  className="whitespace-nowrap rounded-[11px] border border-white/60 px-[22px] py-[13px] text-[15.5px] font-medium text-white transition-colors hover:bg-white/12"
-                >
-                  What&apos;s your goal?
-                </a>
-              </div>
+              <EmailSignup source="home" cta="Get started →" tone="brand" align="start" />
             </div>
 
             <div className="relative z-[2] mt-11 mb-[clamp(-100px,-6vw,-40px)] w-[calc(100%+clamp(0px,5vw,80px))] self-start max-[1019px]:w-full">

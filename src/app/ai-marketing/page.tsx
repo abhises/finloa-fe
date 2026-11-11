@@ -54,10 +54,7 @@ export default function AiMarketingPage() {
         eyebrow="AI marketing"
         title={["Build an AI marketing system", "that drives revenue."]}
         intro="Fix the foundation first. Then scale what works and forecast what comes next."
-        actions={[
-          { href: "#assessment", label: "Get your AI readiness review →" },
-          { href: "#phases", label: "See how it works", variant: "secondary" },
-        ]}
+        signup={{ source: "ai-marketing", cta: "Get my AI review →" }}
       />
       <Section dark>
         <SectionHeading

@@ -3,6 +3,7 @@ import { BlogList } from "@/components/blog-list";
 import { ContactSection } from "@/components/contact-section";
 import { PageShell } from "@/components/page-shell";
 import { getPosts } from "@/lib/data";
+import { EmailSignup } from "@/components/email-signup";
 
 export const metadata: Metadata = {
   title: "Blog — Finloa",
@@ -23,6 +24,7 @@ export default async function BlogPage() {
           <p className="max-w-[640px] text-lg leading-[1.55] text-pretty text-muted">
             Practical guides on marketing, AI, video and new income streams for creators and businesses.
           </p>
+          <EmailSignup source="blog" cta="Subscribe →" align="start" />
           <BlogList posts={posts} />
         </div>
       </section>

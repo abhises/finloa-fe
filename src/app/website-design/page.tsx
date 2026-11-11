@@ -42,7 +42,7 @@ export default function WebsiteDesignPage() {
         eyebrow="Website design & development"
         title={["Turn your website into", "a revenue engine."]}
         intro="We design and build websites around your customer journey, with clear messaging, strong SEO and smooth development, so more visitors become leads and customers."
-        actions={[{ href: "#contact", label: "Plan your website redesign →" }]}
+        signup={{ source: "website-design", cta: "Plan my redesign →" }}
       />
       <Section>
         <StepList eyebrow="How it works" title="Our website redesign process." items={steps} />

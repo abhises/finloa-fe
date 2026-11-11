@@ -1,3 +1,5 @@
+import { EmailSignup } from "./email-signup";
+
 export function Hero() {
   return (
     <section className="bg-grid px-6 pt-[clamp(28px,5vw,64px)] pb-[clamp(20px,3vw,32px)]">
@@ -11,6 +13,7 @@ export function Hero() {
           Professional videos for YouTube, TikTok, Instagram and LinkedIn at a clear price. We edit, optimise and post so
           your channels keep growing.
         </p>
+        <EmailSignup source="video-creation" cta="Get my video plan →" />
       </div>
     </section>
   );

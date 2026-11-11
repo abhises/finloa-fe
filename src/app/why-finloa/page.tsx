@@ -39,7 +39,7 @@ export default function WhyFinloaPage() {
         eyebrow="Why Finloa"
         title={["One team that sets", "the pace for your growth."]}
         intro="Strategists, writers, designers, developers and marketers working together, ready to grow your brand or channel. One joined-up approach to delivering measurable results faster."
-        actions={[{ href: "#contact", label: "Talk to our team →" }]}
+        signup={{ source: "why-finloa", cta: "Talk to our team →" }}
       />
       <Section>
         <SectionHeading eyebrow="Why choose us" title="Why creators and businesses choose Finloa." />

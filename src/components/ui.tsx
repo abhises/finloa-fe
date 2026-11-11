@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { EmailSignup } from "./email-signup";
 
 /* ---------- Buttons ---------- */
 
@@ -92,11 +93,14 @@ export function PageHero({
   title,
   intro,
   actions,
+  signup,
 }: {
   eyebrow: string;
   title: [string, string];
   intro: string;
   actions?: { href: string; label: string; variant?: "primary" | "secondary" }[];
+  /** Email capture under the intro (shown instead of `actions`). */
+  signup?: { source: string; cta: string };
 }) {
   return (
     <section className="bg-grid px-6 pt-[clamp(28px,5vw,64px)] pb-[clamp(56px,8vw,96px)]">
@@ -107,7 +111,8 @@ export function PageHero({
           <span className="text-brand">{title[1]}</span>
         </h1>
         <p className="max-w-[720px] text-lg leading-[1.55] text-balance text-muted">{intro}</p>
-        {actions && actions.length > 0 && (
+        {signup && <EmailSignup source={signup.source} cta={signup.cta} />}
+        {!signup && actions && actions.length > 0 && (
           <div className="flex flex-wrap justify-center gap-3">
             {actions.map((a) => (
               <SmartLink key={a.label} href={a.href} className={a.variant === "secondary" ? btn.secondary : btn.primary}>

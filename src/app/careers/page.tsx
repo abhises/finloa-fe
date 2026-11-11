@@ -39,7 +39,7 @@ export default function CareersPage() {
         eyebrow="Careers at Finloa"
         title={["We invest in you.", "You help us grow."]}
         intro="Join a team where your voice matters, your growth is a priority and your wins are celebrated."
-        actions={[{ href: "#positions", label: "Send an open application →" }]}
+        signup={{ source: "careers", cta: "Get new roles by email →" }}
       />
       <Section innerClassName="grid grid-cols-[repeat(auto-fit,minmax(min(100%,400px),1fr))] items-start gap-[clamp(32px,5vw,56px)]">
         <SectionHeading eyebrow="Working at Finloa" title="What it’s like to work here." />

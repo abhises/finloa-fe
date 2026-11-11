@@ -38,7 +38,7 @@ export default function PaidMediaPage() {
         eyebrow="Paid media"
         title={["Make every ad dollar", "count toward growth."]}
         intro="Paid search, paid social and programmatic campaigns built to bring in qualified leads and customers, at a cost per result you can plan around."
-        actions={[{ href: "#contact", label: "Plan your paid media strategy →" }]}
+        signup={{ source: "paid-media", cta: "Plan my paid media →" }}
       />
       <Section>
         <StepList eyebrow="How it works" title="From goals to results in four steps." items={steps} />

@@ -41,7 +41,7 @@ export default function ContentMarketingPage() {
         eyebrow="Content marketing"
         title={["Content that builds authority", "and turns readers into fans."]}
         intro="Articles, guides, case studies, video and email, planned around your goals and written for the people you want to reach. Then distributed so they actually see it."
-        actions={[{ href: "#contact", label: "Plan your content strategy →" }]}
+        signup={{ source: "content-marketing", cta: "Plan my content →" }}
       />
       <Section>
         <StepList eyebrow="How it works" title="From foundation to results in five steps." items={steps} />

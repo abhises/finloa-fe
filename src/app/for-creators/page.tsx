@@ -3,7 +3,8 @@ import { ContactSection } from "@/components/contact-section";
 import { CreatorNetwork } from "@/components/creator-network";
 import { FaqSection, type FaqItem } from "@/components/faq";
 import { PageShell } from "@/components/page-shell";
-import { DarkStepGrid, NumberedCards, Section, SectionHeading, btn, type NumberedItem } from "@/components/ui";
+import { DarkStepGrid, NumberedCards, Section, SectionHeading, type NumberedItem } from "@/components/ui";
+import { EmailSignup } from "@/components/email-signup";
 
 export const metadata: Metadata = {
   title: "For Creators — Finloa",
@@ -58,14 +59,7 @@ export default function ForCreatorsPage() {
             <p className="max-w-[540px] text-lg leading-[1.55] text-pretty text-muted">
               Finloa partners with creators and businesses to build or add new sources of revenue.
             </p>
-            <div className="flex flex-wrap gap-3">
-              <a href="#contact" className={btn.primary}>
-                Sign up for free →
-              </a>
-              <a href="#how" className={btn.secondary}>
-                See how it works
-              </a>
-            </div>
+            <EmailSignup source="for-creators" cta="Sign up for free →" align="start" />
           </div>
           <CreatorNetwork />
         </div>

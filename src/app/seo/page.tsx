@@ -64,7 +64,7 @@ export default function SeoPage() {
         eyebrow="SEO · GEO · AEO"
         title={["Stay visible wherever", "people search."]}
         intro="Buyers now find answers on Google, ChatGPT, Perplexity and Google's AI Overviews. We make sure your brand is the one they find, trust and cite."
-        actions={[{ href: "#contact", label: "Get a search visibility review →" }]}
+        signup={{ source: "seo", cta: "Get my visibility review →" }}
       />
       <Section>
         <SectionHeading

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { submitLead, type ApiError } from "@/lib/api";
+import { EmailSignup } from "./email-signup";
 
 const mono = "font-mono text-xs tracking-[0.16em]";
 
@@ -81,14 +82,7 @@ export function LanguageSwitchHero() {
             We take what already works in English and rebuild it for the Netherlands: website, SEO, ads, social and
             video. Written by native speakers, run by one team.
           </p>
-          <div className="flex flex-wrap gap-3">
-            <a href="#contact" className="rounded-md bg-ink px-[18px] py-[13px] text-sm font-semibold text-white hover:bg-ink-2">
-              Launch in the Netherlands →
-            </a>
-            <a href="#channels" className="rounded-md border border-white/60 px-[18px] py-[13px] text-sm font-semibold text-white hover:bg-white/10">
-              See what we localise
-            </a>
-          </div>
+          <EmailSignup source="netherlands" cta="Launch in the Netherlands →" tone="brand" align="start" />
         </div>
         <div className="flex flex-col items-center gap-7">
           <button
