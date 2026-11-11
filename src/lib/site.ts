@@ -2,21 +2,26 @@ export const FOOTER_COLUMNS = [
   {
     title: "Services",
     links: [
+      { href: "/idea-to-product", label: "Idea to Product" },
       { href: "/ai-marketing", label: "AI Marketing" },
-      { href: "/website-design", label: "Website Design & Development" },
       { href: "/videos", label: "Video Creation" },
-      { href: "/netherlands", label: "Launch in the Netherlands ↗" },
     ],
   },
   {
     title: "Expertise",
     links: [
+      { href: "/idea-to-product#build", label: "SaaS Development" },
+      { href: "/idea-to-product#packages", label: "Hosting & Maintenance" },
       { href: "/seo", label: "SEO" },
-      { href: "/content-marketing", label: "Content Marketing" },
-      { href: "/paid-media", label: "Paid Advertising" },
     ],
   },
-  { title: "Industries", links: [{ href: "/for-creators", label: "For Creators" }] },
+  {
+    title: "Industries",
+    links: [
+      { href: "/idea-to-product", label: "For Founders" },
+      { href: "/services", label: "For Small Businesses" },
+    ],
+  },
   {
     title: "About Us",
     links: [
@@ -29,6 +34,7 @@ export const FOOTER_COLUMNS = [
 
 export const HEADER_NAV = [
   { href: "/videos", label: "Video Creation" },
+  { href: "/idea-to-product", label: "Idea to Product" },
   { href: "/services", label: "Services" },
   { href: "/for-creators", label: "For Creators" },
   { href: "/why-finloa", label: "Why Finloa" },
