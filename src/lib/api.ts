@@ -99,7 +99,14 @@ export type PostAuthor = {
 export type PostDetail = Post & {
   /** false when Dutch was asked for but the post isn't translated yet (English is shown) */
   translated: boolean;
+  /** Markdown body of older posts; empty when `html` is set */
   body: string;
+  /** Article HTML (from sections or written by hand) */
+  html: string;
+  /** "toc": contents list beside the article; "wide": no contents list */
+  layout: "toc" | "wide";
+  /** Custom CSS of the post and its custom section types */
+  css: string;
   videoLength: string | null;
   transcript: string | null;
   faqs: Faq[];

@@ -7,7 +7,7 @@ import { SERVER_API_URL } from "@/lib/data";
  * Forwards /admin-api/* from the admin UI to finloa-be's /api/*, adding the session token from the httpOnly cookie.
  * (Not under /api: in production Caddy sends /api/* straight to the backend.)
  */
-const ALLOWED = new Set(["auth", "stats", "posts", "videos", "leads", "subscribers", "categories", "authors", "media", "texts"]);
+const ALLOWED = new Set(["auth", "stats", "posts", "videos", "leads", "subscribers", "categories", "authors", "media", "texts", "section-types"]);
 
 /** Public-site cache tags to refresh after a change, so edits show right away */
 const TAGS: Record<string, string[]> = {
@@ -16,6 +16,8 @@ const TAGS: Record<string, string[]> = {
   authors: ["posts"],
   videos: ["videos"],
   texts: ["texts"],
+  // saving a section type re-renders the posts that use it
+  "section-types": ["posts"],
 };
 
 async function forward(req: Request, ctx: RouteContext<"/admin-api/[...path]">) {

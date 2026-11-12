@@ -11,6 +11,7 @@ import { getLocale, getT } from "@/i18n/server";
 import type { PostAuthor } from "@/lib/api";
 import { getPost, getPosts } from "@/lib/data";
 import { renderMarkdown } from "@/lib/markdown";
+import { prepareHtml, safeCss } from "@/lib/post-html";
 /** Sample param for builds without the API (Docker). Never a real post, so no real URL gets baked in as a 404. */
 const BUILD_PLACEHOLDER = "__placeholder__";
 
@@ -102,10 +103,14 @@ export default async function BlogPostPage({ params }: PageProps<"/[lang]/blog/[
     extraJsonLd = post.jsonLd ? JSON.parse(post.jsonLd) : null;
   } catch {}
 
-  const { html, toc } = renderMarkdown(post.body);
+  // Sections / hand-written HTML, or Markdown for older posts
+  const { html, toc } = post.html ? prepareHtml(post.html) : renderMarkdown(post.body);
+  const wide = post.layout === "wide";
   const url = `${SITE}/blog/${post.slug}`;
   const shortTitle = post.title.split(":")[0].replace(/\.$/, "");
-  const contents = [
+  const contents = wide
+    ? []
+    : [
     ...toc,
     ...(post.faqs.length ? [{ id: "faq", text: t("FAQ", "Veelgestelde vragen") }] : []),
     ...(post.transcript ? [{ id: "transcript", text: t("Transcript", "Transcript") }] : []),
@@ -169,6 +174,7 @@ export default async function BlogPostPage({ params }: PageProps<"/[lang]/blog/[
       {extraJsonLd != null && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(extraJsonLd).replace(/</g, "\\u003c") }} />
       )}
+      {post.css && <style dangerouslySetInnerHTML={{ __html: safeCss(post.css) }} />}
       {post.newsletterPopup && <NewsletterPopup source="blog-popup" />}
       <article className="bg-[#F3F5F9]">
         {/* ---------- Hero ---------- */}
@@ -260,7 +266,7 @@ export default async function BlogPostPage({ params }: PageProps<"/[lang]/blog/[
             </nav>
           )}
 
-          <div className="max-w-[740px] min-w-0 flex-[1_1_520px]">
+          <div className={`min-w-0 flex-[1_1_520px] ${wide ? "mx-auto max-w-[860px]" : "max-w-[740px]"}`}>
             <div className="post-body" dangerouslySetInnerHTML={{ __html: html }} />
 
             {post.faqs.length > 0 && (
