@@ -47,7 +47,8 @@ export function renderMarkdown(markdown: string): { html: string; toc: TocItem[]
         return `<a href="${escapeHtml(token.href)}"${title}${external ? ' target="_blank" rel="noopener"' : ""}>${text}</a>`;
       },
       image(token: Tokens.Image) {
-        if (!/^(https:\/\/|\/)/i.test(token.href)) return escapeHtml(token.text);
+        // https, site-relative, or the local API in development (media uploads)
+        if (!/^(https:\/\/|\/|http:\/\/localhost[:/])/i.test(token.href)) return escapeHtml(token.text);
         return `<img src="${escapeHtml(token.href)}" alt="${escapeHtml(token.text)}" loading="lazy">`;
       },
     },

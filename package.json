@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "texts": "node scripts/extract-texts.mjs",
+    "predev": "node scripts/extract-texts.mjs",
     "dev": "next dev",
+    "prebuild": "node scripts/extract-texts.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",

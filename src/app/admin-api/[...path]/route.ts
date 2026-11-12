@@ -7,7 +7,16 @@ import { SERVER_API_URL } from "@/lib/data";
  * Forwards /admin-api/* from the admin UI to finloa-be's /api/*, adding the session token from the httpOnly cookie.
  * (Not under /api: in production Caddy sends /api/* straight to the backend.)
  */
-const ALLOWED = new Set(["auth", "stats", "posts", "videos", "leads", "subscribers"]);
+const ALLOWED = new Set(["auth", "stats", "posts", "videos", "leads", "subscribers", "categories", "authors", "media", "texts"]);
+
+/** Public-site cache tags to refresh after a change, so edits show right away */
+const TAGS: Record<string, string[]> = {
+  posts: ["posts"],
+  categories: ["posts"],
+  authors: ["posts"],
+  videos: ["videos"],
+  texts: ["texts"],
+};
 
 async function forward(req: Request, ctx: RouteContext<"/admin-api/[...path]">) {
   const token = (await cookies()).get(ADMIN_COOKIE)?.value;
@@ -24,13 +33,14 @@ async function forward(req: Request, ctx: RouteContext<"/admin-api/[...path]">) 
   const res = await fetch(url, {
     method: req.method,
     headers,
-    body: mutating ? await req.text() : undefined,
+    // Raw bytes, so multipart uploads (media library) pass through intact
+    body: mutating ? await req.arrayBuffer() : undefined,
     cache: "no-store",
   }).catch(() => null);
   if (!res) return Response.json({ error: "Cannot reach the API. Is finloa-be running?" }, { status: 502 });
 
   // Show the change on the public site right away
-  if (mutating && res.ok && (path[0] === "posts" || path[0] === "videos")) revalidateTag(path[0], { expire: 0 });
+  if (mutating && res.ok) for (const tag of TAGS[path[0]] ?? []) revalidateTag(tag, { expire: 0 });
 
   const out = new Headers();
   const ct = res.headers.get("content-type");
@@ -38,4 +48,4 @@ async function forward(req: Request, ctx: RouteContext<"/admin-api/[...path]">) 
   return new Response(res.status === 204 ? null : res.body, { status: res.status, headers: out });
 }
 
-export { forward as GET, forward as POST, forward as PATCH, forward as DELETE };
+export { forward as GET, forward as POST, forward as PUT, forward as PATCH, forward as DELETE };

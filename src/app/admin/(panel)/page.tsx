@@ -4,15 +4,35 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { adminApi, when } from "@/lib/admin-client";
 
+type Counts = {
+  posts: number;
+  drafts: number;
+  untranslated: number;
+  videos: number;
+  newLeads: number;
+  leads: number;
+  subscribers: number;
+  media: number;
+  categories: number;
+  authors: number;
+  texts: number;
+};
 type Stats = {
-  counts: { posts: number; drafts: number; videos: number; newLeads: number; leads: number; subscribers: number };
-  recentPosts: { id: string; title: string; slug: string; published: boolean; youtubeId: string | null; updatedAt: string }[];
+  counts: Counts;
+  recentPosts: { id: string; title: string; slug: string; published: boolean; youtubeId: string | null; hasNl: boolean; updatedAt: string }[];
   recentLeads: { id: string; firstName: string; lastName: string; email: string; source: string; status: string; createdAt: string }[];
+  recentSubscribers: { id: string; email: string; source: string; createdAt: string }[];
+  storage: "local" | "s3";
 };
 
-const GLANCE: [keyof Stats["counts"], string, string][] = [
+const GLANCE: [keyof Counts, string, string][] = [
   ["posts", "Published posts", "/admin/posts"],
   ["drafts", "Drafts", "/admin/posts"],
+  ["untranslated", "Posts without Dutch", "/admin/posts"],
+  ["texts", "Edited page texts", "/admin/pages"],
+  ["media", "Media files", "/admin/media"],
+  ["categories", "Categories", "/admin/categories"],
+  ["authors", "Authors", "/admin/authors"],
   ["videos", "YouTube videos", "/admin/videos"],
   ["newLeads", "New leads", "/admin/leads"],
   ["leads", "All leads", "/admin/leads"],
@@ -34,7 +54,7 @@ export default function DashboardPage() {
       <div className="ad-head">
         <div>
           <h1>Dashboard</h1>
-          <p>Manage the blog, YouTube videos and enquiries for finloa.com.</p>
+          <p>Manage the pages, blog, media, videos and enquiries for finloa.com and nl.finloa.com.</p>
         </div>
       </div>
       {error && <p className="ad-error">{error}</p>}
@@ -54,6 +74,7 @@ export default function DashboardPage() {
               ))}
             </ul>
           )}
+          {stats && <p className="ad-hint">Uploads are stored {stats.storage === "s3" ? "in the S3 bucket" : "on the server's disk"}.</p>}
         </section>
 
         <section className="ad-panel">
@@ -61,6 +82,18 @@ export default function DashboardPage() {
           <div className="ad-quick">
             <Link className="ad-btn ad-btn--primary" href="/admin/posts/new">
               + New blog post
+            </Link>
+            <Link className="ad-btn" href="/admin/pages">
+              Edit page texts (EN / NL)
+            </Link>
+            <Link className="ad-btn" href="/admin/media">
+              Upload media
+            </Link>
+            <Link className="ad-btn" href="/admin/categories">
+              + Category
+            </Link>
+            <Link className="ad-btn" href="/admin/authors">
+              + Author
             </Link>
             <Link className="ad-btn" href="/admin/videos">
               + Add YouTube video
@@ -88,7 +121,8 @@ export default function DashboardPage() {
                   <span>
                     <Link href={`/admin/posts/${p.id}`}>{p.title}</Link>{" "}
                     {!p.published && <span className="ad-pill ad-pill--draft">Draft</span>}{" "}
-                    {p.youtubeId && <span className="ad-pill ad-pill--video">Video</span>}
+                    {p.youtubeId && <span className="ad-pill ad-pill--video">Video</span>}{" "}
+                    {!p.hasNl && <span className="ad-pill ad-pill--nl">No NL</span>}
                   </span>
                 </li>
               ))}
@@ -120,6 +154,29 @@ export default function DashboardPage() {
           )}
           <Link href="/admin/leads" className="ad-more">
             All leads →
+          </Link>
+        </section>
+
+        <section className="ad-panel">
+          <h2>New subscribers</h2>
+          {!stats ? (
+            <p className="ad-hint">Loading…</p>
+          ) : stats.recentSubscribers.length === 0 ? (
+            <p className="ad-hint">No subscribers yet.</p>
+          ) : (
+            <ul className="ad-activity">
+              {stats.recentSubscribers.map((s) => (
+                <li key={s.id}>
+                  <span className="ad-hint">{when(s.createdAt)}</span>
+                  <span>
+                    {s.email} <span className="ad-hint">· {s.source}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+          <Link href="/admin/subscribers" className="ad-more">
+            All subscribers →
           </Link>
         </section>
       </div>

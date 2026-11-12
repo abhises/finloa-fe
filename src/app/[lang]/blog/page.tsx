@@ -4,7 +4,7 @@ import { ContactSection } from "@/components/contact-section";
 import { PageShell } from "@/components/page-shell";
 import { getPosts } from "@/lib/data";
 import { EmailSignup } from "@/components/email-signup";
-import { getT, pageMetadata } from "@/i18n/server";
+import { getLocale, getT, pageMetadata } from "@/i18n/server";
 
 export async function generateMetadata(): Promise<Metadata> {
   return pageMetadata(
@@ -18,8 +18,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function BlogPage() {
-  const posts = await getPosts();
-  const t = await getT();
+  const locale = await getLocale();
+  const [posts, t] = await Promise.all([getPosts(locale), getT()]);
 
   return (
     <PageShell ctaHref="#contact">

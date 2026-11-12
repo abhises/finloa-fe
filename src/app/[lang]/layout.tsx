@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { LocaleProvider } from "@/i18n/client";
 import { HTML_LANG, LOCALES } from "@/i18n/config";
 import { getLocale, getT } from "@/i18n/server";
+import { getTextOverrides } from "@/lib/data";
 import { fontVariables } from "../fonts";
 import "../globals.css";
 
@@ -25,11 +26,15 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function RootLayout({ children }: LayoutProps<"/[lang]">) {
-  const locale = await getLocale();
+  const [locale, allOverrides] = await Promise.all([getLocale(), getTextOverrides()]);
+  // Client components only need this language's edits
+  const overrides = Object.fromEntries(
+    Object.entries(allOverrides).flatMap(([k, v]) => (v[locale] === undefined ? [] : [[k, { [locale]: v[locale] }]])),
+  );
   return (
     <html lang={HTML_LANG[locale]} className={`${fontVariables} h-full antialiased`}>
       <body className="flex min-h-full flex-col">
-        <LocaleProvider locale={locale}>{children}</LocaleProvider>
+        <LocaleProvider locale={locale} overrides={overrides}>{children}</LocaleProvider>
       </body>
     </html>
   );

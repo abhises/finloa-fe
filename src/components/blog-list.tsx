@@ -82,7 +82,7 @@ export function BlogList({ posts }: { posts: Post[] }) {
   const [shown, setShown] = useState(PAGE);
   const t = useT();
 
-  const topics = [ALL, ...Array.from(new Set(posts.map((p) => p.topic)))];
+  const topics = [ALL, ...Array.from(new Set(posts.map((p) => p.topic).filter(Boolean)))];
   const filtered = posts.filter((p) => topic === ALL || p.topic === topic);
   const visible = filtered.slice(0, shown);
 
@@ -129,7 +129,9 @@ export function BlogList({ posts }: { posts: Post[] }) {
                 <Link
                   key={p.id}
                   href={`/blog/${p.slug}`}
-                  className="group flex flex-col overflow-hidden rounded-2xl border border-line bg-white text-ink transition-colors hover:border-brand"
+                  className={`group flex flex-col overflow-hidden rounded-2xl border border-line bg-white text-ink transition-colors hover:border-brand ${
+                    p.featured && topic === ALL ? "col-span-full" : ""
+                  }`}
                 >
                   <div className="relative aspect-[16/7.5] bg-[oklch(0.95_0.008_265)]">
                     {image ? (
@@ -145,8 +147,7 @@ export function BlogList({ posts }: { posts: Post[] }) {
                   </div>
                   <div className="flex flex-1 flex-col gap-3.5 px-[30px] pt-7 pb-[30px]">
                     <span className="font-mono text-[12.5px] tracking-[0.08em] text-brand uppercase">
-                      {p.topic}
-                      {p.youtubeId && " · Video"}
+                      {[p.featured && t("Featured", "Uitgelicht"), p.topic, p.youtubeId && "Video"].filter(Boolean).join(" · ")}
                     </span>
                     <h2 className="text-[22px] leading-[1.3] font-semibold tracking-[-0.02em] text-pretty">{p.title}</h2>
                     <span className="mt-auto pt-2.5 text-sm text-subtle">{p.readMinutes} {t("min read", "min. leestijd")}</span>

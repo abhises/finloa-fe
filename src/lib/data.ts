@@ -1,5 +1,6 @@
 import "server-only";
 import { cacheLife, cacheTag } from "next/cache";
+import type { Locale, TextOverrides } from "@/i18n/config";
 import { API_URL, type Plan, type PortfolioVideo, type Post, type PostDetail } from "./api";
 
 /** Server-side fetches use the internal address when running in Docker (e.g. http://backend:4000). */
@@ -96,12 +97,13 @@ export async function getPlans(): Promise<Plan[]> {
   }
 }
 
-export async function getPosts(): Promise<Post[]> {
+/** Published posts in one language (Dutch fields fall back to English when a post isn't translated). */
+export async function getPosts(locale: Locale = "en"): Promise<Post[]> {
   "use cache";
   cacheLife("minutes");
   cacheTag("posts");
   try {
-    const res = await fetch(`${SERVER_API_URL}/api/posts`, { signal: AbortSignal.timeout(4000) });
+    const res = await fetch(`${SERVER_API_URL}/api/posts?lang=${locale}`, { signal: AbortSignal.timeout(4000) });
     if (!res.ok) throw new Error(`API responded ${res.status}`);
     return ((await res.json()) as { data: Post[] }).data;
   } catch (err) {
@@ -128,12 +130,29 @@ export async function getVideos(): Promise<PortfolioVideo[]> {
  * One published article, or null when it doesn't exist. Throws when the API is unreachable, so an outage
  * shows an error instead of caching a "not found" page for a real post.
  */
-export async function getPost(slug: string): Promise<PostDetail | null> {
+export async function getPost(slug: string, locale: Locale = "en"): Promise<PostDetail | null> {
   "use cache";
   cacheLife("minutes");
   cacheTag("posts", `post:${slug}`);
-  const res = await fetch(`${SERVER_API_URL}/api/posts/${encodeURIComponent(slug)}`, { signal: AbortSignal.timeout(4000) });
+  const res = await fetch(`${SERVER_API_URL}/api/posts/${encodeURIComponent(slug)}?lang=${locale}`, {
+    signal: AbortSignal.timeout(4000),
+  });
   if (res.status === 404) return null;
   if (!res.ok) throw new Error(`[finloa] API responded ${res.status} for post "${slug}"`);
   return ((await res.json()) as { data: PostDetail }).data;
+}
+
+/** Site texts edited under Admin → Pages. Empty when none are edited or the API is unreachable (defaults show). */
+export async function getTextOverrides(): Promise<TextOverrides> {
+  "use cache";
+  cacheLife("minutes");
+  cacheTag("texts");
+  try {
+    const res = await fetch(`${SERVER_API_URL}/api/texts`, { signal: AbortSignal.timeout(4000) });
+    if (!res.ok) throw new Error(`API responded ${res.status}`);
+    return ((await res.json()) as { data: TextOverrides }).data;
+  } catch (err) {
+    console.warn(`[finloa] Could not load edited texts from ${SERVER_API_URL}, using the defaults.`, err);
+    return {};
+  }
 }

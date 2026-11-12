@@ -71,26 +71,45 @@ export type Post = {
   id: string;
   slug: string;
   title: string;
+  /** Category name in the page's language ("" when the post has no category) */
   topic: string;
+  categorySlug: string | null;
   excerpt: string | null;
   coverImage: string | null;
   readMinutes: number;
   youtubeId: string | null;
+  featured: boolean;
   publishedAt: string;
 };
 
 export type Faq = { q: string; a: string };
 
-/** A full article from GET /api/posts/:slug */
+export type PostAuthor = {
+  slug: string;
+  name: string;
+  role: string;
+  bio: string;
+  avatarUrl: string | null;
+  linkedinUrl: string | null;
+  youtubeUrl: string | null;
+  websiteUrl: string | null;
+};
+
+/** A full article from GET /api/posts/:slug?lang= */
 export type PostDetail = Post & {
+  /** false when Dutch was asked for but the post isn't translated yet (English is shown) */
+  translated: boolean;
   body: string;
   videoLength: string | null;
   transcript: string | null;
   faqs: Faq[];
   tags: string[];
-  authorName: string | null;
-  authorRole: string | null;
-  authorBio: string | null;
+  seoTitle: string | null;
+  seoDescription: string | null;
+  /** Extra JSON-LD from the admin */
+  jsonLd: string | null;
+  newsletterPopup: boolean;
+  author: PostAuthor | null;
   updatedAt: string;
 };
 

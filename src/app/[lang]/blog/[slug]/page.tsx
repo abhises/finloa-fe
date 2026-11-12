@@ -4,9 +4,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ContactSection } from "@/components/contact-section";
 import { PageShell } from "@/components/page-shell";
+import { NewsletterPopup } from "@/components/newsletter-popup";
 import { YoutubePlayer } from "@/components/youtube-player";
 import { HTML_LANG, SITE_URL } from "@/i18n/config";
 import { getLocale, getT } from "@/i18n/server";
+import type { PostAuthor } from "@/lib/api";
 import { getPost, getPosts } from "@/lib/data";
 import { renderMarkdown } from "@/lib/markdown";
 /** Sample param for builds without the API (Docker). Never a real post, so no real URL gets baked in as a 404. */
@@ -22,33 +24,34 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/blog/[slug
   const { slug } = await params;
   const locale = await getLocale();
   const SITE = SITE_URL[locale];
-  const post = slug === BUILD_PLACEHOLDER ? null : await getPost(slug);
+  const post = slug === BUILD_PLACEHOLDER ? null : await getPost(slug, locale);
   if (!post) return { title: locale === "nl" ? "Artikel niet gevonden — Finloa" : "Post not found — Finloa" };
   const url = `${SITE}/blog/${post.slug}`;
   const image = post.coverImage ?? (post.youtubeId ? `https://i.ytimg.com/vi/${post.youtubeId}/hqdefault.jpg` : undefined);
+  const description = post.seoDescription ?? post.excerpt ?? undefined;
   return {
-    title: `${post.title.replace(/\.$/, "")} | Finloa Blog`,
-    description: post.excerpt ?? undefined,
+    title: post.seoTitle ?? `${post.title.replace(/\.$/, "")} | Finloa Blog`,
+    description,
     alternates: {
       canonical: url,
       languages: { en: `${SITE_URL.en}/blog/${post.slug}`, "nl-NL": `${SITE_URL.nl}/blog/${post.slug}` },
     },
     robots: { index: true, follow: true, "max-image-preview": "large", "max-video-preview": -1 },
-    authors: post.authorName ? [{ name: post.authorName }] : undefined,
+    authors: post.author ? [{ name: post.author.name }] : undefined,
     openGraph: {
       type: "article",
       siteName: "Finloa",
-      title: post.title,
-      description: post.excerpt ?? undefined,
+      title: post.seoTitle ?? post.title,
+      description,
       url,
       images: image ? [image] : undefined,
       videos: post.youtubeId ? [`https://www.youtube.com/embed/${post.youtubeId}`] : undefined,
       publishedTime: post.publishedAt,
       modifiedTime: post.updatedAt,
-      section: post.topic,
+      section: post.topic || undefined,
       tags: post.tags,
     },
-    twitter: { card: "summary_large_image", title: post.title, description: post.excerpt ?? undefined },
+    twitter: { card: "summary_large_image", title: post.seoTitle ?? post.title, description },
   };
 }
 
@@ -76,13 +79,28 @@ const initials = (name: string) =>
     .join("")
     .toUpperCase();
 
+/** Author photo, or their initials when there is none */
+function Avatar({ author, className }: { author: PostAuthor; className: string }) {
+  return author.avatarUrl ? (
+    <Image src={author.avatarUrl} alt="" width={84} height={84} unoptimized className={`flex-none rounded-full object-cover ${className}`} />
+  ) : (
+    <div className={`flex flex-none items-center justify-center rounded-full font-bold ${className}`}>{initials(author.name)}</div>
+  );
+}
+
 export default async function BlogPostPage({ params }: PageProps<"/[lang]/blog/[slug]">) {
   const { slug } = await params;
   const locale = await getLocale();
   const t = await getT();
   const SITE = SITE_URL[locale];
-  const post = slug === BUILD_PLACEHOLDER ? null : await getPost(slug);
+  const post = slug === BUILD_PLACEHOLDER ? null : await getPost(slug, locale);
   if (!post) notFound();
+  const author = post.author;
+  /** Extra structured data from the admin (already validated as JSON when saved) */
+  let extraJsonLd: unknown = null;
+  try {
+    extraJsonLd = post.jsonLd ? JSON.parse(post.jsonLd) : null;
+  } catch {}
 
   const { html, toc } = renderMarkdown(post.body);
   const url = `${SITE}/blog/${post.slug}`;
@@ -104,10 +122,18 @@ export default async function BlogPostPage({ params }: PageProps<"/[lang]/blog/[
         image: post.coverImage ?? (post.youtubeId ? `https://i.ytimg.com/vi/${post.youtubeId}/hqdefault.jpg` : undefined),
         datePublished: post.publishedAt,
         dateModified: post.updatedAt,
-        author: post.authorName ? { "@type": "Person", name: post.authorName, jobTitle: post.authorRole ?? undefined } : undefined,
+        author: author
+          ? {
+              "@type": "Person",
+              name: author.name,
+              jobTitle: author.role || undefined,
+              image: author.avatarUrl ?? undefined,
+              sameAs: [author.linkedinUrl, author.youtubeUrl, author.websiteUrl].filter(Boolean),
+            }
+          : undefined,
         publisher: { "@type": "Organization", name: "Finloa", url: SITE },
         mainEntityOfPage: url,
-        articleSection: post.topic,
+        articleSection: post.topic || undefined,
         keywords: post.tags.join(", ") || undefined,
         video: post.youtubeId ? { "@id": `${url}#video` } : undefined,
       },
@@ -140,6 +166,10 @@ export default async function BlogPostPage({ params }: PageProps<"/[lang]/blog/[
   return (
     <PageShell ctaHref="/#goals">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
+      {extraJsonLd != null && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(extraJsonLd).replace(/</g, "\\u003c") }} />
+      )}
+      {post.newsletterPopup && <NewsletterPopup source="blog-popup" />}
       <article className="bg-[#F3F5F9]">
         {/* ---------- Hero ---------- */}
         <section className="bg-brand px-6 pt-9 pb-[72px] text-white">
@@ -160,22 +190,24 @@ export default async function BlogPostPage({ params }: PageProps<"/[lang]/blog/[
             <div className="mt-10 flex flex-wrap items-center gap-12">
               <div className="flex-[1_1_420px]">
                 <div className="font-mono text-xs tracking-[0.14em] uppercase">
-                  {post.topic} · {post.readMinutes} {t("min read", "min. leestijd")}
+                  {post.topic ? `${post.topic} · ` : ""}
+                  {post.readMinutes} {t("min read", "min. leestijd")}
                 </div>
+                {!post.translated && (
+                  <p className="mt-3 inline-block rounded-lg bg-white/15 px-3 py-1.5 text-[13px]">
+                    {t("This article has not been translated yet.", "Dit artikel is nog niet vertaald. Je leest de Engelse versie.")}
+                  </p>
+                )}
                 <h1 className="mt-4 mb-[18px] text-[clamp(40px,5.4vw,66px)] leading-[0.98] font-extrabold tracking-[-0.045em] text-balance">
                   {post.title}
                 </h1>
                 {post.excerpt && <p className="mb-6 max-w-[460px] text-[17px] leading-[1.55]">{post.excerpt}</p>}
                 <div className="flex items-center gap-3">
-                  {post.authorName && (
-                    <div className="flex size-11 flex-none items-center justify-center rounded-full border-2 border-white bg-[#5B86FF] text-sm font-bold">
-                      {initials(post.authorName)}
-                    </div>
-                  )}
+                  {author && <Avatar author={author} className="size-11 border-2 border-white bg-[#5B86FF] text-sm" />}
                   <div className="text-sm leading-[1.4]">
-                    {post.authorName && (
+                    {author && (
                       <a href="#author" rel="author" className="font-bold text-white hover:underline">
-                        {post.authorName}
+                        {author.name}
                       </a>
                     )}
                     <div>
@@ -271,19 +303,34 @@ export default async function BlogPostPage({ params }: PageProps<"/[lang]/blog/[
               </div>
             )}
 
-            {post.authorName && (
+            {author && (
               <section id="author" className="mt-10 overflow-hidden rounded-[20px] border border-[#E4E8F0] bg-white">
                 <div className="h-14 bg-brand" />
                 <div className="-mt-10 px-[26px] pb-[26px]">
-                  <div className="flex size-[84px] items-center justify-center rounded-full border-4 border-white bg-[#DCE3F0] text-2xl font-bold text-ink">
-                    {initials(post.authorName)}
+                  <Avatar author={author} className="size-[84px] border-4 border-white bg-[#DCE3F0] text-2xl text-ink" />
+                  <div className="mt-2.5 text-[22px] font-bold">{author.name}</div>
+                  {author.role && <div className="text-sm text-[#5B6475]">{author.role}</div>}
+                  {author.bio && <p className="mt-2.5 mb-3.5 text-[15px] leading-[1.6] whitespace-pre-line text-[#3B4456]">{author.bio}</p>}
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px] font-semibold">
+                    {author.linkedinUrl && (
+                      <a href={author.linkedinUrl} target="_blank" rel="noreferrer me" className="text-brand">
+                        LinkedIn ↗
+                      </a>
+                    )}
+                    {author.youtubeUrl && (
+                      <a href={author.youtubeUrl} target="_blank" rel="noreferrer me" className="text-brand">
+                        YouTube ↗
+                      </a>
+                    )}
+                    {author.websiteUrl && (
+                      <a href={author.websiteUrl} target="_blank" rel="noreferrer me" className="text-brand">
+                        {t("Website", "Website")} ↗
+                      </a>
+                    )}
+                    <Link href="/blog" className="text-brand">
+                      {t("More from the blog →", "Meer van de blog →")}
+                    </Link>
                   </div>
-                  <div className="mt-2.5 text-[22px] font-bold">{post.authorName}</div>
-                  {post.authorRole && <div className="text-sm text-[#5B6475]">{post.authorRole}</div>}
-                  {post.authorBio && <p className="mt-2.5 mb-3.5 text-[15px] leading-[1.6] text-[#3B4456]">{post.authorBio}</p>}
-                  <Link href="/blog" className="text-[13px] font-semibold text-brand">
-                    {t("More from the blog →", "Meer van de blog →")}
-                  </Link>
                 </div>
               </section>
             )}

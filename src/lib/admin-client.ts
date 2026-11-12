@@ -1,5 +1,8 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
+import { hostFor } from "@/i18n/config";
+
 export type AdminError = Error & { details?: Record<string, string[] | undefined> };
 
 /** Browser-side calls to the admin API, proxied through /admin-api/* which adds the session token. */
@@ -37,3 +40,13 @@ export function parseYoutubeId(input: string): string | null {
 
 export const when = (d: string) =>
   new Date(d).toLocaleString(undefined, { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
+
+const noSubscribe = () => () => {};
+/** Origin of the Dutch site next to this one (finloa.com → https://nl.finloa.com); "" during server render. */
+export function useNlOrigin() {
+  return useSyncExternalStore(
+    noSubscribe,
+    () => `${window.location.protocol}//${hostFor("nl", window.location.host)}`,
+    () => "",
+  );
+}

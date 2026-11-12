@@ -18,17 +18,27 @@ const MENU: Group[] = [
       { href: "/admin/posts/new", label: "Add new" },
     ],
   },
+  { href: "/admin/pages", label: "Pages (EN / NL)", icon: "pages" },
+  { href: "/admin/media", label: "Media", icon: "media" },
+  { href: "/admin/categories", label: "Categories", icon: "categories" },
+  { href: "/admin/authors", label: "Authors", icon: "authors" },
   { href: "/admin/videos", label: "YouTube videos", icon: "videos" },
   { href: "/admin/leads", label: "Leads", icon: "leads" },
   { href: "/admin/subscribers", label: "Subscribers", icon: "subscribers" },
+  { href: "/admin/automation", label: "Automation API", icon: "automation" },
 ];
 
 const ICONS = {
   dashboard: "M3 13h8V3H3zm10 8h8V11h-8zM3 21h8v-6H3zm10-18v6h8V3z",
   posts: "M4 4h16v4H4zm0 6h10v2H4zm0 4h16v2H4zm0 4h10v2H4z",
+  pages: "M6 2h9l5 5v15H6zM15 2v5h5M9 12h8M9 16h8",
+  media: "M3 5h18v14H3zm2 12h14l-4.5-6-3.5 4.5-2.5-3z",
+  categories: "M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z",
+  authors: "M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9m-8 9c0-4.4 3.6-7 8-7s8 2.6 8 7z",
   videos: "M2.5 6.5a3 3 0 0 1 3-3h13a3 3 0 0 1 3 3v11a3 3 0 0 1-3 3h-13a3 3 0 0 1-3-3zM10 9l5 3-5 3z",
-  leads: "M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9m-8 9c0-4.4 3.6-7 8-7s8 2.6 8 7z",
+  leads: "M4 4h16v12H8l-4 4zM8 9h8M8 12h5",
   subscribers: "M3 5h18v14H3zm0 1 9 7 9-7",
+  automation: "M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16",
 };
 
 const matches = (path: string, href: string) =>

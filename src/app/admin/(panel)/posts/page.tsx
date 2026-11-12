@@ -9,14 +9,18 @@ type Row = {
   id: string;
   slug: string;
   title: string;
-  topic: string;
+  hasNl: boolean;
   youtubeId: string | null;
+  coverImage: string | null;
+  featured: boolean;
   published: boolean;
   publishedAt: string;
   updatedAt: string;
+  category: { id: string; name: string } | null;
+  author: { id: string; name: string } | null;
 };
 
-type Filter = "all" | "published" | "drafts" | "video";
+type Filter = "all" | "published" | "drafts" | "video" | "untranslated";
 
 export default function PostsPage() {
   const confirm = useConfirm();
@@ -48,8 +52,9 @@ export default function PostsPage() {
       (filter === "all" ||
         (filter === "published" && p.published) ||
         (filter === "drafts" && !p.published) ||
-        (filter === "video" && p.youtubeId)) &&
-      (!q || `${p.title} ${p.topic} ${p.slug}`.toLowerCase().includes(q.toLowerCase())),
+        (filter === "video" && p.youtubeId) ||
+        (filter === "untranslated" && !p.hasNl)) &&
+      (!q || `${p.title} ${p.category?.name ?? ""} ${p.author?.name ?? ""} ${p.slug}`.toLowerCase().includes(q.toLowerCase())),
   );
 
   return (
@@ -57,7 +62,7 @@ export default function PostsPage() {
       <div className="ad-head">
         <div>
           <h1>Blog posts</h1>
-          <p>Articles on finloa.com/blog. Add a YouTube link to show a video at the top of a post.</p>
+          <p>Articles on finloa.com/blog and nl.finloa.com/blog. Each post has an English and a Dutch version.</p>
         </div>
         <Link href="/admin/posts/new" className="ad-btn ad-btn--primary">
           + New post
@@ -67,9 +72,9 @@ export default function PostsPage() {
 
       <div className="ad-filters">
         <div className="ad-seg">
-          {(["all", "published", "drafts", "video"] as Filter[]).map((f) => (
+          {(["all", "published", "drafts", "video", "untranslated"] as Filter[]).map((f) => (
             <button key={f} type="button" aria-pressed={filter === f} onClick={() => setFilter(f)}>
-              {f === "all" ? "All" : f === "published" ? "Published" : f === "drafts" ? "Drafts" : "With video"}
+              {{ all: "All", published: "Published", drafts: "Drafts", video: "With video", untranslated: "Needs Dutch" }[f]}
             </button>
           ))}
         </div>
@@ -86,8 +91,10 @@ export default function PostsPage() {
             <thead>
               <tr>
                 <th>Title</th>
-                <th className="ad-hide-sm">Topic</th>
+                <th className="ad-hide-sm">Category</th>
+                <th className="ad-hide-sm">Author</th>
                 <th>Status</th>
+                <th>Languages</th>
                 <th className="ad-hide-sm">Publish date</th>
                 <th />
               </tr>
@@ -99,8 +106,11 @@ export default function PostsPage() {
                   <tr key={p.id}>
                     <td>
                       <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-                        {p.youtubeId ? (
-                          <span className="ad-thumb" style={{ width: 72, backgroundImage: `url(https://img.youtube.com/vi/${p.youtubeId}/mqdefault.jpg)` }} />
+                        {p.coverImage || p.youtubeId ? (
+                          <span
+                            className="ad-thumb"
+                            style={{ width: 72, backgroundImage: `url(${p.coverImage ?? `https://img.youtube.com/vi/${p.youtubeId}/mqdefault.jpg`})` }}
+                          />
                         ) : (
                           <span className="ad-thumb" style={{ width: 72, background: "#eef1f8" }} />
                         )}
@@ -112,12 +122,20 @@ export default function PostsPage() {
                         </div>
                       </div>
                     </td>
-                    <td className="ad-hide-sm">{p.topic}</td>
+                    <td className="ad-hide-sm">{p.category?.name ?? <span className="ad-hint">—</span>}</td>
+                    <td className="ad-hide-sm">{p.author?.name ?? <span className="ad-hint">—</span>}</td>
                     <td>
                       <span className={`ad-pill ad-pill--${p.published && !scheduled ? "published" : "draft"}`}>
                         {!p.published ? "Draft" : scheduled ? "Scheduled" : "Published"}
                       </span>{" "}
-                      {p.youtubeId && <span className="ad-pill ad-pill--video">Video</span>}
+                      {p.youtubeId && <span className="ad-pill ad-pill--video">Video</span>}{" "}
+                      {p.featured && <span className="ad-pill ad-pill--featured">Featured</span>}
+                    </td>
+                    <td>
+                      <span className="ad-pill ad-pill--published">EN</span>{" "}
+                      <span className={`ad-pill ${p.hasNl ? "ad-pill--published" : "ad-pill--nl"}`} title={p.hasNl ? "Dutch version added" : "No Dutch version yet"}>
+                        NL{p.hasNl ? "" : " ✕"}
+                      </span>
                     </td>
                     <td className="ad-hide-sm ad-hint">{when(p.publishedAt)}</td>
                     <td>
