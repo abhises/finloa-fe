@@ -1,42 +1,37 @@
 export const FOOTER_COLUMNS = [
   {
-    title: "Services",
+    title: { en: "Services", nl: "Diensten" },
     links: [
-      { href: "/idea-to-product", label: "Idea to Product" },
-      { href: "/ai-marketing", label: "AI Marketing" },
-      { href: "/videos", label: "Video Creation" },
+      { href: "/ai-marketing", en: "AI Marketing", nl: "AI-marketing" },
+      { href: "/website-design", en: "Website Design & Development", nl: "Webdesign & -ontwikkeling" },
+      { href: "/videos", en: "Video Creation", nl: "Videoproductie" },
+      { href: "/netherlands", en: "Launch in the Netherlands ↗", nl: "Starten in Nederland ↗" },
     ],
   },
   {
-    title: "Expertise",
+    title: { en: "Expertise", nl: "Expertise" },
     links: [
-      { href: "/idea-to-product#build", label: "SaaS Development" },
-      { href: "/idea-to-product#packages", label: "Hosting & Maintenance" },
-      { href: "/seo", label: "SEO" },
+      { href: "/seo", en: "SEO", nl: "SEO" },
+      { href: "/content-marketing", en: "Content Marketing", nl: "Contentmarketing" },
+      { href: "/paid-media", en: "Paid Advertising", nl: "Online adverteren" },
     ],
   },
+  { title: { en: "Industries", nl: "Branches" }, links: [{ href: "/for-creators", en: "For Creators", nl: "Voor creators" }] },
   {
-    title: "Industries",
+    title: { en: "About Us", nl: "Over ons" },
     links: [
-      { href: "/idea-to-product", label: "For Founders" },
-      { href: "/services", label: "For Small Businesses" },
-    ],
-  },
-  {
-    title: "About Us",
-    links: [
-      { href: "/why-finloa", label: "Why Finloa?" },
-      { href: "/blog", label: "Blog" },
-      { href: "/careers", label: "Careers" },
+      { href: "/why-finloa", en: "Why Finloa?", nl: "Waarom Finloa?" },
+      { href: "/blog", en: "Blog", nl: "Blog" },
+      { href: "/careers", en: "Careers", nl: "Vacatures" },
     ],
   },
 ] as const;
 
 export const HEADER_NAV = [
-  { href: "/videos", label: "Video Creation" },
-  { href: "/idea-to-product", label: "Idea to Product" },
-  { href: "/services", label: "Services" },
-  { href: "/for-creators", label: "For Creators" },
-  { href: "/why-finloa", label: "Why Finloa" },
-  { href: "/blog", label: "Blog" },
+  { href: "/videos", en: "Video Creation", nl: "Videoproductie" },
+  { href: "/idea-to-product", en: "Idea to Product", nl: "Van idee tot product" },
+  { href: "/services", en: "Services", nl: "Diensten" },
+  { href: "/for-creators", en: "For Creators", nl: "Voor creators" },
+  { href: "/why-finloa", en: "Why Finloa", nl: "Waarom Finloa" },
+  { href: "/blog", en: "Blog", nl: "Blog" },
 ] as const;

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useId, useState, type FormEvent } from "react";
+import { useLocale, useT } from "@/i18n/client";
 import { subscribe, type ApiError } from "@/lib/api";
 
 /**
@@ -21,6 +22,8 @@ export function EmailSignup({
   align?: "center" | "start";
 }) {
   const id = useId();
+  const t = useT();
+  const locale = useLocale();
   const [email, setEmail] = useState("");
   const [state, setState] = useState<"idle" | "sending" | "done">("idle");
   const [error, setError] = useState<string | null>(null);
@@ -34,9 +37,18 @@ export function EmailSignup({
       setState("done");
     } catch (err) {
       const apiErr = err as Partial<ApiError> | undefined;
-      setError(
-        apiErr?.details?.email?.[0] ?? (typeof apiErr?.error === "string" ? apiErr.error : "Could not sign you up. Try again."),
-      );
+      if (locale === "nl") {
+        // API messages are English; show a Dutch message instead
+        setError(
+          apiErr?.details?.email
+            ? "Vul een geldig e-mailadres in."
+            : "Aanmelden is niet gelukt. Probeer het opnieuw.",
+        );
+      } else {
+        setError(
+          apiErr?.details?.email?.[0] ?? (typeof apiErr?.error === "string" ? apiErr.error : "Could not sign you up. Try again."),
+        );
+      }
       setState("idle");
     }
   }
@@ -50,8 +62,13 @@ export function EmailSignup({
         role="status"
         className={`${wrap} flex flex-col gap-1.5 rounded-2xl bg-white p-[22px] text-left! text-ink ${brand ? "" : "border border-line"}`}
       >
-        <div className="text-xl font-extrabold tracking-[-0.02em]">You&apos;re on the list.</div>
-        <div className="text-base text-muted">We&apos;ll email {email.trim()} within one business day.</div>
+        <div className="text-xl font-extrabold tracking-[-0.02em]">{t("You're on the list.", "Je staat op de lijst.")}</div>
+        <div className="text-base text-muted">
+          {t(
+            `We'll email ${email.trim()} within one business day.`,
+            `We mailen je binnen één werkdag op ${email.trim()}.`,
+          )}
+        </div>
       </div>
     );
   }
@@ -62,14 +79,14 @@ export function EmailSignup({
     <form onSubmit={onSubmit} className={`${wrap} flex flex-col gap-3`}>
       <div className="flex flex-col gap-2.5 sm:flex-row">
         <label htmlFor={id} className="sr-only">
-          Email address
+          {t("Email address", "E-mailadres")}
         </label>
         <input
           id={id}
           type="email"
           required
           autoComplete="email"
-          placeholder="you@company.com"
+          placeholder={t("you@company.com", "jij@bedrijf.nl")}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           aria-invalid={!!error}
@@ -87,7 +104,7 @@ export function EmailSignup({
             brand ? "bg-ink hover:bg-[#1a2140]" : "bg-brand hover:bg-brand-hover"
           }`}
         >
-          {state === "sending" ? "Sending…" : cta}
+          {state === "sending" ? t("Sending…", "Versturen…") : cta}
         </button>
       </div>
       {error && (
@@ -96,13 +113,13 @@ export function EmailSignup({
         </p>
       )}
       <p className={`mt-0.5 text-[13px] leading-normal ${brand ? "text-[#e3e9ff]" : "text-[#5a6380]"}`}>
-        No spam. By signing up you agree to our{" "}
+        {t("No spam. By signing up you agree to our", "Geen spam. Door je aan te melden ga je akkoord met onze")}{" "}
         <Link href="/terms" className={link}>
-          Terms
+          {t("Terms", "algemene voorwaarden")}
         </Link>{" "}
-        and{" "}
+        {t("and", "en")}{" "}
         <Link href="/privacy" className={link}>
-          Privacy Policy
+          {t("Privacy Policy", "privacyverklaring")}
         </Link>
         .
       </p>

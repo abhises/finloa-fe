@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useT } from "@/i18n/client";
 
 /** Poster with a play button; loads the (privacy-enhanced) YouTube player only when clicked. */
 export function YoutubePlayer({ youtubeId, title, label }: { youtubeId: string; title: string; label?: string }) {
   const [playing, setPlaying] = useState(false);
+  const t = useT();
 
   if (playing)
     return (
@@ -21,7 +23,7 @@ export function YoutubePlayer({ youtubeId, title, label }: { youtubeId: string; 
     <button
       type="button"
       onClick={() => setPlaying(true)}
-      aria-label={`Play video: ${title}`}
+      aria-label={`${t("Play video", "Video afspelen")}: ${title}`}
       className="group absolute inset-0 w-full cursor-pointer overflow-hidden rounded-[14px] border-0 bg-[radial-gradient(ellipse_60%_70%_at_40%_40%,#3A6BFF_0%,#16286B_45%,#0A1022_85%)] p-0"
     >
       <span

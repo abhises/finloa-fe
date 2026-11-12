@@ -177,7 +177,16 @@ export function NumberedCards({
 }
 
 /** Dark cards (on a dark section), optionally as links. */
-export function DarkCards({ items, min = 300 }: { items: NumberedItem[]; min?: number }) {
+export function DarkCards({
+  items,
+  min = 300,
+  moreLabel = "Learn more →",
+}: {
+  items: NumberedItem[];
+  min?: number;
+  /** Shown on cards with an href */
+  moreLabel?: string;
+}) {
   return (
     <div className="grid gap-4" style={{ gridTemplateColumns: `repeat(auto-fit,minmax(min(100%,${min}px),1fr))` }}>
       {items.map((it, i) => {
@@ -195,7 +204,7 @@ export function DarkCards({ items, min = 300 }: { items: NumberedItem[]; min?: n
                 ))}
               </div>
             )}
-            {it.href && <span className="mt-1 text-[14.5px] font-medium text-brand-pale">Learn more →</span>}
+            {it.href && <span className="mt-1 text-[14.5px] font-medium text-brand-pale">{moreLabel}</span>}
           </>
         );
         const cls =

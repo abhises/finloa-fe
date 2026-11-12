@@ -1,7 +1,9 @@
+import type { T } from "@/i18n/config";
+import { getT } from "@/i18n/server";
 import { formatPrice, type Plan } from "@/lib/api";
 import { PlanCta } from "./plan-cta";
 
-function PlanCard({ plan }: { plan: Plan }) {
+function PlanCard({ plan, t }: { plan: Plan; t: T }) {
   const dark = plan.highlighted;
   const muted = dark ? "text-on-ink-muted-2" : "text-muted-2";
   return (
@@ -17,7 +19,7 @@ function PlanCard({ plan }: { plan: Plan }) {
           <span className="text-[22px] font-bold tracking-[-0.02em]">{plan.name}</span>
           {plan.popular && (
             <span className="whitespace-nowrap rounded-full bg-brand px-[11px] py-[5px] text-[11.5px] font-bold tracking-[0.04em] text-white">
-              MOST POPULAR
+              {t("MOST POPULAR", "MEEST GEKOZEN")}
             </span>
           )}
         </div>
@@ -28,7 +30,7 @@ function PlanCard({ plan }: { plan: Plan }) {
         <span className="text-[clamp(40px,4vw,50px)] leading-none font-extrabold tracking-[-0.045em]">
           {formatPrice(plan.priceCents)}
         </span>
-        <span className={`text-[15px] ${muted}`}>/ month</span>
+        <span className={`text-[15px] ${muted}`}>{t("/ month", "/ maand")}</span>
       </div>
 
       <p className={`min-h-[4.65em] text-[15px] leading-[1.55] text-pretty ${muted}`}>{plan.description}</p>
@@ -45,8 +47,8 @@ function PlanCard({ plan }: { plan: Plan }) {
 
       <div className="grid grid-cols-2 gap-2.5">
         {[
-          { n: plan.longVideos, label: "long-form · 3–10 min" },
-          { n: plan.shorts, label: "Shorts · up to 60 s" },
+          { n: plan.longVideos, label: t("long-form · 3–10 min", "lange video's · 3–10 min") },
+          { n: plan.shorts, label: t("Shorts · up to 60 s", "Shorts · tot 60 sec") },
         ].map((s) => (
           <div
             key={s.label}
@@ -61,23 +63,24 @@ function PlanCard({ plan }: { plan: Plan }) {
   );
 }
 
-export function Pricing({ plans }: { plans: Plan[] }) {
+export async function Pricing({ plans }: { plans: Plan[] }) {
+  const t = await getT();
   return (
     <section id="pricing" className="scroll-mt-20 px-6 pt-2 pb-[72px]">
       <div className="mx-auto flex max-w-[1240px] flex-col gap-7">
         <div className="grid w-full grid-cols-1 items-stretch gap-[18px] min-[600px]:grid-cols-2 min-[1100px]:grid-cols-4">
           {plans.map((plan) => (
-            <PlanCard key={plan.id} plan={plan} />
+            <PlanCard key={plan.id} plan={plan} t={t} />
           ))}
         </div>
         <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3.5 rounded-[20px] border border-line bg-white px-7 py-[22px] text-[15.5px] text-muted">
-          <span className="font-bold whitespace-nowrap text-ink">Every plan:</span>
-          <span className="whitespace-nowrap">Month to month, cancel anytime</span>
-          <span className="whitespace-nowrap">You own every file</span>
+          <span className="font-bold whitespace-nowrap text-ink">{t("Every plan:", "Bij elk pakket:")}</span>
+          <span className="whitespace-nowrap">{t("Month to month, cancel anytime", "Maandelijks opzegbaar")}</span>
+          <span className="whitespace-nowrap">{t("You own every file", "Alle bestanden zijn van jou")}</span>
           <span className="whitespace-nowrap">
-            Need something custom?{" "}
+            {t("Need something custom?", "Iets op maat nodig?")}{" "}
             <a href="#contact" className="font-medium text-brand underline hover:text-brand-hover">
-              Talk to us
+              {t("Talk to us", "Neem contact op")}
             </a>
           </span>
         </div>

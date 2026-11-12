@@ -3,12 +3,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
+import { useLocale, useT } from "@/i18n/client";
 import { subscribe, type ApiError, type Post } from "@/lib/api";
 
-const ALL = "All topics";
+const ALL = "__all__";
 const PAGE = 6;
 
 function Subscribe() {
+  const t = useT();
+  const locale = useLocale();
   const [state, setState] = useState<"button" | "form" | "sending" | "done">("button");
   const [error, setError] = useState<string | null>(null);
 
@@ -22,7 +25,14 @@ function Subscribe() {
       setState("done");
     } catch (err) {
       const apiErr = err as Partial<ApiError> | undefined;
-      setError(apiErr?.details?.email?.[0] ?? (typeof apiErr?.error === "string" ? apiErr.error : "Could not subscribe. Try again."));
+      setError(
+        locale === "nl"
+          ? apiErr?.details?.email
+            ? "Vul een geldig e-mailadres in."
+            : "Inschrijven is niet gelukt. Probeer het opnieuw."
+          : (apiErr?.details?.email?.[0] ??
+              (typeof apiErr?.error === "string" ? apiErr.error : "Could not subscribe. Try again.")),
+      );
       setState("form");
     }
   }
@@ -32,31 +42,31 @@ function Subscribe() {
   if (state === "done")
     return (
       <span className="text-[15px] font-medium text-brand" role="status">
-        Thanks, you&apos;re subscribed.
+        {t("Thanks, you're subscribed.", "Bedankt, je bent ingeschreven.")}
       </span>
     );
   if (state === "button")
     return (
       <button type="button" className={pill} onClick={() => setState("form")}>
-        Subscribe
+        {t("Subscribe", "Abonneren")}
       </button>
     );
   return (
     <form onSubmit={onSubmit} noValidate className="flex flex-wrap items-center gap-2">
       <label htmlFor="sub-email" className="sr-only">
-        Your email
+        {t("Your email", "Je e-mailadres")}
       </label>
       <input
         id="sub-email"
         name="email"
         type="email"
         autoFocus
-        placeholder="Your email"
+        placeholder={t("Your email", "Je e-mailadres")}
         aria-invalid={!!error}
         className="min-w-[220px] rounded-full border border-[oklch(0.88_0.01_265)] bg-white px-[18px] py-3 text-[15px] outline-none focus:border-brand aria-[invalid=true]:border-red-400"
       />
       <button type="submit" disabled={state === "sending"} className={`${pill} disabled:opacity-70`}>
-        {state === "sending" ? "…" : "Subscribe"}
+        {state === "sending" ? "…" : t("Subscribe", "Abonneren")}
       </button>
       {error && (
         <p className="w-full text-[13px] text-red-500" role="alert">
@@ -70,6 +80,7 @@ function Subscribe() {
 export function BlogList({ posts }: { posts: Post[] }) {
   const [topic, setTopic] = useState(ALL);
   const [shown, setShown] = useState(PAGE);
+  const t = useT();
 
   const topics = [ALL, ...Array.from(new Set(posts.map((p) => p.topic)))];
   const filtered = posts.filter((p) => topic === ALL || p.topic === topic);
@@ -79,7 +90,7 @@ export function BlogList({ posts }: { posts: Post[] }) {
     <>
       <div className="mt-2 flex flex-wrap items-center gap-3">
         <label htmlFor="topic" className="sr-only">
-          Filter by topic
+          {t("Filter by topic", "Filter op onderwerp")}
         </label>
         <select
           id="topic"
@@ -90,9 +101,9 @@ export function BlogList({ posts }: { posts: Post[] }) {
           }}
           className="cursor-pointer appearance-none rounded-full border border-[oklch(0.88_0.01_265)] bg-white bg-[length:6px_6px,6px_6px] bg-[position:calc(100%-22px)_55%,calc(100%-16px)_55%] bg-no-repeat py-3 pr-[42px] pl-[18px] text-[15px] font-medium text-ink outline-none [background-image:linear-gradient(45deg,transparent_50%,oklch(0.4_0.02_265)_50%),linear-gradient(135deg,oklch(0.4_0.02_265)_50%,transparent_50%)]"
         >
-          {topics.map((t) => (
-            <option key={t} value={t}>
-              {t}
+          {topics.map((x) => (
+            <option key={x} value={x}>
+              {x === ALL ? t("All topics", "Alle onderwerpen") : x}
             </option>
           ))}
         </select>
@@ -102,10 +113,13 @@ export function BlogList({ posts }: { posts: Post[] }) {
       </div>
 
       <div data-slot="list" className="flex flex-col gap-6 pt-14">
-        <div className="font-mono text-[13px] tracking-[0.08em] text-muted-2">THE LATEST</div>
+        <div className="font-mono text-[13px] tracking-[0.08em] text-muted-2">{t("THE LATEST", "NIEUWSTE ARTIKELEN")}</div>
         {visible.length === 0 ? (
           <p className="rounded-2xl border border-line bg-white p-8 text-[15px] text-muted">
-            No articles yet. Subscribe to hear when the first ones go live.
+            {t(
+              "No articles yet. Subscribe to hear when the first ones go live.",
+              "Nog geen artikelen. Schrijf je in, dan hoor je het zodra de eerste online staan.",
+            )}
           </p>
         ) : (
           <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))] gap-6">
@@ -135,7 +149,7 @@ export function BlogList({ posts }: { posts: Post[] }) {
                       {p.youtubeId && " · Video"}
                     </span>
                     <h2 className="text-[22px] leading-[1.3] font-semibold tracking-[-0.02em] text-pretty">{p.title}</h2>
-                    <span className="mt-auto pt-2.5 text-sm text-subtle">{p.readMinutes} min read</span>
+                    <span className="mt-auto pt-2.5 text-sm text-subtle">{p.readMinutes} {t("min read", "min. leestijd")}</span>
                   </div>
                 </Link>
               );
@@ -148,7 +162,7 @@ export function BlogList({ posts }: { posts: Post[] }) {
             onClick={() => setShown((n) => n + PAGE)}
             className="mt-6 cursor-pointer self-center rounded-full border border-brand px-10 py-[13px] text-[15px] font-semibold text-ink hover:bg-white"
           >
-            Load more
+            {t("Load more", "Meer laden")}
           </button>
         )}
       </div>

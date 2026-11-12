@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
+import { useLocale, useT } from "@/i18n/client";
 import { submitLead, type ApiError } from "@/lib/api";
 
 /** The hero form hands its email to the contact form via this window event. */
@@ -11,6 +12,7 @@ const CARRY_EVENT = "finloa:idea-email";
 export function IdeaHeroForm() {
   const id = useId();
   const [email, setEmail] = useState("");
+  const t = useT();
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -22,14 +24,14 @@ export function IdeaHeroForm() {
     <form onSubmit={onSubmit} className="mx-auto flex w-full max-w-[640px] flex-col gap-3">
       <div className="flex flex-col gap-3 sm:flex-row">
         <label htmlFor={id} className="sr-only">
-          Email address
+          {t("Email address", "E-mailadres")}
         </label>
         <input
           id={id}
           type="email"
           required
           autoComplete="email"
-          placeholder="you@company.com"
+          placeholder={t("you@company.com", "jij@bedrijf.nl")}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="h-[60px] min-w-0 flex-1 rounded-xl border border-[#dfe2ec] bg-white px-5 text-[17px] text-ink outline-none placeholder:text-[#7d84a0] focus:border-brand focus:shadow-[0_0_0_4px_rgba(47,107,255,.18)]"
@@ -38,17 +40,17 @@ export function IdeaHeroForm() {
           type="submit"
           className="h-[60px] flex-none cursor-pointer rounded-xl bg-brand px-[30px] text-[17px] font-semibold whitespace-nowrap text-white transition-colors hover:bg-brand-hover"
         >
-          Tell us your idea →
+          {t("Tell us your idea →", "Vertel ons je idee →")}
         </button>
       </div>
       <p className="text-[13px] leading-normal text-[#5a6380]">
-        No spam. By signing up you agree to our{" "}
+        {t("No spam. By signing up you agree to our", "Geen spam. Door je aan te melden ga je akkoord met onze")}{" "}
         <Link href="/terms" className="text-brand underline hover:text-brand-hover">
-          Terms
+          {t("Terms", "algemene voorwaarden")}
         </Link>{" "}
-        and{" "}
+        {t("and", "en")}{" "}
         <Link href="/privacy" className="text-brand underline hover:text-brand-hover">
-          Privacy Policy
+          {t("Privacy Policy", "privacyverklaring")}
         </Link>
         .
       </p>
@@ -56,7 +58,14 @@ export function IdeaHeroForm() {
   );
 }
 
+/** Stored in English on the lead; the label is shown in the visitor's language. */
 const STAGES = ["Just an idea", "Have designs", "Have a product", "Need maintenance"] as const;
+const STAGES_NL: Record<(typeof STAGES)[number], string> = {
+  "Just an idea": "Alleen een idee",
+  "Have designs": "Ontwerpen klaar",
+  "Have a product": "Product bestaat al",
+  "Need maintenance": "Onderhoud nodig",
+};
 
 const field =
   "min-w-0 rounded-[10px] border border-[#27304f] bg-ink px-3.5 py-3 text-sm text-white outline-none placeholder:text-[#7d84a0] focus:border-brand aria-[invalid=true]:border-red-400";
@@ -69,6 +78,8 @@ export function IdeaContact() {
   const [errors, setErrors] = useState<Record<string, string | undefined>>({});
   const [formError, setFormError] = useState<string | null>(null);
   const ideaRef = useRef<HTMLTextAreaElement>(null);
+  const t = useT();
+  const locale = useLocale();
 
   useEffect(() => {
     function onCarry(e: Event) {
@@ -101,9 +112,19 @@ export function IdeaContact() {
     } catch (err) {
       const apiErr = err as Partial<ApiError> | undefined;
       const details = apiErr?.details ?? {};
-      setErrors(Object.fromEntries(Object.entries(details).map(([k, v]) => [k, v?.[0]])));
+      setErrors(
+        Object.fromEntries(
+          Object.entries(details).map(([k, v]) => [k, locale === "nl" ? "Controleer dit veld." : v?.[0]]),
+        ),
+      );
       setFormError(
-        Object.keys(details).length ? null : typeof apiErr?.error === "string" ? apiErr.error : "Could not send. Try again.",
+        Object.keys(details).length
+          ? null
+          : locale === "nl"
+            ? "Versturen is niet gelukt. Probeer het opnieuw."
+            : typeof apiErr?.error === "string"
+              ? apiErr.error
+              : "Could not send. Try again.",
       );
       setState("idle");
     }
@@ -113,37 +134,46 @@ export function IdeaContact() {
     <section id="contact" className="scroll-mt-20 bg-ink px-6 py-[clamp(72px,9vw,96px)] text-white">
       <div className="mx-auto grid max-w-[1120px] grid-cols-[repeat(auto-fit,minmax(min(100%,320px),1fr))] items-start gap-12">
         <div className="flex flex-col gap-[18px]">
-          <div className="font-mono text-xs tracking-[0.16em] text-[#6f97ff]">CONTACT</div>
+          <div className="font-mono text-xs tracking-[0.16em] text-[#6f97ff]">{t("CONTACT", "CONTACT")}</div>
           <h2 className="text-[clamp(38px,5vw,56px)] leading-none font-extrabold tracking-[-0.045em]">
-            Tell us your idea.
+            {t("Tell us your idea.", "Vertel ons je idee.")}
             <br />
-            We&apos;ll send the plan.
+            {t("We'll send the plan.", "Wij sturen het plan.")}
           </h2>
           <p className="max-w-[420px] text-base leading-[1.6] text-[#a9b0c8]">
-            Within two working days you get our view on feasibility, the package that fits and a fixed price. No
-            obligation.
+            {t(
+              "Within two working days you get our view on feasibility, the package that fits and a fixed price. No obligation.",
+              "Binnen twee werkdagen krijg je onze kijk op de haalbaarheid, het pakket dat past en een vaste prijs. Geheel vrijblijvend.",
+            )}
           </p>
         </div>
         <div className="rounded-[18px] border border-[#1f2847] bg-[#121a36] p-[22px]">
           {state === "sent" ? (
             <div role="status" className="flex flex-col gap-2.5 px-3 py-12 text-center">
-              <div className="text-2xl font-bold tracking-[-0.02em]">Thanks, we&apos;ve got your idea.</div>
-              <div className="text-[15px] text-[#a9b0c8]">Expect our plan in your inbox within two working days.</div>
+              <div className="text-2xl font-bold tracking-[-0.02em]">
+                {t("Thanks, we've got your idea.", "Bedankt, we hebben je idee ontvangen.")}
+              </div>
+              <div className="text-[15px] text-[#a9b0c8]">
+                {t(
+                  "Expect our plan in your inbox within two working days.",
+                  "Binnen twee werkdagen ontvang je ons plan in je inbox.",
+                )}
+              </div>
             </div>
           ) : (
             <form onSubmit={onSubmit} noValidate className="grid grid-cols-2 gap-2.5">
-              <Field name="firstName" label="First name" error={errors.firstName} />
-              <Field name="lastName" label="Last name" error={errors.lastName} />
+              <Field name="firstName" label={t("First name", "Voornaam")} error={errors.firstName} />
+              <Field name="lastName" label={t("Last name", "Achternaam")} error={errors.lastName} />
               <div className="col-span-2 flex flex-col gap-1">
                 <label htmlFor="idea-email" className="sr-only">
-                  Email
+                  {t("Email", "E-mailadres")}
                 </label>
                 <input
                   id="idea-email"
                   type="email"
                   required
                   autoComplete="email"
-                  placeholder="Email"
+                  placeholder={t("Email", "E-mailadres")}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   aria-invalid={!!errors.email}
@@ -152,19 +182,19 @@ export function IdeaContact() {
                 {errors.email && <span className="text-xs text-red-300">{errors.email}</span>}
               </div>
               <label htmlFor="idea-text" className="sr-only">
-                Your idea
+                {t("Your idea", "Je idee")}
               </label>
               <textarea
                 id="idea-text"
                 ref={ideaRef}
                 name="idea"
                 rows={4}
-                placeholder="What's the idea? Who is it for?"
+                placeholder={t("What's the idea? Who is it for?", "Wat is het idee? Voor wie is het?")}
                 className={`${field} col-span-2 resize-y`}
               />
               <input type="text" name="companyFax" tabIndex={-1} autoComplete="off" aria-hidden className="hidden" />
               <fieldset className="col-span-2 mt-1 flex flex-col gap-2.5">
-                <legend className="mb-2.5 font-mono text-xs tracking-[0.08em] text-[#a9b0c8]">WHERE ARE YOU NOW?</legend>
+                <legend className="mb-2.5 font-mono text-xs tracking-[0.08em] text-[#a9b0c8]">{t("WHERE ARE YOU NOW?", "WAAR STA JE NU?")}</legend>
                 <div className="flex flex-wrap gap-2">
                   {STAGES.map((s) => (
                     <button
@@ -176,7 +206,7 @@ export function IdeaContact() {
                         stage === s ? "border-brand bg-brand" : "border-[#27304f] hover:border-[#3a4570]"
                       }`}
                     >
-                      {s}
+                      {locale === "nl" ? STAGES_NL[s] : s}
                     </button>
                   ))}
                 </div>
@@ -191,7 +221,7 @@ export function IdeaContact() {
                 disabled={state === "sending"}
                 className="col-span-2 mt-1.5 cursor-pointer rounded-[10px] bg-brand p-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-brand-hover disabled:opacity-70"
               >
-                {state === "sending" ? "Sending…" : "Send my idea →"}
+                {state === "sending" ? t("Sending…", "Versturen…") : t("Send my idea →", "Verstuur mijn idee →")}
               </button>
             </form>
           )}

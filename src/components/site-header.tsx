@@ -1,9 +1,11 @@
 import Link from "next/link";
+import { getLocale, getT } from "@/i18n/server";
 import { HEADER_NAV } from "@/lib/site";
+import { LanguageSwitch } from "./language-switch";
 
-export function SiteHeader({
+export async function SiteHeader({
   ctaHref = "#contact",
-  ctaLabel = "Get a quote",
+  ctaLabel,
   minimal,
   brand,
 }: {
@@ -14,6 +16,9 @@ export function SiteHeader({
   /** Blue header used on the landing page (v2 design) */
   brand?: boolean;
 }) {
+  const locale = await getLocale();
+  const t = await getT();
+  ctaLabel ??= t("Get a quote", "Offerte aanvragen");
   if (minimal || brand) {
     return (
       <header
@@ -26,6 +31,7 @@ export function SiteHeader({
             FINLOA
           </Link>
           <div className="ml-auto flex items-center gap-3.5">
+            <LanguageSwitch onBrand={brand} />
             <Link
               href={ctaHref}
               className={`whitespace-nowrap rounded-[9px] px-4 py-[9px] text-[14.5px] font-medium transition-colors ${
@@ -52,11 +58,15 @@ export function SiteHeader({
               href={item.href}
               className="text-[14.5px] font-medium text-muted transition-colors hover:text-ink"
             >
-              {item.label}
+              {item[locale]}
             </Link>
           ))}
         </nav>
         <div className="ml-auto flex items-center gap-2">
+          {/* On phones the switch lives in the menu, so the header row fits */}
+          <div className="hidden sm:block">
+            <LanguageSwitch />
+          </div>
           <Link
             href={ctaHref}
             className="whitespace-nowrap rounded-[9px] bg-ink px-4 py-[9px] text-[14.5px] font-medium text-white transition-colors hover:bg-ink-2"
@@ -65,7 +75,7 @@ export function SiteHeader({
           </Link>
           <details className="group relative lg:hidden">
             <summary
-              aria-label="Menu"
+              aria-label={t("Menu", "Menu")}
               className="grid size-10 cursor-pointer list-none place-items-center rounded-[9px] border border-line bg-white [&::-webkit-details-marker]:hidden"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
@@ -83,9 +93,12 @@ export function SiteHeader({
                   href={item.href}
                   className="rounded-lg px-3 py-2.5 text-[15px] font-medium text-body-2 hover:bg-surface hover:text-ink"
                 >
-                  {item.label}
+                  {item[locale]}
                 </Link>
               ))}
+              <div className="mt-1 border-t border-line px-3 pt-3 pb-1.5 sm:hidden">
+                <LanguageSwitch />
+              </div>
             </nav>
           </details>
         </div>

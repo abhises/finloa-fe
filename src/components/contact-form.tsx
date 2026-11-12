@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
+import { useLocale, useT } from "@/i18n/client";
 import { PLATFORMS, submitLead, type ApiError, type Plan, type PlatformValue } from "@/lib/api";
 import { SELECT_PLAN_EVENT } from "./plan-cta";
 
@@ -65,13 +66,17 @@ function Field({
 
 export function ContactForm({
   source,
-  fourthField = { name: "company", placeholder: "Company or channel" },
-  messagePlaceholder = "Tell us how we can help you grow",
+  fourthField,
+  messagePlaceholder,
   plans,
   showPlatforms,
   showVideosPerMonth,
   trackPlanSelection,
 }: ContactFormProps) {
+  const t = useT();
+  const locale = useLocale();
+  fourthField ??= { name: "company", placeholder: t("Company or channel", "Bedrijf of kanaal") };
+  messagePlaceholder ??= t("Tell us how we can help you grow", "Vertel ons hoe we je kunnen helpen groeien");
   const [planSlug, setPlanSlug] = useState("");
   const [platforms, setPlatforms] = useState<PlatformValue[]>([]);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
@@ -114,10 +119,27 @@ export function ContactForm({
     } catch (err) {
       const apiErr = err as Partial<ApiError> | undefined;
       if (!apiErr || typeof apiErr.error !== "string") {
-        setFormError("We couldn't reach the server. Please try again, or email info@finloa.com.");
+        setFormError(
+          t(
+            "We couldn't reach the server. Please try again, or email info@finloa.com.",
+            "We konden de server niet bereiken. Probeer het opnieuw of mail naar info@finloa.com.",
+          ),
+        );
       } else {
-        setErrors(apiErr.details ?? {});
-        setFormError(apiErr.details ? "Please check the highlighted fields." : (apiErr.error ?? "Could not send."));
+        const details = apiErr.details ?? {};
+        // API messages are English; on the Dutch site show a Dutch hint per field
+        setErrors(
+          locale === "nl"
+            ? Object.fromEntries(Object.keys(details).map((k) => [k, ["Controleer dit veld."]]))
+            : details,
+        );
+        setFormError(
+          apiErr.details
+            ? t("Please check the highlighted fields.", "Controleer de gemarkeerde velden.")
+            : locale === "nl"
+              ? "Versturen is niet gelukt."
+              : (apiErr.error ?? "Could not send."),
+        );
       }
       setStatus("error");
     }
@@ -126,8 +148,10 @@ export function ContactForm({
   if (status === "sent") {
     return (
       <div className="flex flex-col gap-2 rounded-2xl border border-ink-line bg-ink-3 p-8" role="status">
-        <h3 className="text-[22px] font-semibold">Thanks, we&apos;ve got it.</h3>
-        <p className="text-[15px] text-on-ink-muted">We&apos;ll reply to your email within two working days.</p>
+        <h3 className="text-[22px] font-semibold">{t("Thanks, we've got it.", "Bedankt, we hebben je bericht ontvangen.")}</h3>
+        <p className="text-[15px] text-on-ink-muted">
+          {t("We'll reply to your email within two working days.", "We reageren binnen twee werkdagen per e-mail.")}
+        </p>
       </div>
     );
   }
@@ -138,9 +162,9 @@ export function ContactForm({
       noValidate
       className="grid grid-cols-1 gap-3.5 rounded-2xl border border-ink-line bg-ink-3 p-7 sm:grid-cols-2"
     >
-      <Field name="firstName" placeholder="First name" autoComplete="given-name" errors={errors} />
-      <Field name="lastName" placeholder="Last name" autoComplete="family-name" errors={errors} />
-      <Field name="email" type="email" placeholder="Work email" autoComplete="email" errors={errors} />
+      <Field name="firstName" placeholder={t("First name", "Voornaam")} autoComplete="given-name" errors={errors} />
+      <Field name="lastName" placeholder={t("Last name", "Achternaam")} autoComplete="family-name" errors={errors} />
+      <Field name="email" type="email" placeholder={t("Work email", "Zakelijk e-mailadres")} autoComplete="email" errors={errors} />
       <Field
         name={fourthField.name}
         placeholder={fourthField.placeholder}
@@ -150,10 +174,10 @@ export function ContactForm({
 
       {plans && (
         <>
-          <Field name="website" placeholder="Website or channel (optional)" autoComplete="url" errors={errors} />
+          <Field name="website" placeholder={t("Website or channel (optional)", "Website of kanaal (optioneel)")} autoComplete="url" errors={errors} />
           <div>
             <label htmlFor="plan" className="sr-only">
-              Package
+              {t("Package", "Pakket")}
             </label>
             <select
               id="plan"
@@ -161,7 +185,7 @@ export function ContactForm({
               onChange={(e) => setPlanSlug(e.target.value)}
               className={`${inputClass} ${planSlug ? "" : "text-[oklch(0.6_0.02_265)]"}`}
             >
-              <option value="">Package — not sure yet</option>
+              <option value="">{t("Package — not sure yet", "Pakket — weet ik nog niet")}</option>
               {plans.map((p) => (
                 <option key={p.slug} value={p.slug}>
                   {p.name}
@@ -175,7 +199,7 @@ export function ContactForm({
 
       {showPlatforms && (
         <fieldset className="sm:col-span-2">
-          <legend className="mb-2.5 text-[14px] text-on-ink-muted">Where do you want to post?</legend>
+          <legend className="mb-2.5 text-[14px] text-on-ink-muted">{t("Where do you want to post?", "Waar wil je posten?")}</legend>
           <div className="flex flex-wrap gap-2">
             {PLATFORMS.map((p) => {
               const on = platforms.includes(p.value);
@@ -200,12 +224,12 @@ export function ContactForm({
       )}
 
       {showVideosPerMonth && (
-        <Field name="videosPerMonth" placeholder="How many videos do you want per month?" errors={errors} wide />
+        <Field name="videosPerMonth" placeholder={t("How many videos do you want per month?", "Hoeveel video's wil je per maand?")} errors={errors} wide />
       )}
 
       <div className="sm:col-span-2">
         <label htmlFor="message" className="sr-only">
-          Message
+          {t("Message", "Bericht")}
         </label>
         <textarea id="message" name="message" rows={4} placeholder={messagePlaceholder} className={`${inputClass} resize-y`} />
       </div>
@@ -224,7 +248,7 @@ export function ContactForm({
         disabled={status === "sending"}
         className="cursor-pointer rounded-[11px] bg-brand px-[22px] py-3.5 text-[15.5px] font-medium text-white transition-colors hover:bg-brand-light disabled:cursor-wait disabled:opacity-70 sm:col-span-2"
       >
-        {status === "sending" ? "Sending…" : "Send →"}
+        {status === "sending" ? t("Sending…", "Versturen…") : t("Send →", "Versturen →")}
       </button>
     </form>
   );

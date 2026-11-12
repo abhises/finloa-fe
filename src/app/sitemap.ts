@@ -1,7 +1,9 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/i18n/config";
 import { getPosts } from "@/lib/data";
 
-const SITE = "https://finloa.com";
+/** Every page exists in English (finloa.com) and Dutch (nl.finloa.com). */
+const languages = (path: string) => ({ en: `${SITE_URL.en}${path}`, "nl-NL": `${SITE_URL.nl}${path}` });
 
 /** Public marketing pages. Add new routes here so search engines find them. */
 const PAGES: { path: string; changeFrequency: "weekly" | "monthly" | "yearly"; priority: number }[] = [
@@ -27,18 +29,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // getPosts is cached for minutes, so new posts appear without a rebuild
   const posts = await getPosts();
 
-  return [
+  return Object.values(SITE_URL).flatMap((site) => [
     ...PAGES.map(({ path, changeFrequency, priority }) => ({
-      url: `${SITE}${path}`,
+      url: `${site}${path}`,
       changeFrequency,
       priority,
+      alternates: { languages: languages(path) },
     })),
     ...posts.map((post) => ({
-      url: `${SITE}/blog/${post.slug}`,
+      url: `${site}/blog/${post.slug}`,
       lastModified: post.publishedAt,
       changeFrequency: "monthly" as const,
       priority: 0.6,
       images: post.coverImage ? [post.coverImage] : undefined,
+      alternates: { languages: languages(`/blog/${post.slug}`) },
     })),
-  ];
+  ]);
 }

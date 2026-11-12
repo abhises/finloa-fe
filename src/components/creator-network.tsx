@@ -2,16 +2,18 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { useLocale, useT } from "@/i18n/client";
+import type { T } from "@/i18n/config";
 
-type Creator = { name: string; meta: string; src: string };
+type Creator = { name: string; meta: string; metaNl: string; src: string };
 
 const creators: Record<string, Creator> = {
-  ac: { name: "AlanCars", meta: "Cars · 56k subs", src: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=200&h=200&fit=crop" },
-  mb: { name: "MiaBakes", meta: "Baking · 120k subs", src: "https://randomuser.me/api/portraits/women/44.jpg" },
-  tt: { name: "TechTomas", meta: "Tech · 310k subs", src: "https://randomuser.me/api/portraits/men/75.jpg" },
-  fj: { name: "FitWithJo", meta: "Fitness · 88k subs", src: "https://randomuser.me/api/portraits/women/68.jpg" },
-  wl: { name: "WanderLena", meta: "Travel · 64k subs", src: "https://randomuser.me/api/portraits/women/21.jpg" },
-  gg: { name: "GameGrid", meta: "Gaming · 210k subs", src: "https://images.unsplash.com/photo-1486401899868-0e435ed85128?w=200&h=200&fit=crop" },
+  ac: { name: "AlanCars", meta: "Cars · 56k subs", metaNl: "Auto's · 56k abonnees", src: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=200&h=200&fit=crop" },
+  mb: { name: "MiaBakes", meta: "Baking · 120k subs", metaNl: "Bakken · 120k abonnees", src: "https://randomuser.me/api/portraits/women/44.jpg" },
+  tt: { name: "TechTomas", meta: "Tech · 310k subs", metaNl: "Tech · 310k abonnees", src: "https://randomuser.me/api/portraits/men/75.jpg" },
+  fj: { name: "FitWithJo", meta: "Fitness · 88k subs", metaNl: "Fitness · 88k abonnees", src: "https://randomuser.me/api/portraits/women/68.jpg" },
+  wl: { name: "WanderLena", meta: "Travel · 64k subs", metaNl: "Reizen · 64k abonnees", src: "https://randomuser.me/api/portraits/women/21.jpg" },
+  gg: { name: "GameGrid", meta: "Gaming · 210k subs", metaNl: "Gaming · 210k abonnees", src: "https://images.unsplash.com/photo-1486401899868-0e435ed85128?w=200&h=200&fit=crop" },
 };
 
 /** Desktop layout positions (percent of a 560×600 box), taken from the design. */
@@ -33,14 +35,36 @@ const desktopPaths = [
   ["M430 522 C455 490 385 490 400 430", "6 6"],
 ];
 
-const switches = [
-  { label: "Own a piece of the platform", tip: "Get equity in a new platform built with you, and earn from everything it makes" },
-  { label: "Collaborate with creators", tip: "Team up on content, ideas, cross-promotion and growth" },
-  { label: "Land group sponsor deals", tip: "Pitch brands together with your combined reach" },
-  { label: "Sign up for free to know more", tip: "We’ll share how it works, what you earn and who’s joining" },
+const switchesFor = (t: T) => [
+  {
+    label: t("Own a piece of the platform", "Word mede-eigenaar van het platform"),
+    tip: t(
+      "Get equity in a new platform built with you, and earn from everything it makes",
+      "Krijg aandelen in een nieuw platform dat samen met jou wordt gebouwd, en verdien mee aan alles wat het oplevert",
+    ),
+  },
+  {
+    label: t("Collaborate with creators", "Werk samen met creators"),
+    tip: t(
+      "Team up on content, ideas, cross-promotion and growth",
+      "Werk samen aan content, ideeën, cross-promotie en groei",
+    ),
+  },
+  {
+    label: t("Land group sponsor deals", "Sluit samen sponsordeals"),
+    tip: t("Pitch brands together with your combined reach", "Benader merken samen, met jullie gezamenlijke bereik"),
+  },
+  {
+    label: t("Sign up for free to know more", "Meld je gratis aan voor meer info"),
+    tip: t(
+      "We’ll share how it works, what you earn and who’s joining",
+      "We vertellen je hoe het werkt, wat je verdient en wie er meedoen",
+    ),
+  },
 ];
 
 function Avatar({ c, stacked }: { c: Creator; stacked?: boolean }) {
+  const locale = useLocale();
   return (
     <div className={`flex items-center ${stacked ? "flex-col gap-1.5 text-center" : "gap-[9px]"}`}>
       <span className="block size-[52px] flex-none overflow-hidden rounded-full border-[3px] border-white bg-[oklch(0.93_0.01_265)] shadow-[0_12px_22px_-12px_oklch(0.25_0.06_265/0.55)]">
@@ -48,7 +72,7 @@ function Avatar({ c, stacked }: { c: Creator; stacked?: boolean }) {
       </span>
       <span className={`flex flex-col leading-tight ${stacked ? "items-center" : ""}`}>
         <span className="text-[13.5px] font-bold">{c.name}</span>
-        <span className="text-[11.5px] text-subtle">{c.meta}</span>
+        <span className="text-[11.5px] text-subtle">{locale === "nl" ? c.metaNl : c.meta}</span>
       </span>
     </div>
   );
@@ -57,6 +81,8 @@ function Avatar({ c, stacked }: { c: Creator; stacked?: boolean }) {
 function SwitchCard() {
   const [on, setOn] = useState([true, true, true, false]);
   const [tip, setTip] = useState<number | null>(null);
+  const t = useT();
+  const switches = switchesFor(t);
 
   const toggle = (i: number) => {
     const next = on.map((v, j) => (j === i ? !v : v));
@@ -70,12 +96,12 @@ function SwitchCard() {
     <div className="w-full rounded-[18px] bg-white shadow-[0_30px_50px_-24px_oklch(0.25_0.06_265/0.4)]">
       <div className="flex flex-col gap-0.5 rounded-t-[18px] bg-ink px-[22px] py-5 text-white">
         <span className="text-[clamp(19px,4.6vw,25px)] leading-[1.12] font-extrabold tracking-[-0.03em] whitespace-nowrap">
-          Ready to earn more than views?
+          {t("Ready to earn more than views?", "Klaar om meer te verdienen dan views?")}
         </span>
       </div>
       {switches.map((sw, i) => (
         <button
-          key={sw.label}
+          key={i}
           type="button"
           role="switch"
           aria-checked={on[i]}

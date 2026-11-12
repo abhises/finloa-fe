@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
+import { useT } from "@/i18n/client";
 import { SectionHeading } from "./ui";
 
 export type FaqItem = [question: string, answer: string];
@@ -8,17 +9,18 @@ export type FaqItem = [question: string, answer: string];
 export function FaqSection({ title, items }: { title: string; items: FaqItem[] }) {
   const [open, setOpen] = useState(0);
   const baseId = useId();
+  const t = useT();
 
   return (
     <section id="faq" className="scroll-mt-20 border-t border-line px-6 py-[72px]">
       <div className="mx-auto grid max-w-[1180px] grid-cols-[repeat(auto-fit,minmax(min(100%,340px),1fr))] items-start gap-12">
         <SectionHeading
-          eyebrow="FAQ"
+          eyebrow={t("FAQ", "Veelgestelde vragen")}
           title={title}
           className=""
           intro={
             <p className="text-[15px] text-muted-2">
-              Still unsure? Email{" "}
+              {t("Still unsure? Email", "Nog vragen? Mail naar")}{" "}
               <a href="mailto:info@finloa.com" className="text-brand hover:text-brand-hover">
                 info@finloa.com
               </a>

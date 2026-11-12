@@ -1,44 +1,80 @@
 "use client";
 
 import { useState } from "react";
+import { useT } from "@/i18n/client";
+import type { T } from "@/i18n/config";
 
-const goals = [
+const goals = (t: T) => [
   {
-    label: "Build my brand",
-    title: "Give people a reason to choose you",
-    body: "A clear position and a website that shows it. We sharpen what you stand for so you show up with confidence everywhere.",
-    items: ["Brand strategy and positioning", "Website design and build", "Content and creative", "Messaging for every channel"],
+    label: t("Build my brand", "Mijn merk opbouwen"),
+    title: t("Give people a reason to choose you", "Geef mensen een reden om voor jou te kiezen"),
+    body: t(
+      "A clear position and a website that shows it. We sharpen what you stand for so you show up with confidence everywhere.",
+      "Een heldere positionering en een website die dat laat zien. We scherpen aan waar je voor staat, zodat je overal zelfverzekerd naar buiten treedt.",
+    ),
+    items: [
+      t("Brand strategy and positioning", "Merkstrategie en positionering"),
+      t("Website design and build", "Ontwerp en bouw van je website"),
+      t("Content and creative", "Content en creatie"),
+      t("Messaging for every channel", "Boodschap voor elk kanaal"),
+    ],
   },
   {
-    label: "Grow revenue",
-    title: "Turn attention into paying customers",
-    body: "We connect your marketing to sales, so traffic and followers become predictable revenue you can forecast.",
-    items: ["SEO and paid campaigns", "Conversion-focused pages", "Email and retention flows", "Monthly reporting on revenue"],
+    label: t("Grow revenue", "Meer omzet"),
+    title: t("Turn attention into paying customers", "Maak van aandacht betalende klanten"),
+    body: t(
+      "We connect your marketing to sales, so traffic and followers become predictable revenue you can forecast.",
+      "We koppelen je marketing aan sales, zodat bezoekers en volgers voorspelbare omzet worden waar je op kunt plannen.",
+    ),
+    items: [
+      t("SEO and paid campaigns", "SEO en betaalde campagnes"),
+      t("Conversion-focused pages", "Pagina's die converteren"),
+      t("Email and retention flows", "E-mail- en retentieflows"),
+      t("Monthly reporting on revenue", "Maandelijkse rapportage over omzet"),
+    ],
   },
   {
-    label: "Launch new income",
-    title: "Earn beyond your core offer",
-    body: "Memberships, products, shops and partnerships designed around the audience or customers you already have.",
-    items: ["Memberships and courses", "Digital products and shops", "Brand and sponsor partnerships", "Pricing and launch plan"],
+    label: t("Launch new income", "Nieuwe inkomsten"),
+    title: t("Earn beyond your core offer", "Verdien meer dan met je kernaanbod"),
+    body: t(
+      "Memberships, products, shops and partnerships designed around the audience or customers you already have.",
+      "Lidmaatschappen, producten, webshops en partnerships, ontworpen rond het publiek of de klanten die je al hebt.",
+    ),
+    items: [
+      t("Memberships and courses", "Lidmaatschappen en cursussen"),
+      t("Digital products and shops", "Digitale producten en webshops"),
+      t("Brand and sponsor partnerships", "Merk- en sponsorsamenwerkingen"),
+      t("Pricing and launch plan", "Prijsstrategie en lanceringsplan"),
+    ],
   },
   {
-    label: "Work smarter",
-    title: "Spend less time on what slows you down",
-    body: "We streamline the tools and processes behind your growth, so your team can focus on the work that moves the numbers.",
-    items: ["Tool and platform setup", "Automated workflows", "Clear dashboards", "Ongoing support"],
+    label: t("Work smarter", "Slimmer werken"),
+    title: t("Spend less time on what slows you down", "Minder tijd kwijt aan wat je ophoudt"),
+    body: t(
+      "We streamline the tools and processes behind your growth, so your team can focus on the work that moves the numbers.",
+      "We stroomlijnen de tools en processen achter je groei, zodat je team zich kan richten op het werk dat echt resultaat oplevert.",
+    ),
+    items: [
+      t("Tool and platform setup", "Inrichting van tools en platforms"),
+      t("Automated workflows", "Geautomatiseerde workflows"),
+      t("Clear dashboards", "Overzichtelijke dashboards"),
+      t("Ongoing support", "Doorlopende ondersteuning"),
+    ],
   },
 ];
 
 export function GoalPicker() {
   const [active, setActive] = useState(0);
-  const g = goals[active];
+  const t = useT();
+  const all = goals(t);
+  const g = all[active];
 
   return (
     <>
-      <div role="tablist" aria-label="Your goal" className="flex flex-wrap gap-1.5 self-start rounded-xl bg-surface-2 p-[5px]">
-        {goals.map((x, i) => (
+      <div role="tablist" aria-label={t("Your goal", "Jouw doel")} className="flex flex-wrap gap-1.5 self-start rounded-xl bg-surface-2 p-[5px]">
+        {all.map((x, i) => (
           <button
-            key={x.label}
+            key={i}
             type="button"
             role="tab"
             id={`goal-tab-${i}`}
@@ -64,7 +100,7 @@ export function GoalPicker() {
           <p className="text-[15.5px] leading-[1.55] text-pretty text-on-ink-muted">{g.body}</p>
         </div>
         <div className="flex flex-col gap-3.5 rounded-2xl border border-line bg-white p-8">
-          <div className="font-mono text-[12.5px] tracking-[0.04em] text-subtle">WHAT WE DO</div>
+          <div className="font-mono text-[12.5px] tracking-[0.04em] text-subtle">{t("WHAT WE DO", "WAT WE DOEN")}</div>
           {g.items.map((it) => (
             <span key={it} className="flex gap-2.5 text-[15.5px]">
               <span className="text-brand" aria-hidden>

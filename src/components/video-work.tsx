@@ -1,15 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import { useLocale, useT } from "@/i18n/client";
 import type { PortfolioVideo } from "@/lib/api";
 
 export const NICHES = [
-  { slug: "software-learning", name: "Software & Learning" },
-  { slug: "property-home", name: "Property & Home" },
-  { slug: "health-wellness", name: "Health & Wellness" },
-  { slug: "professional-services", name: "Professional Services" },
-  { slug: "retail-ecommerce", name: "Retail & E-commerce" },
-  { slug: "hospitality-lifestyle", name: "Hospitality & Lifestyle" },
+  { slug: "software-learning", name: "Software & Learning", nl: "Software & onderwijs" },
+  { slug: "property-home", name: "Property & Home", nl: "Vastgoed & wonen" },
+  { slug: "health-wellness", name: "Health & Wellness", nl: "Gezondheid & welzijn" },
+  { slug: "professional-services", name: "Professional Services", nl: "Zakelijke dienstverlening" },
+  { slug: "retail-ecommerce", name: "Retail & E-commerce", nl: "Retail & e-commerce" },
+  { slug: "hospitality-lifestyle", name: "Hospitality & Lifestyle", nl: "Horeca & lifestyle" },
 ] as const;
 
 const SLOTS = 4;
@@ -36,9 +37,12 @@ function PlayIcon({ size, color, offset }: { size: [number, number]; color: stri
 }
 
 export function VideoWork({ videos }: { videos: PortfolioVideo[] }) {
+  const locale = useLocale();
   const [tab, setTab] = useState(0);
   const [active, setActive] = useState(0);
   const [playingShort, setPlayingShort] = useState(-1);
+  const t = useT();
+  const nicheName = (n: (typeof NICHES)[number]) => (locale === "nl" ? n.nl : n.name);
 
   const niche = NICHES[tab];
   const inNiche = videos.filter((v) => v.niche === niche.slug);
@@ -51,17 +55,20 @@ export function VideoWork({ videos }: { videos: PortfolioVideo[] }) {
       <div className="mx-auto flex max-w-[1240px] flex-col gap-9">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div className="flex max-w-[680px] flex-col gap-3.5">
-            <div className="eyebrow">Our work</div>
+            <div className="eyebrow">{t("Our work", "Ons werk")}</div>
             <h2 className="text-[clamp(30px,3.8vw,44px)] leading-[1.08] font-bold tracking-[-0.04em] text-balance">
-              Videos we&apos;ve made.
+              {t("Videos we've made.", "Video's die we hebben gemaakt.")}
             </h2>
           </div>
           <p className="max-w-[380px] text-base leading-[1.55] text-pretty text-muted">
-            Long-form videos and Shorts, edited, packaged and published by our team.
+            {t(
+              "Long-form videos and Shorts, edited, packaged and published by our team.",
+              "Lange video's en Shorts, gemonteerd, verpakt en gepubliceerd door ons team.",
+            )}
           </p>
         </div>
 
-        <div className="-mt-2 flex flex-wrap gap-2" role="tablist" aria-label="Industries">
+        <div className="-mt-2 flex flex-wrap gap-2" role="tablist" aria-label={t("Industries", "Branches")}>
           {NICHES.map((n, i) => (
             <button
               key={n.slug}
@@ -77,7 +84,7 @@ export function VideoWork({ videos }: { videos: PortfolioVideo[] }) {
                 i === tab ? "border-ink bg-ink text-white" : "border-line-2 bg-white text-ink"
               }`}
             >
-              {n.name}
+              {nicheName(n)}
             </button>
           ))}
         </div>
@@ -88,7 +95,7 @@ export function VideoWork({ videos }: { videos: PortfolioVideo[] }) {
               <iframe
                 key={featured.youtubeId}
                 src={`https://www.youtube.com/embed/${featured.youtubeId}?rel=0`}
-                title={featured.title ?? "Featured video"}
+                title={featured.title ?? t("Featured video", "Uitgelichte video")}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 className="absolute inset-0 size-full border-0"
@@ -98,7 +105,7 @@ export function VideoWork({ videos }: { videos: PortfolioVideo[] }) {
                 <div className="flex size-[76px] items-center justify-center rounded-full bg-brand shadow-[0_0_0_12px_oklch(0.6_0.2_265/0.18)]">
                   <PlayIcon size={[22, 13]} color="white" offset={6} />
                 </div>
-                <span className="font-mono text-[13px] tracking-[0.06em] text-[#C9D3EE]">VIDEOS COMING SOON</span>
+                <span className="font-mono text-[13px] tracking-[0.06em] text-[#C9D3EE]">{t("VIDEOS COMING SOON", "VIDEO'S VOLGEN BINNENKORT")}</span>
               </div>
             )}
           </div>
@@ -122,7 +129,7 @@ export function VideoWork({ videos }: { videos: PortfolioVideo[] }) {
                 </div>
                 <div className="flex min-w-0 flex-col gap-1">
                   <span className="font-mono text-xs tracking-[0.06em] text-brand">{pad(i)}</span>
-                  <span className="text-[15px] font-semibold tracking-[-0.01em]">{v?.title ?? niche.name}</span>
+                  <span className="text-[15px] font-semibold tracking-[-0.01em]">{v?.title ?? nicheName(niche)}</span>
                 </div>
               </button>
             ))}
@@ -152,7 +159,7 @@ export function VideoWork({ videos }: { videos: PortfolioVideo[] }) {
                   <button
                     type="button"
                     onClick={() => s && setPlayingShort(i)}
-                    aria-label={s ? `Play short ${pad(i)}` : `Short ${pad(i)} coming soon`}
+                    aria-label={s ? t(`Play short ${pad(i)}`, `Short ${pad(i)} afspelen`) : t(`Short ${pad(i)} coming soon`, `Short ${pad(i)} volgt binnenkort`)}
                     className={`absolute inset-0 border-0 bg-transparent p-0 ${s ? "cursor-pointer" : "cursor-default"}`}
                   >
                     <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: thumb(s?.youtubeId) }} />
