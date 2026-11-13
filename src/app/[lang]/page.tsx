@@ -334,8 +334,8 @@ export default async function LandingPage() {
               </div>
             </div>
 
-            <div className="relative min-h-[clamp(380px,44vw,520px)]" aria-hidden={!homeLong && !homeShortA && !homeShortB}>
-              <div className="absolute top-[6%] left-0 aspect-video w-[78%] overflow-hidden rounded-[18px] border-[6px] border-ink bg-ink shadow-[0_40px_70px_-30px_rgba(11,16,32,.55)]">
+            <div className="relative flex flex-col gap-5 sm:block sm:min-h-[clamp(380px,44vw,520px)]" aria-hidden={!homeLong && !homeShortA && !homeShortB}>
+              <div className="relative aspect-video w-full overflow-hidden sm:absolute sm:top-[6%] sm:left-0 sm:w-[78%] rounded-[18px] border-[6px] border-ink bg-ink shadow-[0_40px_70px_-30px_rgba(11,16,32,.55)]">
                 <div
                   className="absolute -inset-[30%] animate-[drift_9s_ease-in-out_infinite_alternate]"
                   style={glow("#2F6BFF", "rgba(126,162,255,.55)", "#111832")}
@@ -352,7 +352,9 @@ export default async function LandingPage() {
                 {homeLong && <Embed id={homeLong.youtubeId} title={homeLong.title ?? t("Finloa video", "Finloa-video")} />}
               </div>
 
-              <div className="absolute right-[16%] bottom-0 aspect-[9/16] w-[26%] animate-[floaty_5s_ease-in-out_infinite] overflow-hidden rounded-[22px] border-[5px] border-ink bg-ink shadow-[0_40px_60px_-24px_rgba(11,16,32,.6)]">
+              {/* Phones: side by side under the wide frame on mobile (half the width each), floating around it from sm up */}
+              <div className="grid grid-cols-2 gap-4 sm:contents">
+              <div className="relative aspect-[9/16] w-full overflow-hidden sm:absolute sm:right-[16%] sm:bottom-0 sm:w-[26%] sm:animate-[floaty_5s_ease-in-out_infinite] rounded-[22px] border-[5px] border-ink bg-ink shadow-[0_40px_60px_-24px_rgba(11,16,32,.6)]">
                 <div
                   className="absolute -inset-[30%] animate-[drift_7s_ease-in-out_infinite_alternate]"
                   style={glow("#2F6BFF", "rgba(126,162,255,.55)", "#111832")}
@@ -364,7 +366,7 @@ export default async function LandingPage() {
                 {homeShortA && <Embed id={homeShortA.youtubeId} title={homeShortA.title ?? t("Finloa short", "Finloa-short")} />}
               </div>
 
-              <div className="absolute top-[20%] right-0 aspect-[9/16] w-[24%] animate-[floaty_6s_ease-in-out_infinite_1s] overflow-hidden rounded-[22px] border-[5px] border-ink bg-brand shadow-[0_40px_60px_-24px_rgba(11,16,32,.6)]">
+              <div className="relative aspect-[9/16] w-full overflow-hidden sm:absolute sm:top-[20%] sm:right-0 sm:w-[24%] sm:animate-[floaty_6s_ease-in-out_infinite_1s] rounded-[22px] border-[5px] border-ink bg-brand shadow-[0_40px_60px_-24px_rgba(11,16,32,.6)]">
                 <div
                   className="absolute -inset-[30%] animate-[drift_6s_ease-in-out_infinite_alternate]"
                   style={{ background: "radial-gradient(45% 35% at 50% 35%,#9FB9FF,transparent 70%)" }}
@@ -376,7 +378,9 @@ export default async function LandingPage() {
                 {homeShortB && <Embed id={homeShortB.youtubeId} title={homeShortB.title ?? t("Finloa short", "Finloa-short")} />}
               </div>
 
-              <div className="absolute bottom-[4%] left-[6%] flex gap-1.5 rounded-[14px] border border-[oklch(0.9_0.02_265)] bg-white p-1.5 shadow-[0_20px_40px_-24px_rgba(11,16,32,.45)]">
+              </div>
+
+              <div className="relative flex gap-1.5 self-center sm:absolute sm:bottom-[4%] sm:left-[6%] rounded-[14px] border border-[oklch(0.9_0.02_265)] bg-white p-1.5 shadow-[0_20px_40px_-24px_rgba(11,16,32,.45)]">
                 <span className="rounded-[9px] bg-ink px-[13px] py-[9px] text-sm font-semibold text-white">{t("Edit", "Monteren")}</span>
                 <span className="rounded-[9px] bg-brand px-[13px] py-[9px] text-sm font-semibold text-white">{t("Optimise", "Optimaliseren")}</span>
                 <span className="rounded-[9px] bg-[#EEF3FF] px-[13px] py-[9px] text-sm font-semibold text-ink">{t("Post", "Posten")}</span>
