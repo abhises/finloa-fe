@@ -91,7 +91,7 @@ export function EmailSignup({
           onChange={(e) => setEmail(e.target.value)}
           aria-invalid={!!error}
           aria-describedby={error ? `${id}-err` : undefined}
-          className={`h-[58px] min-w-0 flex-1 rounded-xl border bg-white px-[18px] text-[17px] font-medium text-ink outline-none placeholder:text-[#8a93a8] aria-[invalid=true]:border-red-400 ${
+          className={`h-[56px] w-full min-w-0 flex-none rounded-xl sm:h-[58px] sm:w-auto sm:flex-1 border bg-white px-[18px] text-[17px] font-medium text-ink outline-none placeholder:text-[#8a93a8] aria-[invalid=true]:border-red-400 ${
             brand
               ? "border-white focus:shadow-[0_0_0_4px_rgba(255,255,255,.35)]"
               : "border-[#d9dde8] focus:border-brand focus:shadow-[0_0_0_4px_rgba(47,107,255,.18)]"
@@ -100,7 +100,7 @@ export function EmailSignup({
         <button
           type="submit"
           disabled={state === "sending"}
-          className={`h-[58px] flex-none cursor-pointer rounded-xl px-[26px] text-[17px] font-semibold whitespace-nowrap text-white transition-colors disabled:opacity-70 ${
+          className={`h-[56px] w-full flex-none cursor-pointer rounded-xl px-[26px] sm:h-[58px] sm:w-auto text-[17px] font-semibold whitespace-nowrap text-white transition-colors disabled:opacity-70 ${
             brand ? "bg-ink hover:bg-[#1a2140]" : "bg-brand hover:bg-brand-hover"
           }`}
         >

@@ -18,6 +18,7 @@ type Video = {
 /** Where a video appears on the site. Keep in sync with NICHES in finloa-be/src/routes/videos.ts */
 const PLACEMENTS = [
   { value: "showreel", label: "Homepage showreel (top of finloa.com)" },
+  { value: "home-video", label: "Homepage video section (1 long-form + 2 shorts)" },
   { value: "software-learning", label: "Our work · Software & Learning" },
   { value: "property-home", label: "Our work · Property & Home" },
   { value: "health-wellness", label: "Our work · Health & Wellness" },

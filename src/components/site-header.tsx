@@ -26,15 +26,15 @@ export async function SiteHeader({
           brand ? "bg-brand text-white" : "border-b border-line bg-canvas/88 backdrop-blur-[10px]"
         }`}
       >
-        <div className={`mx-auto flex max-w-[1180px] flex-wrap items-center gap-7 px-6 ${brand ? "py-4" : "py-3.5"}`}>
-          <Link href="/" className={`font-display text-[22px] tracking-[0.01em] ${brand ? "text-white" : "text-ink"}`}>
+        <div className={`mx-auto flex max-w-[1180px] items-center gap-2 px-4 min-[380px]:gap-3 min-[380px]:px-6 sm:gap-7 ${brand ? "py-3 sm:py-4" : "py-3 sm:py-3.5"}`}>
+          <Link href="/" className={`shrink-0 font-display text-[20px] tracking-[0.01em] sm:text-[22px] ${brand ? "text-white" : "text-ink"}`}>
             FINLOA
           </Link>
-          <div className="ml-auto flex items-center gap-3.5">
+          <div className="ml-auto flex min-w-0 items-center gap-2 sm:gap-3.5">
             <LanguageSwitch onBrand={brand} />
             <Link
               href={ctaHref}
-              className={`whitespace-nowrap rounded-[9px] px-4 py-[9px] text-[14.5px] font-medium transition-colors ${
+              className={`whitespace-nowrap rounded-[9px] px-2.5 py-[9px] text-[13px] min-[380px]:px-3 min-[380px]:text-[14px] font-medium transition-colors sm:px-4 sm:text-[14.5px] ${
                 brand ? "bg-white text-ink hover:bg-[#E8EEFF]" : "bg-ink text-white hover:bg-ink-2"
               }`}
             >
@@ -97,7 +97,7 @@ export async function SiteHeader({
                 </Link>
               ))}
               <div className="mt-1 border-t border-line px-3 pt-3 pb-1.5 sm:hidden">
-                <LanguageSwitch />
+                <LanguageSwitch variant="toggle" />
               </div>
             </nav>
           </details>

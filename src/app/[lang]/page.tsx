@@ -140,9 +140,25 @@ function Play({ size, tri, offset }: { size: number; tri: [number, number]; offs
   );
 }
 
+/** YouTube player filling its (positioned) parent frame; works for long-form videos and Shorts */
+function Embed({ id, title }: { id: string; title: string }) {
+  return (
+    <iframe
+      src={`https://www.youtube.com/embed/${id}?rel=0&playsinline=1`}
+      title={title}
+      loading="lazy"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      allowFullScreen
+      className="absolute inset-0 size-full border-0"
+    />
+  );
+}
+
 export default async function LandingPage() {
   const videos = await getVideos();
   const reel = videos.find((v) => v.niche === "showreel" && v.kind === "LONG");
+  const homeLong = videos.find((v) => v.niche === "home-video" && v.kind === "LONG");
+  const [homeShortA, homeShortB] = videos.filter((v) => v.niche === "home-video" && v.kind === "SHORT");
   const t = await getT();
 
   return (
@@ -153,7 +169,7 @@ export default async function LandingPage() {
           <div className="pointer-events-none absolute inset-0" style={grid("rgba(255,255,255,.07)")} aria-hidden />
           <div className="relative mx-auto grid max-w-[1180px] grid-cols-[repeat(auto-fit,minmax(min(100%,460px),1fr))] items-end gap-[clamp(40px,5vw,64px)]">
             <div className="flex flex-col gap-[26px] pb-[clamp(40px,8vw,140px)]">
-              <span className="font-mono text-[13px] tracking-[0.08em]">{t("SIMPLE · FLEXIBLE · REVENUE-DRIVEN", "SIMPEL · FLEXIBEL · GERICHT OP OMZET")}</span>
+              <span className="font-mono text-[11px] tracking-[0.06em] whitespace-nowrap min-[400px]:text-[12px] sm:text-[13px] sm:tracking-[0.08em]">{t("SIMPLE · FLEXIBLE · REVENUE-DRIVEN", "SIMPEL · FLEXIBEL · GERICHT OP OMZET")}</span>
               <h1 className="text-[clamp(48px,7.4vw,92px)] leading-[0.98] font-extrabold tracking-[-0.05em] text-balance">
                 {t("We grow brands and audiences.", "Wij laten merken en publiek groeien.")}
               </h1>
@@ -318,7 +334,7 @@ export default async function LandingPage() {
               </div>
             </div>
 
-            <div className="relative min-h-[clamp(380px,44vw,520px)]" aria-hidden>
+            <div className="relative min-h-[clamp(380px,44vw,520px)]" aria-hidden={!homeLong && !homeShortA && !homeShortB}>
               <div className="absolute top-[6%] left-0 aspect-video w-[78%] overflow-hidden rounded-[18px] border-[6px] border-ink bg-ink shadow-[0_40px_70px_-30px_rgba(11,16,32,.55)]">
                 <div
                   className="absolute -inset-[30%] animate-[drift_9s_ease-in-out_infinite_alternate]"
@@ -333,6 +349,7 @@ export default async function LandingPage() {
                 <div className="absolute right-4 bottom-3.5 left-4 h-1 overflow-hidden rounded bg-white/20">
                   <div className="h-full animate-[track_7s_ease-in-out_infinite] bg-brand" />
                 </div>
+                {homeLong && <Embed id={homeLong.youtubeId} title={homeLong.title ?? t("Finloa video", "Finloa-video")} />}
               </div>
 
               <div className="absolute right-[16%] bottom-0 aspect-[9/16] w-[26%] animate-[floaty_5s_ease-in-out_infinite] overflow-hidden rounded-[22px] border-[5px] border-ink bg-ink shadow-[0_40px_60px_-24px_rgba(11,16,32,.6)]">
@@ -344,6 +361,7 @@ export default async function LandingPage() {
                   <Play size={42} tri={[12, 7]} offset={3} />
                 </div>
                 <span className="absolute top-2.5 left-2.5 font-mono text-[10.5px] tracking-[0.06em] text-white">TIKTOK</span>
+                {homeShortA && <Embed id={homeShortA.youtubeId} title={homeShortA.title ?? t("Finloa short", "Finloa-short")} />}
               </div>
 
               <div className="absolute top-[20%] right-0 aspect-[9/16] w-[24%] animate-[floaty_6s_ease-in-out_infinite_1s] overflow-hidden rounded-[22px] border-[5px] border-ink bg-brand shadow-[0_40px_60px_-24px_rgba(11,16,32,.6)]">
@@ -355,6 +373,7 @@ export default async function LandingPage() {
                   <Play size={40} tri={[11, 7]} offset={3} />
                 </div>
                 <span className="absolute top-2.5 left-2.5 font-mono text-[10.5px] tracking-[0.06em] text-white">SHORTS</span>
+                {homeShortB && <Embed id={homeShortB.youtubeId} title={homeShortB.title ?? t("Finloa short", "Finloa-short")} />}
               </div>
 
               <div className="absolute bottom-[4%] left-[6%] flex gap-1.5 rounded-[14px] border border-[oklch(0.9_0.02_265)] bg-white p-1.5 shadow-[0_20px_40px_-24px_rgba(11,16,32,.45)]">
