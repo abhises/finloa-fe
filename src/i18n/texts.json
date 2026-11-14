@@ -3442,7 +3442,8 @@
     "component:pricing",
     "component:site-footer",
     "component:site-header",
-    "component:video-work"
+    "component:video-work",
+    "plans"
    ]
   },
   {
@@ -4659,9 +4660,29 @@
    "file": "components/netherlands.tsx",
    "texts": [
     {
+     "key": "1jwzhbcuctq",
+     "en": "cheap health insurance",
+     "nl": "cheap health insurance"
+    },
+    {
+     "key": "czebdbh17v",
+     "en": "zorgverzekering vergelijken",
+     "nl": "zorgverzekering vergelijken"
+    },
+    {
      "key": "2586lrtooxj",
      "en": "Dutch buyers compare before they buy. “Vergelijken” (compare) beats “cheap” in intent and volume for most categories.",
      "nl": "Nederlanders vergelijken voordat ze kopen. In de meeste categorieën wint “vergelijken” het van “goedkoop”, zowel in intentie als in zoekvolume."
+    },
+    {
+     "key": "1109h28hikl",
+     "en": "buy now pay later",
+     "nl": "buy now pay later"
+    },
+    {
+     "key": "ydn3li6wah",
+     "en": "achteraf betalen",
+     "nl": "achteraf betalen"
     },
     {
      "key": "u363y8v50h",
@@ -4669,14 +4690,44 @@
      "nl": "Een vaste Nederlandse term. Vertaal je het letterlijk, dan rank je nergens op en voelt je checkout buitenlands aan."
     },
     {
+     "key": "1mpcdl3v56n",
+     "en": "accountant near me",
+     "nl": "accountant near me"
+    },
+    {
+     "key": "18goa9bwgym",
+     "en": "boekhouder in de buurt",
+     "nl": "boekhouder in de buurt"
+    },
+    {
      "key": "7uw32elpek",
      "en": "“Accountant” exists in Dutch but means something narrower. Local searchers mostly look for a boekhouder.",
      "nl": "“Accountant” bestaat in het Nederlands, maar betekent iets specifiekers. Lokale zoekers zoeken meestal naar een boekhouder."
     },
     {
+     "key": "2exw162qotb",
+     "en": "running shoes sale",
+     "nl": "running shoes sale"
+    },
+    {
+     "key": "1t5flqv938e",
+     "en": "hardloopschoenen aanbieding",
+     "nl": "hardloopschoenen aanbieding"
+    },
+    {
      "key": "wqgvt3ah45",
      "en": "Dutch shoppers search for “aanbieding” (offer) far more than “sale”, and compound words change the whole keyword set.",
      "nl": "Nederlandse shoppers zoeken veel vaker op “aanbieding” dan op “sale”, en samenstellingen veranderen de hele zoekwoordenset."
+    },
+    {
+     "key": "1obimb47isl",
+     "en": "solar panel cost",
+     "nl": "solar panel cost"
+    },
+    {
+     "key": "14xahfxuhqo",
+     "en": "wat kosten zonnepanelen?",
+     "nl": "wat kosten zonnepanelen?"
     },
     {
      "key": "2agvysd1ljv",
@@ -4834,6 +4885,16 @@
      "nl": "LOKALISATIE · ENGELS → NEDERLANDS"
     },
     {
+     "key": "xijtewspem",
+     "en": "Your brand,\nfluent in\nDutch.",
+     "nl": "Your brand,\nfluent in\nDutch."
+    },
+    {
+     "key": "1ajyfz9bcv8",
+     "en": "Jouw merk,\nvloeiend\nNederlands.",
+     "nl": "Jouw merk,\nvloeiend\nNederlands."
+    },
+    {
      "key": "rlsvb86nar",
      "en": "We take what already works in English and rebuild it for the Netherlands: website, SEO, ads, social and video. Written by native speakers, run by one team.",
      "nl": "We nemen wat in het Engels al werkt en bouwen het opnieuw op voor Nederland: website, SEO, advertenties, social en video. Geschreven door moedertaalsprekers, uitgevoerd door één team."
@@ -4874,6 +4935,11 @@
      "nl": "✕ 3 FOUTEN"
     },
     {
+     "key": "28jh8c5r4bs",
+     "en": "Wij zijn [[gepassioneerd]] over het leveren van oplossingen die [[uw]] bedrijf [[naar het volgende niveau tillen]].",
+     "nl": "Wij zijn [[gepassioneerd]] over het leveren van oplossingen die [[uw]] bedrijf [[naar het volgende niveau tillen]]."
+    },
+    {
      "key": "1x8gbvo9x6q",
      "en": "Big claims without proof read as sales talk.",
      "nl": "Grote beloftes zonder bewijs klinken als verkooppraatjes."
@@ -4897,6 +4963,11 @@
      "key": "2ckc36uud1m",
      "en": "✓ READY TO RUN",
      "nl": "✓ KLAAR VOOR GEBRUIK"
+    },
+    {
+     "key": "25584p27mrf",
+     "en": "Meer klanten, minder gedoe. Wij regelen je marketing, jij doet waar je goed in bent.",
+     "nl": "Meer klanten, minder gedoe. Wij regelen je marketing, jij doet waar je goed in bent."
     },
     {
      "key": "9gsy97dda5",
@@ -4927,6 +4998,11 @@
      "key": "6mzqjmcgvx",
      "en": "Translating your keywords misses how Dutch people actually search. We research the real terms, then build your pages, ads and content around them.",
      "nl": "Als je je zoekwoorden alleen vertaalt, mis je hoe Nederlanders echt zoeken. Wij onderzoeken de termen die ze werkelijk gebruiken en bouwen daar je pagina's, advertenties en content omheen."
+    },
+    {
+     "key": "5pyp5mxj4k",
+     "en": "Zoeken",
+     "nl": "Zoeken"
     },
     {
      "key": "1rxevwifpsh",
@@ -5009,6 +5085,31 @@
      "nl": "Bekijk Nederlandse videopakketten →"
     },
     {
+     "key": "do47zt3gd3",
+     "en": "YOUTUBE · VOICE-OVER NL",
+     "nl": "YOUTUBE · VOICE-OVER NL"
+    },
+    {
+     "key": "2gcuzojo9h8",
+     "en": "Zo bespaar je elke week twee uur.",
+     "nl": "Zo bespaar je elke week twee uur."
+    },
+    {
+     "key": "2ggzzbwiyqm",
+     "en": "TIKTOK · NL CREATOR",
+     "nl": "TIKTOK · NL CREATOR"
+    },
+    {
+     "key": "1kdmf038znt",
+     "en": "eerlijk? dit had ik eerder moeten kopen",
+     "nl": "eerlijk? dit had ik eerder moeten kopen"
+    },
+    {
+     "key": "221h1l5aezz",
+     "en": "Reacties in het Nederlands",
+     "nl": "Reacties in het Nederlands"
+    },
+    {
      "key": "sl8yg0owbr",
      "en": "Community managed by native speakers",
      "nl": "Community beheerd door moedertaalsprekers"
@@ -5022,6 +5123,16 @@
      "key": "17krrzzgjrj",
      "en": "You have the product. We'll make it Dutch.",
      "nl": "Jij hebt het product. Wij maken het Nederlands."
+    },
+    {
+     "key": "1putudnl5ak",
+     "en": "AG",
+     "nl": "AG"
+    },
+    {
+     "key": "1f2hi9tokvx",
+     "en": "Alexander van Gog",
+     "nl": "Alexander van Gog"
     },
     {
      "key": "nbkw42lrkf",
@@ -5338,6 +5449,170 @@
      "en": "Professional videos for YouTube, TikTok, Instagram and LinkedIn at a clear monthly price. We edit, optimise and post so your channels keep growing.",
      "nl": "Professionele video's voor YouTube, TikTok, Instagram en LinkedIn voor een duidelijke maandprijs. Wij monteren, optimaliseren en posten, zodat je kanalen blijven groeien.",
      "seo": "description"
+    }
+   ]
+  },
+  {
+   "id": "plans",
+   "group": "shared",
+   "label": "Video plans (pricing)",
+   "path": null,
+   "file": "i18n/plans.ts",
+   "texts": [
+    {
+     "key": "2ds8smbqh0d",
+     "en": "Starter",
+     "nl": "Starter"
+    },
+    {
+     "key": "1b4qvlbxb96",
+     "en": "1 video a week",
+     "nl": "1 video per week"
+    },
+    {
+     "key": "23a21koovu3",
+     "en": "For businesses starting a YouTube channel and building a steady rhythm.",
+     "nl": "Voor bedrijven die een YouTube-kanaal starten en een vast ritme willen opbouwen."
+    },
+    {
+     "key": "2d5trjm9elj",
+     "en": "Start with Starter",
+     "nl": "Begin met Starter"
+    },
+    {
+     "key": "2fok6u6bcxk",
+     "en": "Editing, thumbnails, titles, descriptions and tags",
+     "nl": "Montage, thumbnails, titels, beschrijvingen en tags"
+    },
+    {
+     "key": "1zv1qh38732",
+     "en": "Uploads and scheduling on YouTube",
+     "nl": "Uploaden en inplannen op YouTube"
+    },
+    {
+     "key": "1yy24y7q1u3",
+     "en": "Monthly content calendar",
+     "nl": "Maandelijkse contentkalender"
+    },
+    {
+     "key": "gxywt77cmm",
+     "en": "Growth",
+     "nl": "Growth"
+    },
+    {
+     "key": "176gg7b8y78",
+     "en": "2 videos a week + social",
+     "nl": "2 video's per week + social"
+    },
+    {
+     "key": "87dfk3k7y0",
+     "en": "For brands ready to grow on YouTube and reuse every Short on TikTok.",
+     "nl": "Voor merken die klaar zijn om te groeien op YouTube en elke Short ook op TikTok willen inzetten."
+    },
+    {
+     "key": "1t6otl5lvae",
+     "en": "Get Growth",
+     "nl": "Kies Growth"
+    },
+    {
+     "key": "173uua6ifmj",
+     "en": "Everything in Starter, plus:",
+     "nl": "Alles uit Starter, plus:"
+    },
+    {
+     "key": "1rfw9ufio60",
+     "en": "Shorts cross-posted to TikTok",
+     "nl": "Shorts ook geplaatst op TikTok"
+    },
+    {
+     "key": "1cdxrxq0y5y",
+     "en": "Keyword and topic research for every video",
+     "nl": "Zoekwoord- en onderwerponderzoek voor elke video"
+    },
+    {
+     "key": "1xx3hfi6dhe",
+     "en": "Monthly performance report",
+     "nl": "Maandelijks prestatierapport"
+    },
+    {
+     "key": "1hby5sw1955",
+     "en": "Pro",
+     "nl": "Pro"
+    },
+    {
+     "key": "17p9odpn525",
+     "en": "3 videos a week + strategy",
+     "nl": "3 video's per week + strategie"
+    },
+    {
+     "key": "2ci0h3q00kw",
+     "en": "For teams that want a growth plan behind the content, not just more of it.",
+     "nl": "Voor teams die een groeiplan achter hun content willen, niet alleen méér content."
+    },
+    {
+     "key": "o5m9gurjmg",
+     "en": "Get Pro",
+     "nl": "Kies Pro"
+    },
+    {
+     "key": "3dd52u61am",
+     "en": "Everything in Growth, plus:",
+     "nl": "Alles uit Growth, plus:"
+    },
+    {
+     "key": "181gl366ovd",
+     "en": "Shorts cross-posted to Facebook",
+     "nl": "Shorts ook geplaatst op Facebook"
+    },
+    {
+     "key": "oi5wzp9n9l",
+     "en": "Competitor and niche analysis",
+     "nl": "Concurrentie- en nicheanalyse"
+    },
+    {
+     "key": "1w9qto8p2ix",
+     "en": "Premium",
+     "nl": "Premium"
+    },
+    {
+     "key": "22mqsfxwwr6",
+     "en": "Every weekday, fully managed",
+     "nl": "Elke werkdag, volledig verzorgd"
+    },
+    {
+     "key": "drakufvl9w",
+     "en": "For companies that want a daily channel without managing a single step.",
+     "nl": "Voor bedrijven die een dagelijks kanaal willen zonder zelf ook maar één stap te regelen."
+    },
+    {
+     "key": "xvxbkgmz64",
+     "en": "Get started",
+     "nl": "Aan de slag"
+    },
+    {
+     "key": "hw89d5li80",
+     "en": "Everything in Pro, plus:",
+     "nl": "Alles uit Pro, plus:"
+    },
+    {
+     "key": "l1nyfs7j70",
+     "en": "Dedicated channel manager",
+     "nl": "Vaste channel manager"
+    },
+    {
+     "key": "1ks1c0hdlhl",
+     "en": "Comment and community management",
+     "nl": "Beheer van reacties en community"
+    },
+    {
+     "key": "273nkp47pb6",
+     "en": "Priority turnaround",
+     "nl": "Voorrang bij oplevering"
+    },
+    {
+     "key": "17hryg4al51",
+     "en": "Quarterly channel audit",
+     "nl": "Kwartaalaudit van je kanaal"
     }
    ]
   },
@@ -7776,16 +8051,46 @@
   "e2x02kk7pa": [
    "component:legal-page"
   ],
+  "1jwzhbcuctq": [
+   "component:netherlands"
+  ],
+  "czebdbh17v": [
+   "component:netherlands"
+  ],
   "2586lrtooxj": [
+   "component:netherlands"
+  ],
+  "1109h28hikl": [
+   "component:netherlands"
+  ],
+  "ydn3li6wah": [
    "component:netherlands"
   ],
   "u363y8v50h": [
    "component:netherlands"
   ],
+  "1mpcdl3v56n": [
+   "component:netherlands"
+  ],
+  "18goa9bwgym": [
+   "component:netherlands"
+  ],
   "7uw32elpek": [
    "component:netherlands"
   ],
+  "2exw162qotb": [
+   "component:netherlands"
+  ],
+  "1t5flqv938e": [
+   "component:netherlands"
+  ],
   "wqgvt3ah45": [
+   "component:netherlands"
+  ],
+  "1obimb47isl": [
+   "component:netherlands"
+  ],
+  "14xahfxuhqo": [
    "component:netherlands"
   ],
   "2agvysd1ljv": [
@@ -7881,6 +8186,12 @@
   "1yq784wfbtx": [
    "component:netherlands"
   ],
+  "xijtewspem": [
+   "component:netherlands"
+  ],
+  "1ajyfz9bcv8": [
+   "component:netherlands"
+  ],
   "rlsvb86nar": [
    "component:netherlands"
   ],
@@ -7905,6 +8216,9 @@
   "2i9rd80zoz": [
    "component:netherlands"
   ],
+  "28jh8c5r4bs": [
+   "component:netherlands"
+  ],
   "1x8gbvo9x6q": [
    "component:netherlands"
   ],
@@ -7918,6 +8232,9 @@
    "component:netherlands"
   ],
   "2ckc36uud1m": [
+   "component:netherlands"
+  ],
+  "25584p27mrf": [
    "component:netherlands"
   ],
   "9gsy97dda5": [
@@ -7936,6 +8253,9 @@
    "component:netherlands"
   ],
   "6mzqjmcgvx": [
+   "component:netherlands"
+  ],
+  "5pyp5mxj4k": [
    "component:netherlands"
   ],
   "1rxevwifpsh": [
@@ -7983,10 +8303,31 @@
   "a1ifmwiv1v": [
    "component:netherlands"
   ],
+  "do47zt3gd3": [
+   "component:netherlands"
+  ],
+  "2gcuzojo9h8": [
+   "component:netherlands"
+  ],
+  "2ggzzbwiyqm": [
+   "component:netherlands"
+  ],
+  "1kdmf038znt": [
+   "component:netherlands"
+  ],
+  "221h1l5aezz": [
+   "component:netherlands"
+  ],
   "sl8yg0owbr": [
    "component:netherlands"
   ],
   "17krrzzgjrj": [
+   "component:netherlands"
+  ],
+  "1putudnl5ak": [
+   "component:netherlands"
+  ],
+  "1f2hi9tokvx": [
    "component:netherlands"
   ],
   "nbkw42lrkf": [
@@ -8114,6 +8455,99 @@
   ],
   "13f380r9qu9": [
    "layout"
+  ],
+  "2ds8smbqh0d": [
+   "plans"
+  ],
+  "1b4qvlbxb96": [
+   "plans"
+  ],
+  "23a21koovu3": [
+   "plans"
+  ],
+  "2d5trjm9elj": [
+   "plans"
+  ],
+  "2fok6u6bcxk": [
+   "plans"
+  ],
+  "1zv1qh38732": [
+   "plans"
+  ],
+  "1yy24y7q1u3": [
+   "plans"
+  ],
+  "gxywt77cmm": [
+   "plans"
+  ],
+  "176gg7b8y78": [
+   "plans"
+  ],
+  "87dfk3k7y0": [
+   "plans"
+  ],
+  "1t6otl5lvae": [
+   "plans"
+  ],
+  "173uua6ifmj": [
+   "plans"
+  ],
+  "1rfw9ufio60": [
+   "plans"
+  ],
+  "1cdxrxq0y5y": [
+   "plans"
+  ],
+  "1xx3hfi6dhe": [
+   "plans"
+  ],
+  "1hby5sw1955": [
+   "plans"
+  ],
+  "17p9odpn525": [
+   "plans"
+  ],
+  "2ci0h3q00kw": [
+   "plans"
+  ],
+  "o5m9gurjmg": [
+   "plans"
+  ],
+  "3dd52u61am": [
+   "plans"
+  ],
+  "181gl366ovd": [
+   "plans"
+  ],
+  "oi5wzp9n9l": [
+   "plans"
+  ],
+  "1w9qto8p2ix": [
+   "plans"
+  ],
+  "22mqsfxwwr6": [
+   "plans"
+  ],
+  "drakufvl9w": [
+   "plans"
+  ],
+  "xvxbkgmz64": [
+   "plans"
+  ],
+  "hw89d5li80": [
+   "plans"
+  ],
+  "l1nyfs7j70": [
+   "plans"
+  ],
+  "1ks1c0hdlhl": [
+   "plans"
+  ],
+  "273nkp47pb6": [
+   "plans"
+  ],
+  "17hryg4al51": [
+   "plans"
   ],
   "qerk6hsu0i": [
    "component:video-work"

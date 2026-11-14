@@ -61,10 +61,10 @@ export default function PagesPage() {
   const value = (key: string) => drafts[key] ?? saved(key);
   const isEdited = (key: string) => !!overrides?.[key];
 
-  function change(key: string, lang: "en" | "nl", v: string) {
+  function change(key: string, lang: "en" | "nl" | "both", v: string) {
     setMsg(null);
     setDrafts((d) => {
-      const next = { ...(d[key] ?? saved(key)), [lang]: v };
+      const next = lang === "both" ? { en: v, nl: v } : { ...(d[key] ?? saved(key)), [lang]: v };
       const s = saved(key);
       const copy = { ...d };
       if (norm(next.en) === norm(s.en) && norm(next.nl) === norm(s.nl)) delete copy[key];
@@ -244,6 +244,9 @@ export default function PagesPage() {
                     const elsewhere = (usedIn[t.key] ?? []).filter((id) => id !== s.id).map((id) => byId[id]?.label);
                     const changedEn = norm(v.en) !== norm(t.en);
                     const changedNl = norm(v.nl) !== norm(t.nl);
+                    // Shown the same on both sites (e.g. Dutch example copy): one field sets both languages
+                    const both = t.en === t.nl && v.en === v.nl;
+                    const marks = t.en.includes("[[");
                     return (
                       <div key={t.key} className={`ad-text${drafts[t.key] ? " ad-text--dirty" : isEdited(t.key) ? " ad-text--edited" : ""}`}>
                         {t.seo && (
@@ -255,6 +258,19 @@ export default function PagesPage() {
                             </span>
                           </div>
                         )}
+                        {both ? (
+                          <label className="ad-text__both">
+                            BOTH SITES (EN + NL)
+                            <textarea
+                              className={`${html ? "ad-mono" : ""}${v.en !== sv.en ? " is-changed" : ""}`}
+                              rows={html ? 18 : 1}
+                              value={v.en}
+                              onChange={(e) => change(t.key, "both", e.target.value)}
+                            />
+                            {changedEn && !html && <span className="ad-text__default">Default: {t.en}</span>}
+                          </label>
+                        ) : (
+                          <>
                         <label>
                           ENGLISH
                           <textarea
@@ -275,10 +291,13 @@ export default function PagesPage() {
                           />
                           {changedNl && !html && <span className="ad-text__default">Standaard: {t.nl}</span>}
                         </label>
-                        {(elsewhere.length > 0 || changedEn || changedNl || html) && (
+                          </>
+                        )}
+                        {(elsewhere.length > 0 || changedEn || changedNl || html || marks) && (
                           <div className="ad-text__meta">
                             <span>
                               {html && "HTML: use <h2>, <h3>, <p>, <ul><li>, <strong> and <a href>. "}
+                              {marks && "Text inside [[ ]] gets the red wavy underline. "}
                               {elsewhere.length > 0 && `Also used on: ${elsewhere.join(", ")}.`}
                             </span>
                             {(changedEn || changedNl) && (

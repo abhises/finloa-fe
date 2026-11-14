@@ -5,7 +5,7 @@
  * It collects
  *   - t("English", "Nederlands") calls with two plain string arguments, and
  *   - the [en, nl] title/description pairs passed to pageMetadata(),
- * from src/app/[lang] and src/components (not the admin). Texts built from variables (t(`${x} …`)) can't be edited.
+ * from src/app/[lang], src/components (not the admin) and src/i18n/plans.ts. Texts built from variables (t(`${x} …`)) can't be edited.
  *
  * Runs automatically before `npm run dev` and `npm run build`; run it by hand with `npm run texts`.
  */
@@ -17,6 +17,8 @@ import ts from "typescript";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SRC = path.join(root, "src");
 const OUT = path.join(SRC, "i18n", "texts.json");
+/** Text of the video plans (prices come from the API) */
+const PLANS = path.join(SRC, "i18n", "plans.ts");
 
 // Same hash as textKey() in src/i18n/config.ts
 function textKey(en, nl) {
@@ -50,6 +52,7 @@ function componentImports(file, src) {
     if (!ts.isImportDeclaration(st) || st.importClause?.isTypeOnly) continue;
     const spec = st.moduleSpecifier.text;
     if (spec.startsWith("@/components/")) out.push(path.join(SRC, "components", spec.slice(13)));
+    else if (spec === "@/i18n/plans") out.push(PLANS.replace(/\.ts$/, ""));
     else if (spec.startsWith("./") && file.startsWith(path.join(SRC, "components"))) out.push(path.join(path.dirname(file), spec));
   }
   return out;
@@ -119,13 +122,14 @@ function describe(file) {
     const label = PAGE_LABELS[route] ?? titleCase(route.split("/").pop() ?? route);
     return { id: route || "home", group: "page", label, path: route.includes("[") ? null : `/${route}`, file: rel };
   }
+  if (file === PLANS) return { id: "plans", group: "shared", label: "Video plans (pricing)", path: null, file: rel };
   const name = path.basename(rel).replace(/\.tsx?$/, "");
   return { id: `component:${name}`, group: "shared", label: titleCase(name), path: null, file: rel };
 }
 
 const sections = [];
 const idOf = {};
-for (const file of walk(path.join(SRC, "app", "[lang]")).concat(walk(path.join(SRC, "components")))) {
+for (const file of walk(path.join(SRC, "app", "[lang]")).concat(walk(path.join(SRC, "components")), [PLANS])) {
   const texts = extract(file);
   const info = describe(file);
   idOf[file.replace(/\.tsx?$/, "")] = info.id;

@@ -21,7 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function VideoCreationPage() {
   const [rawPlans, videos, locale, t] = await Promise.all([getPlans(), getVideos(), getLocale(), getT()]);
-  const plans = localizePlans(rawPlans, locale);
+  const plans = localizePlans(rawPlans, locale, t);
 
   return (
     <PageShell minimalHeader ctaLabel={t("Plan Your Growth", "Plan je groei")} ctaHref="#contact">

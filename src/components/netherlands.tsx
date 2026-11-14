@@ -9,42 +9,47 @@ import { EmailSignup } from "./email-signup";
 
 const mono = "font-mono text-xs tracking-[0.16em]";
 
+/** "a [[b]] c" → text with the [[…]] parts wrapped in a span with `className` (edited in Admin → Pages) */
+function marked(text: string, className: string) {
+  return text.split(/\[\[(.+?)\]\]/).map((part, i) => (i % 2 ? <span key={i} className={className}>{part}</span> : part));
+}
+
 const KEYWORDS = (t: T) => [
   {
-    en: "cheap health insurance",
-    nl: "zorgverzekering vergelijken",
+    en: t("cheap health insurance", "cheap health insurance"),
+    nl: t("zorgverzekering vergelijken", "zorgverzekering vergelijken"),
     note: t(
       "Dutch buyers compare before they buy. “Vergelijken” (compare) beats “cheap” in intent and volume for most categories.",
       "Nederlanders vergelijken voordat ze kopen. In de meeste categorieën wint “vergelijken” het van “goedkoop”, zowel in intentie als in zoekvolume.",
     ),
   },
   {
-    en: "buy now pay later",
-    nl: "achteraf betalen",
+    en: t("buy now pay later", "buy now pay later"),
+    nl: t("achteraf betalen", "achteraf betalen"),
     note: t(
       "A fixed Dutch term. Translate it literally and you rank for nothing, and your checkout copy looks foreign.",
       "Een vaste Nederlandse term. Vertaal je het letterlijk, dan rank je nergens op en voelt je checkout buitenlands aan.",
     ),
   },
   {
-    en: "accountant near me",
-    nl: "boekhouder in de buurt",
+    en: t("accountant near me", "accountant near me"),
+    nl: t("boekhouder in de buurt", "boekhouder in de buurt"),
     note: t(
       "“Accountant” exists in Dutch but means something narrower. Local searchers mostly look for a boekhouder.",
       "“Accountant” bestaat in het Nederlands, maar betekent iets specifiekers. Lokale zoekers zoeken meestal naar een boekhouder.",
     ),
   },
   {
-    en: "running shoes sale",
-    nl: "hardloopschoenen aanbieding",
+    en: t("running shoes sale", "running shoes sale"),
+    nl: t("hardloopschoenen aanbieding", "hardloopschoenen aanbieding"),
     note: t(
       "Dutch shoppers search for “aanbieding” (offer) far more than “sale”, and compound words change the whole keyword set.",
       "Nederlandse shoppers zoeken veel vaker op “aanbieding” dan op “sale”, en samenstellingen veranderen de hele zoekwoordenset.",
     ),
   },
   {
-    en: "solar panel cost",
-    nl: "wat kosten zonnepanelen?",
+    en: t("solar panel cost", "solar panel cost"),
+    nl: t("wat kosten zonnepanelen?", "wat kosten zonnepanelen?"),
     note: t(
       "Dutch people increasingly search in full questions, the way they’d ask a friend or an AI assistant. We write pages that answer those questions directly.",
       "Nederlanders zoeken steeds vaker in hele vragen, zoals ze het aan een vriend of een AI-assistent zouden vragen. Wij schrijven pagina's die die vragen direct beantwoorden.",
@@ -133,23 +138,10 @@ export function LanguageSwitchHero() {
         <div className="flex flex-col gap-[26px]">
           <div className={mono}>{t("LOCALISATION · ENGLISH → DUTCH", "LOKALISATIE · ENGELS → NEDERLANDS")}</div>
           <h1 className="text-[clamp(56px,8vw,96px)] leading-[0.92] font-extrabold tracking-[-0.06em]" lang={lang}>
-            {en ? (
-              <>
-                Your brand,
-                <br />
-                fluent in
-                <br />
-                Dutch.
-              </>
-            ) : (
-              <>
-                Jouw merk,
-                <br />
-                vloeiend
-                <br />
-                Nederlands.
-              </>
-            )}
+            {/* The toggle shows either headline on both sites, so each one is the same in both languages */}
+            <span className="whitespace-pre-line">
+              {en ? t("Your brand,\nfluent in\nDutch.", "Your brand,\nfluent in\nDutch.") : t("Jouw merk,\nvloeiend\nNederlands.", "Jouw merk,\nvloeiend\nNederlands.")}
+            </span>
           </h1>
           <p className="max-w-[500px] text-lg leading-[1.55]">
             {t(
@@ -198,8 +190,13 @@ export function SpotTheTranslation() {
               <span className="text-[#6B7389]">{t("✕ 3 ISSUES", "✕ 3 FOUTEN")}</span>
             </div>
             <p className="text-[28px] leading-[1.2] font-bold tracking-[-0.03em]" lang="nl">
-              Wij zijn <span className={wavy}>gepassioneerd</span> over het leveren van oplossingen die{" "}
-              <span className={wavy}>uw</span> bedrijf <span className={wavy}>naar het volgende niveau tillen</span>.
+              {marked(
+                t(
+                  "Wij zijn [[gepassioneerd]] over het leveren van oplossingen die [[uw]] bedrijf [[naar het volgende niveau tillen]].",
+                  "Wij zijn [[gepassioneerd]] over het leveren van oplossingen die [[uw]] bedrijf [[naar het volgende niveau tillen]].",
+                ),
+                wavy,
+              )}
             </p>
             <ol className="flex flex-col gap-2 border-t border-[#EEF0F5] pt-[18px] text-sm text-[#4A5268]">
               <li>1 · {t("Big claims without proof read as sales talk.", "Grote beloftes zonder bewijs klinken als verkooppraatjes.")}</li>
@@ -213,7 +210,10 @@ export function SpotTheTranslation() {
               <span>{t("✓ READY TO RUN", "✓ KLAAR VOOR GEBRUIK")}</span>
             </div>
             <p className="text-[28px] leading-[1.2] font-bold tracking-[-0.03em]" lang="nl">
-              Meer klanten, minder gedoe. Wij regelen je marketing, jij doet waar je goed in bent.
+              {t(
+                "Meer klanten, minder gedoe. Wij regelen je marketing, jij doet waar je goed in bent.",
+                "Meer klanten, minder gedoe. Wij regelen je marketing, jij doet waar je goed in bent.",
+              )}
             </p>
             <ul className="flex flex-col gap-2 border-t border-white/12 pt-[18px] text-sm text-[#C9D0E0]">
               <li>{t("Direct and plain, the way Dutch buyers talk.", "Direct en helder, zoals Nederlandse kopers praten.")}</li>
@@ -253,7 +253,7 @@ export function DutchSearch() {
                 {active.nl}
               </span>
             </div>
-            <span className="flex-none rounded-full bg-ink px-[22px] py-3.5 text-sm font-semibold text-white">Zoeken</span>
+            <span className="flex-none rounded-full bg-ink px-[22px] py-3.5 text-sm font-semibold text-white">{t("Zoeken", "Zoeken")}</span>
           </div>
         </div>
       </div>
@@ -270,7 +270,7 @@ export function DutchSearch() {
           <div className="flex flex-col gap-2.5" role="listbox" aria-label={t("Keyword examples", "Voorbeelden van zoekwoorden")}>
             {keywords.map((k, i) => (
               <button
-                key={k.en}
+                key={i}
                 type="button"
                 role="option"
                 aria-selected={i === kw}
@@ -402,10 +402,10 @@ export function DutchVideo() {
             className="absolute top-10 left-0 h-[250px] w-[76%] rounded-[14px] border-[6px] border-ink bg-ink shadow-[0_30px_60px_rgba(10,16,34,.3)]"
             style={{ backgroundImage: "radial-gradient(ellipse at 35% 45%,#2f6bff,transparent 65%)" }}
           >
-            <div className="absolute top-3 left-3.5 rounded bg-white/15 px-2 py-1 font-mono text-[10px] tracking-[0.1em] text-white">YOUTUBE · VOICE-OVER NL</div>
+            <div className="absolute top-3 left-3.5 rounded bg-white/15 px-2 py-1 font-mono text-[10px] tracking-[0.1em] text-white">{t("YOUTUBE · VOICE-OVER NL", "YOUTUBE · VOICE-OVER NL")}</div>
             <div className="absolute right-0 bottom-[22px] left-0 text-center">
               <span className="rounded bg-black/75 px-2.5 py-1.5 text-[15px] font-semibold text-white" lang="nl">
-                Zo bespaar je elke week twee uur.
+                {t("Zo bespaar je elke week twee uur.", "Zo bespaar je elke week twee uur.")}
               </span>
             </div>
           </div>
@@ -413,10 +413,10 @@ export function DutchVideo() {
             className="absolute top-0 right-0 h-[370px] w-[200px] animate-[floaty_5s_ease-in-out_infinite] rounded-3xl border-[6px] border-ink bg-brand shadow-[0_30px_60px_rgba(10,16,34,.35)] max-[520px]:w-[160px]"
             style={{ backgroundImage: "radial-gradient(ellipse at 50% 30%,#7FA0FF,transparent 60%)" }}
           >
-            <div className="absolute top-3.5 left-3 font-mono text-[10px] tracking-[0.1em] text-white">TIKTOK · NL CREATOR</div>
+            <div className="absolute top-3.5 left-3 font-mono text-[10px] tracking-[0.1em] text-white">{t("TIKTOK · NL CREATOR", "TIKTOK · NL CREATOR")}</div>
             <div className="absolute right-3 bottom-[60px] left-3 text-center">
               <span className="rounded bg-white px-2 py-1.5 text-base leading-[1.6] font-extrabold text-ink [box-decoration-break:clone]" lang="nl">
-                eerlijk? dit had ik eerder moeten kopen
+                {t("eerlijk? dit had ik eerder moeten kopen", "eerlijk? dit had ik eerder moeten kopen")}
               </span>
             </div>
           </div>
@@ -424,7 +424,7 @@ export function DutchVideo() {
             <span className="size-10 flex-none rounded-full bg-[#DCE5FF]" />
             <div className="flex flex-col gap-[3px]">
               <span className="text-[13px] font-bold" lang="nl">
-                Reacties in het Nederlands
+                {t("Reacties in het Nederlands", "Reacties in het Nederlands")}
               </span>
               <span className="text-[13px] text-[#4A5268]">{t("Community managed by native speakers", "Community beheerd door moedertaalsprekers")}</span>
             </div>
@@ -496,9 +496,9 @@ export function NlContact() {
             {t("You have the product. We'll make it Dutch.", "Jij hebt het product. Wij maken het Nederlands.")}
           </h2>
           <div className="flex max-w-[380px] items-center gap-4 rounded-xl bg-ink/18 p-4">
-            <span className="flex size-16 flex-none items-center justify-center rounded-full bg-white text-xl font-bold text-brand">AG</span>
+            <span className="flex size-16 flex-none items-center justify-center rounded-full bg-white text-xl font-bold text-brand">{t("AG", "AG")}</span>
             <div className="flex flex-col gap-1">
-              <span className="text-[17px] font-bold">Alexander van Gog</span>
+              <span className="text-[17px] font-bold">{t("Alexander van Gog", "Alexander van Gog")}</span>
               <span className="text-sm">{t("Founder, Finloa", "Oprichter, Finloa")}</span>
             </div>
           </div>

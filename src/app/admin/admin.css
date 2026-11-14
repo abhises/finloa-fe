@@ -213,6 +213,7 @@
 .ad-text textarea.is-changed { background: #fffdf2; }
 .ad-text__seo { grid-column: 1 / -1; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; font-size: 12px; color: var(--a-muted); }
 .ad-text__seo strong { font: 600 10.5px var(--font-mono); letter-spacing: .06em; color: #8a5a00; background: #fff4d6; border-radius: 6px; padding: 2px 7px; }
+.ad-text__both { grid-column: 1 / -1; }
 .ad-text__default { font: 12px/1.45 var(--font-sans); color: var(--a-muted); letter-spacing: 0; white-space: pre-wrap; max-height: 80px; overflow: auto; }
 .ad-sticky-save { position: sticky; bottom: 0; z-index: 5; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; background: var(--a-ink); color: #fff; border-radius: 12px; padding: 10px 14px; margin-top: 14px; }
 .ad-sticky-save .ad-btn { color: var(--a-ink) !important; }
