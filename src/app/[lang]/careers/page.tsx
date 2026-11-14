@@ -175,7 +175,7 @@ export default async function CareersPage() {
               </span>
             </div>
             <a
-              href={`mailto:info@finloa.com?subject=${encodeURIComponent(t("Open application", "Open sollicitatie"))}`}
+              href={`mailto:${t("info@finloa.com", "info@finloa.com")}?subject=${encodeURIComponent(t("Open application", "Open sollicitatie"))}`}
               className="whitespace-nowrap rounded-full border border-brand px-5 py-[11px] text-[15px] font-medium text-white transition-colors hover:bg-brand"
             >
               {t("Apply ↗", "Solliciteer ↗")}
@@ -191,8 +191,8 @@ export default async function CareersPage() {
               "Finloa is an equal opportunity employer. We consider all applicants without regard to race, religion, gender, sexual orientation, age, disability or any other protected characteristic. If you need an adjustment during the hiring process, email",
               "Finloa biedt iedereen gelijke kansen. We beoordelen alle sollicitanten ongeacht afkomst, religie, gender, seksuele oriëntatie, leeftijd, beperking of enig ander beschermd kenmerk. Heb je tijdens de sollicitatieprocedure een aanpassing nodig? Mail dan naar",
             )}{" "}
-            <a href="mailto:info@finloa.com" className="text-brand hover:text-brand-hover">
-              info@finloa.com
+            <a href={`mailto:${t("info@finloa.com", "info@finloa.com")}`} className="text-brand hover:text-brand-hover">
+              {t("info@finloa.com", "info@finloa.com")}
             </a>
             .
           </p>

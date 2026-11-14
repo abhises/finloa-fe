@@ -28,7 +28,7 @@ export async function SiteHeader({
       >
         <div className={`mx-auto flex max-w-[1180px] items-center gap-2 px-4 min-[380px]:gap-3 min-[380px]:px-6 sm:gap-7 ${brand ? "py-3 sm:py-4" : "py-3 sm:py-3.5"}`}>
           <Link href="/" className={`shrink-0 font-display text-[20px] tracking-[0.01em] sm:text-[22px] ${brand ? "text-white" : "text-ink"}`}>
-            FINLOA
+            {t("FINLOA", "FINLOA")}
           </Link>
           <div className="ml-auto flex min-w-0 items-center gap-2 sm:gap-3.5">
             <LanguageSwitch onBrand={brand} />
@@ -49,7 +49,7 @@ export async function SiteHeader({
     <header className="sticky top-0 z-20 border-b border-line bg-canvas/88 backdrop-blur-[10px]">
       <div className="mx-auto flex max-w-[1180px] items-center gap-7 px-6 py-3.5">
         <Link href="/" className="font-display text-[22px] tracking-[0.01em] text-ink">
-          FINLOA
+          {t("FINLOA", "FINLOA")}
         </Link>
         <nav aria-label="Main" className="hidden items-center gap-6 lg:flex">
           {HEADER_NAV.map((item) => (

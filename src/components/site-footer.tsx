@@ -10,7 +10,7 @@ export async function SiteFooter() {
       <div className="mx-auto flex max-w-[1180px] flex-col gap-14">
         <div className="flex flex-wrap items-center gap-5">
           <Link href="/" className="font-display text-[30px] tracking-[0.01em] text-ink">
-            FINLOA
+            {t("FINLOA", "FINLOA")}
           </Link>
           <div className="ml-auto flex flex-wrap items-center gap-3">
             <div className="mr-3 flex gap-2.5">
@@ -69,8 +69,8 @@ export async function SiteFooter() {
             {t("Terms & Conditions", "Algemene voorwaarden")}
           </Link>
           <span className="text-brand">•</span>
-          <a href="mailto:info@finloa.com" className="hover:text-brand">
-            info@finloa.com
+          <a href={`mailto:${t("info@finloa.com", "info@finloa.com")}`} className="hover:text-brand">
+            {t("info@finloa.com", "info@finloa.com")}
           </a>
         </div>
       </div>

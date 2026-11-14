@@ -21,8 +21,8 @@ export function FaqSection({ title, items }: { title: string; items: FaqItem[] }
           intro={
             <p className="text-[15px] text-muted-2">
               {t("Still unsure? Email", "Nog vragen? Mail naar")}{" "}
-              <a href="mailto:info@finloa.com" className="text-brand hover:text-brand-hover">
-                info@finloa.com
+              <a href={`mailto:${t("info@finloa.com", "info@finloa.com")}`} className="text-brand hover:text-brand-hover">
+                {t("info@finloa.com", "info@finloa.com")}
               </a>
             </p>
           }

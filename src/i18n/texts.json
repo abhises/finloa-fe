@@ -1106,6 +1106,11 @@
      "nl": "Op dit moment geen vacatures. Stuur je cv en een korte toelichting naar info@finloa.com."
     },
     {
+     "key": "4fc84kq7dl",
+     "en": "info@finloa.com",
+     "nl": "info@finloa.com"
+    },
+    {
      "key": "gbrtf6kblq",
      "en": "Apply ↗",
      "nl": "Solliciteer ↗"
@@ -4313,6 +4318,11 @@
      "key": "uech1wzvnz",
      "en": "Still unsure? Email",
      "nl": "Nog vragen? Mail naar"
+    },
+    {
+     "key": "4fc84kq7dl",
+     "en": "info@finloa.com",
+     "nl": "info@finloa.com"
     }
    ]
   },
@@ -5386,6 +5396,11 @@
    "file": "components/site-footer.tsx",
    "texts": [
     {
+     "key": "27r685tuoyf",
+     "en": "FINLOA",
+     "nl": "FINLOA"
+    },
+    {
      "key": "hepec8ukdz",
      "en": "Plan Your Growth ↗",
      "nl": "Plan je groei ↗"
@@ -5409,6 +5424,11 @@
      "key": "1i3ysp4oadg",
      "en": "Terms & Conditions",
      "nl": "Algemene voorwaarden"
+    },
+    {
+     "key": "4fc84kq7dl",
+     "en": "info@finloa.com",
+     "nl": "info@finloa.com"
     }
    ]
   },
@@ -5423,6 +5443,11 @@
      "key": "1o4jwwtkv6z",
      "en": "Get a quote",
      "nl": "Offerte aanvragen"
+    },
+    {
+     "key": "27r685tuoyf",
+     "en": "FINLOA",
+     "nl": "FINLOA"
     },
     {
      "key": "21ne6uppwas",
@@ -6339,6 +6364,11 @@
   ],
   "thoz5mqofp": [
    "careers"
+  ],
+  "4fc84kq7dl": [
+   "careers",
+   "component:faq",
+   "component:site-footer"
   ],
   "gbrtf6kblq": [
    "careers"
@@ -8434,6 +8464,10 @@
   ],
   "nufu528pts": [
    "component:readiness-check"
+  ],
+  "27r685tuoyf": [
+   "component:site-footer",
+   "component:site-header"
   ],
   "hepec8ukdz": [
    "component:site-footer"
