@@ -5,7 +5,7 @@ import type { TextOverrides } from "@/i18n/config";
 import catalog from "@/i18n/texts.json";
 import { adminApi, useNlOrigin } from "@/lib/admin-client";
 
-type Text = { key: string; en: string; nl: string };
+type Text = { key: string; en: string; nl: string; seo?: "title" | "description" };
 type Section = { id: string; group: "page" | "shared"; label: string; path: string | null; file: string; texts: Text[]; includes?: string[] };
 type Catalog = { sections: Section[]; usedIn: Record<string, string[]> };
 
@@ -246,6 +246,15 @@ export default function PagesPage() {
                     const changedNl = norm(v.nl) !== norm(t.nl);
                     return (
                       <div key={t.key} className={`ad-text${drafts[t.key] ? " ad-text--dirty" : isEdited(t.key) ? " ad-text--edited" : ""}`}>
+                        {t.seo && (
+                          <div className="ad-text__seo">
+                            <strong>{t.seo === "title" ? "SEO TITLE" : "SEO DESCRIPTION"}</strong>
+                            <span>
+                              {t.seo === "title" ? "Shown in the browser tab and as the Google headline" : "Shown under the headline in Google and in link previews"}
+                              , not on the page itself.
+                            </span>
+                          </div>
+                        )}
                         <label>
                           ENGLISH
                           <textarea

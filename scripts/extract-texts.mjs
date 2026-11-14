@@ -60,18 +60,27 @@ function extract(file) {
   const src = ts.createSourceFile(file, readFileSync(file, "utf8"), ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
   importsOf[file.replace(/\.tsx?$/, "")] = componentImports(file, src);
   const found = [];
-  const add = (en, nl) => found.push({ key: textKey(en, nl), en, nl });
-  const visit = (node) => {
+  // `seo`: the text is the page's <title> or meta description (browser tab / Google), not text on the page itself
+  const add = (en, nl, seo) => found.push({ key: textKey(en, nl), en, nl, ...(seo && { seo }) });
+  /** "title" / "description" when a t() call sits in `title: t(…)` / `description: t(…)` inside generateMetadata */
+  const metaProp = (node, inMeta) => {
+    if (!inMeta || !ts.isPropertyAssignment(node.parent) || !ts.isIdentifier(node.parent.name)) return undefined;
+    const p = node.parent.name.text;
+    return p === "title" || p === "description" ? p : undefined;
+  };
+  const visit = (node, inMeta = false) => {
+    if (ts.isFunctionDeclaration(node) && node.name?.text === "generateMetadata") inMeta = true;
     if (ts.isCallExpression(node) && ts.isIdentifier(node.expression)) {
       const name = node.expression.text;
       const args = node.arguments;
-      if (name === "t" && args.length === 2 && isStr(args[0]) && isStr(args[1])) add(args[0].text, args[1].text);
+      if (name === "t" && args.length === 2 && isStr(args[0]) && isStr(args[1])) add(args[0].text, args[1].text, metaProp(node, inMeta));
       if (name === "pageMetadata")
-        for (const a of args)
+        args.forEach((a, i) => {
           if (ts.isArrayLiteralExpression(a) && a.elements.length === 2 && isStr(a.elements[0]) && isStr(a.elements[1]))
-            add(a.elements[0].text, a.elements[1].text);
+            add(a.elements[0].text, a.elements[1].text, i === 1 ? "title" : "description");
+        });
     }
-    ts.forEachChild(node, visit);
+    ts.forEachChild(node, (n) => visit(n, inMeta));
   };
   visit(src);
   // keep the first occurrence of each text, in source order

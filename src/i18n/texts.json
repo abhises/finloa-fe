@@ -10,12 +10,14 @@
     {
      "key": "29rh96tgfed",
      "en": "Finloa — We grow brands and audiences",
-     "nl": "Finloa — Wij laten merken en publiek groeien"
+     "nl": "Finloa — Wij laten merken en publiek groeien",
+     "seo": "title"
     },
     {
      "key": "1dl7zc0nprk",
      "en": "Built to deliver revenue. Strategy, websites, video, marketing and new income streams from one team, for creators and businesses of every size.",
-     "nl": "Gebouwd om omzet op te leveren. Strategie, websites, video, marketing en nieuwe inkomstenbronnen van één team, voor creators en bedrijven van elke omvang."
+     "nl": "Gebouwd om omzet op te leveren. Strategie, websites, video, marketing en nieuwe inkomstenbronnen van één team, voor creators en bedrijven van elke omvang.",
+     "seo": "description"
     },
     {
      "key": "1orkip3qbcg",
@@ -283,6 +285,16 @@
      "nl": "YOUTUBE · LANGE VIDEO"
     },
     {
+     "key": "11sexd9jgj1",
+     "en": "Finloa video",
+     "nl": "Finloa-video"
+    },
+    {
+     "key": "c015oiasyv",
+     "en": "Finloa short",
+     "nl": "Finloa-short"
+    },
+    {
      "key": "18sb9pwnvmt",
      "en": "Edit",
      "nl": "Monteren"
@@ -352,12 +364,14 @@
     {
      "key": "12b0g6xd7gj",
      "en": "AI Marketing — Finloa",
-     "nl": "AI-marketing — Finloa"
+     "nl": "AI-marketing — Finloa",
+     "seo": "title"
     },
     {
      "key": "2faz9mpqrye",
      "en": "Build an AI marketing system that drives revenue: fix the foundation, then scale what works.",
-     "nl": "Bouw een AI-marketingsysteem dat omzet oplevert: eerst de basis op orde, dan opschalen wat werkt."
+     "nl": "Bouw een AI-marketingsysteem dat omzet oplevert: eerst de basis op orde, dan opschalen wat werkt.",
+     "seo": "description"
     },
     {
      "key": "21mgim1vhko",
@@ -720,12 +734,14 @@
     {
      "key": "ru0xj0qt4e",
      "en": "Blog — Finloa",
-     "nl": "Blog — Finloa"
+     "nl": "Blog — Finloa",
+     "seo": "title"
     },
     {
      "key": "b0577jkmsp",
      "en": "Practical guides on marketing, AI, video and new income streams for creators and businesses.",
-     "nl": "Praktische gidsen over marketing, AI, video en nieuwe inkomstenbronnen voor creators en bedrijven."
+     "nl": "Praktische gidsen over marketing, AI, video en nieuwe inkomstenbronnen voor creators en bedrijven.",
+     "seo": "description"
     },
     {
      "key": "e25rkcpl0i",
@@ -870,12 +886,14 @@
     {
      "key": "1u95qupqigg",
      "en": "Careers — Finloa",
-     "nl": "Werken bij Finloa"
+     "nl": "Werken bij Finloa",
+     "seo": "title"
     },
     {
      "key": "tshz9099v9",
      "en": "Join a team where your voice matters, your growth is a priority and your wins are celebrated.",
-     "nl": "Kom bij een team waar je stem telt, je groei voorop staat en je successen worden gevierd."
+     "nl": "Kom bij een team waar je stem telt, je groei voorop staat en je successen worden gevierd.",
+     "seo": "description"
     },
     {
      "key": "1ld1ky9h6s4",
@@ -1132,12 +1150,14 @@
     {
      "key": "2f1wqgg16n3",
      "en": "Content Marketing — Finloa",
-     "nl": "Contentmarketing — Finloa"
+     "nl": "Contentmarketing — Finloa",
+     "seo": "title"
     },
     {
      "key": "1oabyz4val9",
      "en": "Articles, guides, case studies, video and email planned around your goals and distributed so people see them.",
-     "nl": "Artikelen, gidsen, cases, video en e-mail, gepland rond jouw doelen en verspreid zodat mensen ze ook echt zien."
+     "nl": "Artikelen, gidsen, cases, video en e-mail, gepland rond jouw doelen en verspreid zodat mensen ze ook echt zien.",
+     "seo": "description"
     },
     {
      "key": "1f0hzd41wmt",
@@ -1384,12 +1404,14 @@
     {
      "key": "ikzwfd1h6z",
      "en": "For Creators — Finloa",
-     "nl": "Voor creators — Finloa"
+     "nl": "Voor creators — Finloa",
+     "seo": "title"
     },
     {
      "key": "25a36q26pj9",
      "en": "Finloa partners with creators and businesses to build or add new sources of revenue.",
-     "nl": "Finloa werkt samen met creators en bedrijven om nieuwe inkomstenbronnen op te bouwen of toe te voegen."
+     "nl": "Finloa werkt samen met creators en bedrijven om nieuwe inkomstenbronnen op te bouwen of toe te voegen.",
+     "seo": "description"
     },
     {
      "key": "1e334pb1xl4",
@@ -1687,12 +1709,14 @@
     {
      "key": "evj7jht5r7",
      "en": "Idea to Product — Finloa",
-     "nl": "Van idee tot product — Finloa"
+     "nl": "Van idee tot product — Finloa",
+     "seo": "title"
     },
     {
      "key": "1lcbnuj30i2",
      "en": "An online business, a SaaS product or an internal tool. We shape the concept, design and build it, put it live and keep it running after launch.",
-     "nl": "Een online bedrijf, een SaaS-product of een interne tool. Wij scherpen het concept aan, ontwerpen en bouwen het, zetten het live en houden het draaiende na de lancering."
+     "nl": "Een online bedrijf, een SaaS-product of een interne tool. Wij scherpen het concept aan, ontwerpen en bouwen het, zetten het live en houden het draaiende na de lancering.",
+     "seo": "description"
     },
     {
      "key": "1gdvggrohk4",
@@ -2223,12 +2247,14 @@
     {
      "key": "9qy7mbcwne",
      "en": "Launch in the Netherlands — Dutch localisation | Finloa",
-     "nl": "Starten in Nederland — Nederlandse lokalisatie | Finloa"
+     "nl": "Starten in Nederland — Nederlandse lokalisatie | Finloa",
+     "seo": "title"
     },
     {
      "key": "1x8gw7jwbln",
      "en": "We rebuild what already works in English for the Netherlands: website, Dutch SEO, ads, social and video. Written by native speakers, run by one team.",
-     "nl": "We bouwen wat in het Engels al werkt opnieuw op voor Nederland: website, Nederlandse SEO, advertenties, social en video. Geschreven door moedertaalsprekers, uitgevoerd door één team."
+     "nl": "We bouwen wat in het Engels al werkt opnieuw op voor Nederland: website, Nederlandse SEO, advertenties, social en video. Geschreven door moedertaalsprekers, uitgevoerd door één team.",
+     "seo": "description"
     },
     {
      "key": "1vwxtyq9wta",
@@ -2253,12 +2279,14 @@
     {
      "key": "1s77sguy340",
      "en": "Paid Media — Finloa",
-     "nl": "Betaalde media — Finloa"
+     "nl": "Betaalde media — Finloa",
+     "seo": "title"
     },
     {
      "key": "421pptxza7",
      "en": "Paid search, paid social and programmatic campaigns built to bring in qualified leads and customers.",
-     "nl": "Zoekmachine-advertenties, social ads en programmatic campagnes die gekwalificeerde leads en klanten opleveren."
+     "nl": "Zoekmachine-advertenties, social ads en programmatic campagnes die gekwalificeerde leads en klanten opleveren.",
+     "seo": "description"
     },
     {
      "key": "nb0aeayi3x",
@@ -2520,12 +2548,14 @@
     {
      "key": "r7svwiv14k",
      "en": "Privacy Policy — Finloa",
-     "nl": "Privacyverklaring — Finloa"
+     "nl": "Privacyverklaring — Finloa",
+     "seo": "title"
     },
     {
      "key": "16vaqh5nh6g",
      "en": "How Finloa collects, uses and protects personal information.",
-     "nl": "Hoe Finloa persoonsgegevens verzamelt, gebruikt en beschermt."
+     "nl": "Hoe Finloa persoonsgegevens verzamelt, gebruikt en beschermt.",
+     "seo": "description"
     },
     {
      "key": "fwyux25t9g",
@@ -2562,12 +2592,14 @@
     {
      "key": "9r47glenpf",
      "en": "SEO, GEO & AEO — Finloa",
-     "nl": "SEO, GEO & AEO — Finloa"
+     "nl": "SEO, GEO & AEO — Finloa",
+     "seo": "title"
     },
     {
      "key": "u8xxf414at",
      "en": "Get found on Google and cited in ChatGPT, Perplexity and Google AI Overviews.",
-     "nl": "Word gevonden in Google en genoemd in ChatGPT, Perplexity en Google AI Overviews."
+     "nl": "Word gevonden in Google en genoemd in ChatGPT, Perplexity en Google AI Overviews.",
+     "seo": "description"
     },
     {
      "key": "i03gd8a1qh",
@@ -2964,12 +2996,14 @@
     {
      "key": "1s2cmwe3cbc",
      "en": "Services — Finloa",
-     "nl": "Diensten — Finloa"
+     "nl": "Diensten — Finloa",
+     "seo": "title"
     },
     {
      "key": "15vcjamjbuh",
      "en": "Strategy, websites, video, marketing and new income streams from one team, for creators and businesses.",
-     "nl": "Strategie, websites, video, marketing en nieuwe inkomstenbronnen van één team, voor creators en bedrijven."
+     "nl": "Strategie, websites, video, marketing en nieuwe inkomstenbronnen van één team, voor creators en bedrijven.",
+     "seo": "description"
     },
     {
      "key": "1orkip3qbcg",
@@ -3326,12 +3360,14 @@
     {
      "key": "a582zrvd05",
      "en": "Terms & Conditions — Finloa",
-     "nl": "Algemene voorwaarden — Finloa"
+     "nl": "Algemene voorwaarden — Finloa",
+     "seo": "title"
     },
     {
      "key": "1zeyu0hifko",
      "en": "The terms that govern your use of the Finloa website and platform.",
-     "nl": "De voorwaarden voor het gebruik van de website en het platform van Finloa."
+     "nl": "De voorwaarden voor het gebruik van de website en het platform van Finloa.",
+     "seo": "description"
     },
     {
      "key": "1i3ysp4oadg",
@@ -3368,12 +3404,14 @@
     {
      "key": "10tgx7bjsfp",
      "en": "Video Creation — Finloa",
-     "nl": "Videoproductie — Finloa"
+     "nl": "Videoproductie — Finloa",
+     "seo": "title"
     },
     {
      "key": "1u0ntso4htg",
      "en": "Professional videos for YouTube, TikTok, Instagram and LinkedIn at a clear monthly price. We edit, optimise and post so your channels keep growing.",
-     "nl": "Professionele video's voor YouTube, TikTok, Instagram en LinkedIn voor een duidelijke maandprijs. Wij monteren, optimaliseren en posten, zodat je kanalen blijven groeien."
+     "nl": "Professionele video's voor YouTube, TikTok, Instagram en LinkedIn voor een duidelijke maandprijs. Wij monteren, optimaliseren en posten, zodat je kanalen blijven groeien.",
+     "seo": "description"
     },
     {
      "key": "1vwxtyq9wta",
@@ -3417,12 +3455,14 @@
     {
      "key": "1opfsxtzwo1",
      "en": "Website Design & Development — Finloa",
-     "nl": "Webdesign & -ontwikkeling — Finloa"
+     "nl": "Webdesign & -ontwikkeling — Finloa",
+     "seo": "title"
     },
     {
      "key": "b7u1y642df",
      "en": "Websites designed and built around your customer journey, so more visitors become leads and customers.",
-     "nl": "Websites ontworpen en gebouwd rond de klantreis, zodat meer bezoekers leads en klanten worden."
+     "nl": "Websites ontworpen en gebouwd rond de klantreis, zodat meer bezoekers leads en klanten worden.",
+     "seo": "description"
     },
     {
      "key": "57qvadm7ot",
@@ -3754,12 +3794,14 @@
     {
      "key": "25sgetyv8yx",
      "en": "Why Finloa",
-     "nl": "Waarom Finloa"
+     "nl": "Waarom Finloa",
+     "seo": "title"
     },
     {
      "key": "23iunih3pvr",
      "en": "Strategists, writers, designers, developers and marketers working together to grow your brand or channel.",
-     "nl": "Strategen, schrijvers, designers, developers en marketeers die samen je merk of kanaal laten groeien."
+     "nl": "Strategen, schrijvers, designers, developers en marketeers die samen je merk of kanaal laten groeien.",
+     "seo": "description"
     },
     {
      "key": "1p14v43ii02",
@@ -5288,12 +5330,14 @@
     {
      "key": "13f380r9qu9",
      "en": "Finloa — Affordable video creation for businesses",
-     "nl": "Finloa — Betaalbare video's voor bedrijven"
+     "nl": "Finloa — Betaalbare video's voor bedrijven",
+     "seo": "title"
     },
     {
      "key": "1u0ntso4htg",
      "en": "Professional videos for YouTube, TikTok, Instagram and LinkedIn at a clear monthly price. We edit, optimise and post so your channels keep growing.",
-     "nl": "Professionele video's voor YouTube, TikTok, Instagram en LinkedIn voor een duidelijke maandprijs. Wij monteren, optimaliseren en posten, zodat je kanalen blijven groeien."
+     "nl": "Professionele video's voor YouTube, TikTok, Instagram en LinkedIn voor een duidelijke maandprijs. Wij monteren, optimaliseren en posten, zodat je kanalen blijven groeien.",
+     "seo": "description"
     }
    ]
   },
@@ -5562,6 +5606,12 @@
    "home"
   ],
   "ex7fynf4ln": [
+   "home"
+  ],
+  "11sexd9jgj1": [
+   "home"
+  ],
+  "c015oiasyv": [
    "home"
   ],
   "18sb9pwnvmt": [
