@@ -2,21 +2,27 @@ export const FOOTER_COLUMNS = [
   {
     title: { en: "Services", nl: "Diensten" },
     links: [
+      { href: "/idea-to-product", en: "Idea to Product", nl: "Van idee tot product" },
       { href: "/ai-marketing", en: "AI Marketing", nl: "AI-marketing" },
-      { href: "/website-design", en: "Website Design & Development", nl: "Webdesign & -ontwikkeling" },
       { href: "/videos", en: "Video Creation", nl: "Videoproductie" },
-      { href: "/netherlands", en: "Launch in the Netherlands ↗", nl: "Starten in Nederland ↗" },
     ],
   },
   {
     title: { en: "Expertise", nl: "Expertise" },
     links: [
+      { href: "/saas-development", en: "SaaS Development", nl: "SaaS-ontwikkeling" },
+      { href: "/hosting-maintenance", en: "Hosting & Maintenance", nl: "Hosting & onderhoud" },
       { href: "/seo", en: "SEO", nl: "SEO" },
-      { href: "/content-marketing", en: "Content Marketing", nl: "Contentmarketing" },
-      { href: "/paid-media", en: "Paid Advertising", nl: "Online adverteren" },
     ],
   },
-  { title: { en: "Industries", nl: "Branches" }, links: [{ href: "/for-creators", en: "For Creators", nl: "Voor creators" }] },
+  {
+    title: { en: "Industries", nl: "Branches" },
+    links: [
+      { href: "/for-founders", en: "For Founders", nl: "Voor founders" },
+      { href: "/for-small-businesses", en: "For Small Businesses", nl: "Voor kleine bedrijven" },
+      { href: "/netherlands", en: "Launch in the Netherlands ↗", nl: "Starten in Nederland ↗" },
+    ],
+  },
   {
     title: { en: "About Us", nl: "Over ons" },
     links: [

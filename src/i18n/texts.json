@@ -1705,6 +1705,833 @@
    ]
   },
   {
+   "id": "for-founders",
+   "group": "page",
+   "label": "For Founders",
+   "path": "/for-founders",
+   "file": "app/[lang]/for-founders/page.tsx",
+   "texts": [
+    {
+     "key": "erq1nfbjgq",
+     "en": "For Founders — Finloa",
+     "nl": "Voor founders — Finloa",
+     "seo": "title"
+    },
+    {
+     "key": "1qgcerl44f8",
+     "en": "A product, brand and growth team for founders: turn your idea into a launched product with real customers.",
+     "nl": "Een product-, merk- en groeiteam voor founders: maak van je idee een gelanceerd product met echte klanten.",
+     "seo": "description"
+    },
+    {
+     "key": "1qr4ogf18yh",
+     "en": "You have an idea, not a tech team",
+     "nl": "Je hebt een idee, geen techteam"
+    },
+    {
+     "key": "25n3htdqn6q",
+     "en": "We act as your product and engineering team until you're ready to hire.",
+     "nl": "Wij zijn je product- en techteam tot je klaar bent om zelf mensen aan te nemen."
+    },
+    {
+     "key": "7gaui19rw",
+     "en": "You need to move fast",
+     "nl": "Je moet snel schakelen"
+    },
+    {
+     "key": "wuexbkuo73",
+     "en": "Short sprints and weekly demos keep you close to the work.",
+     "nl": "Korte sprints en wekelijkse demo's houden je dicht bij het werk."
+    },
+    {
+     "key": "35umay6hbx",
+     "en": "You need customers, not just code",
+     "nl": "Je hebt klanten nodig, niet alleen code"
+    },
+    {
+     "key": "1k0bnhibq0g",
+     "en": "We help with the brand, the website and the first marketing too.",
+     "nl": "We helpen ook met het merk, de website en de eerste marketing."
+    },
+    {
+     "key": "25vv34n4tc7",
+     "en": "Idea to product",
+     "nl": "Van idee tot product"
+    },
+    {
+     "key": "27whrujdrrz",
+     "en": "We shape your idea into a scope, a prototype and a working MVP.",
+     "nl": "We vormen je idee tot een scope, een prototype en een werkende MVP."
+    },
+    {
+     "key": "1r7oj0bvw8l",
+     "en": "SaaS development",
+     "nl": "SaaS-ontwikkeling"
+    },
+    {
+     "key": "13mza6258c8",
+     "en": "Accounts, subscriptions and integrations, built to scale.",
+     "nl": "Accounts, abonnementen en koppelingen, gebouwd om te schalen."
+    },
+    {
+     "key": "1jbmcshcnmo",
+     "en": "Launch marketing",
+     "nl": "Marketing voor je lancering"
+    },
+    {
+     "key": "soh5i4941t",
+     "en": "A website, launch video and search visibility to win your first users.",
+     "nl": "Een website, lanceringsvideo en vindbaarheid om je eerste gebruikers te winnen."
+    },
+    {
+     "key": "1zihh83im8y",
+     "en": "Idea call",
+     "nl": "Ideegesprek"
+    },
+    {
+     "key": "ggugm8aw4y",
+     "en": "A free call to understand your idea and goals.",
+     "nl": "Een gratis gesprek om je idee en doelen te begrijpen."
+    },
+    {
+     "key": "1wlk01yk0hm",
+     "en": "Plan",
+     "nl": "Plan"
+    },
+    {
+     "key": "16l5vqmn3xf",
+     "en": "A clear scope, timeline and price for your first version.",
+     "nl": "Een heldere scope, planning en prijs voor je eerste versie."
+    },
+    {
+     "key": "1qebgg7591e",
+     "en": "Build",
+     "nl": "Bouwen"
+    },
+    {
+     "key": "1ni0etzgxpb",
+     "en": "Weekly demos until the product is ready to launch.",
+     "nl": "Wekelijkse demo's tot het product klaar is voor de lancering."
+    },
+    {
+     "key": "10we51fom05",
+     "en": "Launch and learn",
+     "nl": "Lanceren en leren"
+    },
+    {
+     "key": "24nmlyvu5uh",
+     "en": "We go live and improve based on real user feedback.",
+     "nl": "We gaan live en verbeteren op basis van echte gebruikersfeedback."
+    },
+    {
+     "key": "1jairr9y0zh",
+     "en": "I'm not technical. Is that a problem?",
+     "nl": "Ik ben niet technisch. Is dat een probleem?"
+    },
+    {
+     "key": "117vsefb3i8",
+     "en": "Not at all. We explain every choice in plain language and you decide what gets built.",
+     "nl": "Helemaal niet. We leggen elke keuze uit in gewone taal en jij beslist wat er gebouwd wordt."
+    },
+    {
+     "key": "endaff4ym9",
+     "en": "Can you help with investor demos?",
+     "nl": "Kunnen jullie helpen met demo's voor investeerders?"
+    },
+    {
+     "key": "1vdx940hxi7",
+     "en": "Yes. A clickable prototype or a working MVP makes your pitch much easier to believe.",
+     "nl": "Ja. Een klikbaar prototype of een werkende MVP maakt je pitch veel geloofwaardiger."
+    },
+    {
+     "key": "16zcwpbygx6",
+     "en": "Do you sign an NDA?",
+     "nl": "Tekenen jullie een geheimhoudingsverklaring?"
+    },
+    {
+     "key": "j1yspawlmn",
+     "en": "Yes, happily, before you share the details of your idea.",
+     "nl": "Ja, graag, voordat je de details van je idee deelt."
+    },
+    {
+     "key": "sfikgx4nri",
+     "en": "What if I later hire my own developers?",
+     "nl": "Wat als ik later zelf developers aanneem?"
+    },
+    {
+     "key": "1ewvb38wcu2",
+     "en": "You own all the code and we document it, so your team can take over smoothly.",
+     "nl": "Alle code is van jou en we documenteren hem, zodat je team het soepel kan overnemen."
+    },
+    {
+     "key": "22jilv4jumk",
+     "en": "Tell us your idea",
+     "nl": "Vertel ons je idee"
+    },
+    {
+     "key": "2dn2pwz648v",
+     "en": "For Founders",
+     "nl": "Voor founders"
+    },
+    {
+     "key": "vx8il4ozlq",
+     "en": "From idea to launch,",
+     "nl": "Van idee tot lancering,"
+    },
+    {
+     "key": "184ido8x1hl",
+     "en": "with one team.",
+     "nl": "met één team."
+    },
+    {
+     "key": "1oaompt18gv",
+     "en": "We're the product, design and growth team for founders who want to launch fast and win their first customers.",
+     "nl": "Wij zijn het product-, design- en groeiteam voor founders die snel willen lanceren en hun eerste klanten willen winnen."
+    },
+    {
+     "key": "1wb5yezrvyv",
+     "en": "Tell us your idea →",
+     "nl": "Vertel ons je idee →"
+    },
+    {
+     "key": "jbidqsmvul",
+     "en": "See how we work",
+     "nl": "Bekijk hoe we werken"
+    },
+    {
+     "key": "1nrzl4re56g",
+     "en": "Sound familiar?",
+     "nl": "Herkenbaar?"
+    },
+    {
+     "key": "1209zjsrujr",
+     "en": "Building a company is hard enough.",
+     "nl": "Een bedrijf opbouwen is al lastig genoeg."
+    },
+    {
+     "key": "c9li3wub9f",
+     "en": "What we do for founders",
+     "nl": "Wat we doen voor founders"
+    },
+    {
+     "key": "2cfzgvm44rx",
+     "en": "Everything you need to launch.",
+     "nl": "Alles wat je nodig hebt om te lanceren."
+    },
+    {
+     "key": "1n3bp0l1ywl",
+     "en": "Learn more →",
+     "nl": "Meer weten →"
+    },
+    {
+     "key": "294kdbv0qli",
+     "en": "How it works",
+     "nl": "Zo werkt het"
+    },
+    {
+     "key": "160i9hhfxxh",
+     "en": "Four steps to launch.",
+     "nl": "In vier stappen naar de lancering."
+    },
+    {
+     "key": "12tyt0hmv2g",
+     "en": "Questions from founders.",
+     "nl": "Vragen van founders."
+    },
+    {
+     "key": "1add9trmlaf",
+     "en": "Tell us your idea.",
+     "nl": "Vertel ons je idee."
+    },
+    {
+     "key": "1vsfvwcwp88",
+     "en": "Share what you want to build. We'll reply with honest feedback and a first plan.",
+     "nl": "Vertel wat je wilt bouwen. We reageren met eerlijke feedback en een eerste plan."
+    },
+    {
+     "key": "rl07xpwaab",
+     "en": "Describe your idea",
+     "nl": "Beschrijf je idee"
+    }
+   ],
+   "includes": [
+    "component:contact-form",
+    "component:contact-section",
+    "component:email-signup",
+    "component:faq",
+    "component:site-footer",
+    "component:site-header"
+   ]
+  },
+  {
+   "id": "for-small-businesses",
+   "group": "page",
+   "label": "For Small Businesses",
+   "path": "/for-small-businesses",
+   "file": "app/[lang]/for-small-businesses/page.tsx",
+   "texts": [
+    {
+     "key": "272b2axofx6",
+     "en": "For Small Businesses — Finloa",
+     "nl": "Voor kleine bedrijven — Finloa",
+     "seo": "title"
+    },
+    {
+     "key": "2gewejrmakm",
+     "en": "Website, marketing and video for small businesses: get found online and win more customers, without hiring a team.",
+     "nl": "Website, marketing en video voor kleine bedrijven: word online gevonden en win meer klanten, zonder een team aan te nemen.",
+     "seo": "description"
+    },
+    {
+     "key": "58amveioky",
+     "en": "No time for marketing",
+     "nl": "Geen tijd voor marketing"
+    },
+    {
+     "key": "23mdftw6oc3",
+     "en": "You run the business. We handle the website, content and ads.",
+     "nl": "Jij runt het bedrijf. Wij regelen de website, content en advertenties."
+    },
+    {
+     "key": "2bscbkcn4hs",
+     "en": "Hard to get found",
+     "nl": "Moeilijk vindbaar"
+    },
+    {
+     "key": "f3oyjm0ofd",
+     "en": "Customers search on Google and AI tools. We make sure they find you.",
+     "nl": "Klanten zoeken via Google en AI-tools. Wij zorgen dat ze jou vinden."
+    },
+    {
+     "key": "1v940j54si",
+     "en": "Too many suppliers",
+     "nl": "Te veel leveranciers"
+    },
+    {
+     "key": "1w8dt77uth0",
+     "en": "One partner for your website, hosting, marketing and video.",
+     "nl": "Eén partner voor je website, hosting, marketing en video."
+    },
+    {
+     "key": "1nj2h1fo4ba",
+     "en": "A website that sells",
+     "nl": "Een website die verkoopt"
+    },
+    {
+     "key": "26l923jhhei",
+     "en": "Fast, clear and built to turn visitors into enquiries.",
+     "nl": "Snel, duidelijk en gemaakt om bezoekers om te zetten in aanvragen."
+    },
+    {
+     "key": "1rajtctyg8m",
+     "en": "Get found locally and online",
+     "nl": "Lokaal en online gevonden worden"
+    },
+    {
+     "key": "hrq32xme15",
+     "en": "SEO and AI search visibility for the questions your customers ask.",
+     "nl": "SEO en zichtbaarheid in AI-zoekmachines voor de vragen van je klanten."
+    },
+    {
+     "key": "qfwfpfme0x",
+     "en": "Marketing on autopilot",
+     "nl": "Marketing op de automatische piloot"
+    },
+    {
+     "key": "mdnmlxk5m8",
+     "en": "AI-assisted content, ads and email that run without daily effort.",
+     "nl": "Content, advertenties en e-mail met AI, zonder dagelijkse moeite."
+    },
+    {
+     "key": "2g1zwyny5t2",
+     "en": "Videos that build trust",
+     "nl": "Video's die vertrouwen wekken"
+    },
+    {
+     "key": "uviiqvajxt",
+     "en": "Short videos for your website and social channels.",
+     "nl": "Korte video's voor je website en sociale kanalen."
+    },
+    {
+     "key": "26e8yhqalb6",
+     "en": "Hosting and maintenance",
+     "nl": "Hosting en onderhoud"
+    },
+    {
+     "key": "16rci06zdst",
+     "en": "We keep your site online, secure and up to date.",
+     "nl": "Wij houden je site online, veilig en up-to-date."
+    },
+    {
+     "key": "1xxqxor3l8u",
+     "en": "Free intro call",
+     "nl": "Gratis kennismaking"
+    },
+    {
+     "key": "1g7vecjopnp",
+     "en": "We learn about your business, customers and goals.",
+     "nl": "We leren je bedrijf, klanten en doelen kennen."
+    },
+    {
+     "key": "1t5u3emh2fr",
+     "en": "A simple plan",
+     "nl": "Een eenvoudig plan"
+    },
+    {
+     "key": "1l33wf3qf19",
+     "en": "A short list of what will bring the most customers, with a clear price.",
+     "nl": "Een korte lijst van wat de meeste klanten oplevert, met een duidelijke prijs."
+    },
+    {
+     "key": "10519ttg21x",
+     "en": "We do the work",
+     "nl": "Wij doen het werk"
+    },
+    {
+     "key": "102gtfurk13",
+     "en": "You approve, we build and run it.",
+     "nl": "Jij keurt goed, wij bouwen en voeren uit."
+    },
+    {
+     "key": "10avyj44ph",
+     "en": "Monthly results",
+     "nl": "Maandelijkse resultaten"
+    },
+    {
+     "key": "1hkl1y2ppwx",
+     "en": "A plain-language report on visitors, enquiries and next steps.",
+     "nl": "Een helder rapport over bezoekers, aanvragen en volgende stappen."
+    },
+    {
+     "key": "cuokcnt8yf",
+     "en": "Is this affordable for a small business?",
+     "nl": "Is dit betaalbaar voor een klein bedrijf?"
+    },
+    {
+     "key": "jzw37r1a0w",
+     "en": "Yes. We start with what brings the most return and grow from there, with a clear price up front.",
+     "nl": "Ja. We beginnen met wat het meeste oplevert en bouwen van daaruit verder, met vooraf een duidelijke prijs."
+    },
+    {
+     "key": "1hzvmkez7is",
+     "en": "Do I need to know anything about marketing?",
+     "nl": "Moet ik verstand hebben van marketing?"
+    },
+    {
+     "key": "2cex9ti2on8",
+     "en": "No. We explain things simply and do the work for you.",
+     "nl": "Nee. We leggen het eenvoudig uit en doen het werk voor je."
+    },
+    {
+     "key": "20lggbtgy7u",
+     "en": "Can you work with my existing website?",
+     "nl": "Kunnen jullie met mijn huidige website werken?"
+    },
+    {
+     "key": "p5phf41lw5",
+     "en": "Often, yes. We'll check it first and tell you honestly whether to improve or replace it.",
+     "nl": "Vaak wel. We bekijken hem eerst en zeggen eerlijk of verbeteren of vervangen beter is."
+    },
+    {
+     "key": "lca0613g8s",
+     "en": "How soon will I see more customers?",
+     "nl": "Hoe snel zie ik meer klanten?"
+    },
+    {
+     "key": "8wmc1gm946",
+     "en": "Ads and website fixes can help within weeks. Search visibility usually builds over a few months.",
+     "nl": "Advertenties en verbeteringen aan je website helpen soms al binnen weken. Vindbaarheid bouwt zich meestal in een paar maanden op."
+    },
+    {
+     "key": "2eigjnzlmye",
+     "en": "For Small Businesses",
+     "nl": "Voor kleine bedrijven"
+    },
+    {
+     "key": "243r1k3wi7i",
+     "en": "More customers,",
+     "nl": "Meer klanten,"
+    },
+    {
+     "key": "1wuaj9oj4pz",
+     "en": "less hassle.",
+     "nl": "minder gedoe."
+    },
+    {
+     "key": "2cdlv5xd2yc",
+     "en": "Website, marketing, video and hosting for small businesses, from one team that speaks your language.",
+     "nl": "Website, marketing, video en hosting voor kleine bedrijven, van één team dat jouw taal spreekt."
+    },
+    {
+     "key": "1oibmf4v13h",
+     "en": "Book a free intro call →",
+     "nl": "Plan een gratis kennismaking →"
+    },
+    {
+     "key": "dqof899sga",
+     "en": "All services",
+     "nl": "Alle diensten"
+    },
+    {
+     "key": "1nrzl4re56g",
+     "en": "Sound familiar?",
+     "nl": "Herkenbaar?"
+    },
+    {
+     "key": "vu76tz0uyn",
+     "en": "You're great at what you do. Marketing takes time.",
+     "nl": "Je bent goed in je vak. Marketing kost tijd."
+    },
+    {
+     "key": "cfmpul8w12",
+     "en": "What we do",
+     "nl": "Wat we doen"
+    },
+    {
+     "key": "ek2y4oesqw",
+     "en": "One team for everything online.",
+     "nl": "Eén team voor alles online."
+    },
+    {
+     "key": "1n3bp0l1ywl",
+     "en": "Learn more →",
+     "nl": "Meer weten →"
+    },
+    {
+     "key": "294kdbv0qli",
+     "en": "How it works",
+     "nl": "Zo werkt het"
+    },
+    {
+     "key": "3fqku54wuw",
+     "en": "Simple from the first call.",
+     "nl": "Eenvoudig vanaf het eerste gesprek."
+    },
+    {
+     "key": "1jk6ahv067b",
+     "en": "Questions from business owners.",
+     "nl": "Vragen van ondernemers."
+    },
+    {
+     "key": "146ssmmngg9",
+     "en": "Tell us about your business. We'll come back with a simple plan to win more customers.",
+     "nl": "Vertel ons over je bedrijf. We komen terug met een eenvoudig plan om meer klanten te winnen."
+    },
+    {
+     "key": "1k7vfc5qxp2",
+     "en": "Website",
+     "nl": "Website"
+    },
+    {
+     "key": "z5cj4m2a9m",
+     "en": "What would you like to grow?",
+     "nl": "Wat wil je laten groeien?"
+    }
+   ],
+   "includes": [
+    "component:contact-form",
+    "component:contact-section",
+    "component:email-signup",
+    "component:faq",
+    "component:site-footer",
+    "component:site-header"
+   ]
+  },
+  {
+   "id": "hosting-maintenance",
+   "group": "page",
+   "label": "Hosting & Maintenance",
+   "path": "/hosting-maintenance",
+   "file": "app/[lang]/hosting-maintenance/page.tsx",
+   "texts": [
+    {
+     "key": "2cqozzxsjig",
+     "en": "Hosting & Maintenance — Finloa",
+     "nl": "Hosting & onderhoud — Finloa",
+     "seo": "title"
+    },
+    {
+     "key": "1ke63foe5ka",
+     "en": "Fast, secure hosting and ongoing maintenance for your website or app, so it stays online and up to date.",
+     "nl": "Snelle, veilige hosting en doorlopend onderhoud voor je website of app, zodat die online en up-to-date blijft.",
+     "seo": "description"
+    },
+    {
+     "key": "1hl7612ylsj",
+     "en": "Managed hosting",
+     "nl": "Beheerde hosting"
+    },
+    {
+     "key": "e8jt9omyzr",
+     "en": "Fast, secure servers set up and managed for you, close to your customers.",
+     "nl": "Snelle, veilige servers die we voor je inrichten en beheren, dicht bij je klanten."
+    },
+    {
+     "key": "4fx4qzfaw0",
+     "en": "SSL, CDN and caching included",
+     "nl": "SSL, CDN en caching inbegrepen"
+    },
+    {
+     "key": "2g27f55j00r",
+     "en": "Daily backups you can restore",
+     "nl": "Dagelijkse back-ups die je kunt terugzetten"
+    },
+    {
+     "key": "1x0u3x0ev37",
+     "en": "Hosting in the EU",
+     "nl": "Hosting in de EU"
+    },
+    {
+     "key": "a8bazpr0nz",
+     "en": "Security and updates",
+     "nl": "Beveiliging en updates"
+    },
+    {
+     "key": "7c4ctq7o2y",
+     "en": "We keep your software, plugins and dependencies up to date and patch issues quickly.",
+     "nl": "We houden je software, plugins en afhankelijkheden up-to-date en dichten lekken snel."
+    },
+    {
+     "key": "1sd5qoxanlk",
+     "en": "Regular security updates",
+     "nl": "Regelmatige beveiligingsupdates"
+    },
+    {
+     "key": "1d07dn6i2a0",
+     "en": "Malware and vulnerability scans",
+     "nl": "Scans op malware en kwetsbaarheden"
+    },
+    {
+     "key": "16u4rjnszde",
+     "en": "Firewall and spam protection",
+     "nl": "Firewall en spambescherming"
+    },
+    {
+     "key": "142cn5r8474",
+     "en": "Monitoring and support",
+     "nl": "Monitoring en support"
+    },
+    {
+     "key": "azrfp4amno",
+     "en": "We watch your site around the clock and fix problems before your customers notice.",
+     "nl": "We houden je site dag en nacht in de gaten en lossen problemen op voordat je klanten ze merken."
+    },
+    {
+     "key": "1gq42qfy9i5",
+     "en": "Uptime and performance monitoring",
+     "nl": "Monitoring van uptime en snelheid"
+    },
+    {
+     "key": "13g7jc00qnd",
+     "en": "Small content and design changes",
+     "nl": "Kleine aanpassingen in content en ontwerp"
+    },
+    {
+     "key": "vc9d2p297l",
+     "en": "A monthly report in plain language",
+     "nl": "Een maandrapport in begrijpelijke taal"
+    },
+    {
+     "key": "16svug9trcu",
+     "en": "No more surprises",
+     "nl": "Geen verrassingen meer"
+    },
+    {
+     "key": "4a95ufp05n",
+     "en": "Expired certificates, full disks and broken updates get caught early.",
+     "nl": "Verlopen certificaten, volle schijven en mislukte updates worden vroeg opgemerkt."
+    },
+    {
+     "key": "26i5zpb0vy3",
+     "en": "One point of contact",
+     "nl": "Eén aanspreekpunt"
+    },
+    {
+     "key": "b7lymrkuy9",
+     "en": "No more chasing your host, developer and designer separately.",
+     "nl": "Niet meer los achter je hoster, developer en ontwerper aan."
+    },
+    {
+     "key": "fn3neh9xjf",
+     "en": "Faster pages",
+     "nl": "Snellere pagina's"
+    },
+    {
+     "key": "aloo8l93jx",
+     "en": "A fast site ranks better and converts more visitors into customers.",
+     "nl": "Een snelle site rankt beter en maakt van meer bezoekers klanten."
+    },
+    {
+     "key": "ai6z5kvh3o",
+     "en": "Health check",
+     "nl": "Gezondheidscheck"
+    },
+    {
+     "key": "1g6idockrnv",
+     "en": "We review your current setup, speed and security.",
+     "nl": "We bekijken je huidige setup, snelheid en beveiliging."
+    },
+    {
+     "key": "1ta0zytmrhr",
+     "en": "Migration",
+     "nl": "Verhuizing"
+    },
+    {
+     "key": "tyepugcaau",
+     "en": "We move your site to our hosting without downtime.",
+     "nl": "We verhuizen je site zonder downtime naar onze hosting."
+    },
+    {
+     "key": "5zpfpu5f3o",
+     "en": "Ongoing care",
+     "nl": "Doorlopende zorg"
+    },
+    {
+     "key": "26o13sihk6m",
+     "en": "Updates, backups and monitoring, every month.",
+     "nl": "Updates, back-ups en monitoring, elke maand."
+    },
+    {
+     "key": "2f54zqxcq9m",
+     "en": "Improvements",
+     "nl": "Verbeteringen"
+    },
+    {
+     "key": "1sdimrw043k",
+     "en": "We suggest and make changes that keep your site fast and useful.",
+     "nl": "We stellen verbeteringen voor en voeren ze door, zodat je site snel en nuttig blijft."
+    },
+    {
+     "key": "2bcfpd9u5zb",
+     "en": "Can you host a site you didn't build?",
+     "nl": "Kunnen jullie een site hosten die jullie niet gebouwd hebben?"
+    },
+    {
+     "key": "1n5ilfiz38u",
+     "en": "Yes. We start with a health check, then migrate it and take over the maintenance.",
+     "nl": "Ja. We beginnen met een gezondheidscheck, verhuizen de site en nemen het onderhoud over."
+    },
+    {
+     "key": "15u0zgsmdje",
+     "en": "Will my site go offline during the move?",
+     "nl": "Gaat mijn site offline tijdens de verhuizing?"
+    },
+    {
+     "key": "1ypm8isj4rk",
+     "en": "No. We test everything on the new server first and switch over when it's ready.",
+     "nl": "Nee. We testen alles eerst op de nieuwe server en schakelen pas over als het klaar is."
+    },
+    {
+     "key": "31xruo2est",
+     "en": "What if something breaks?",
+     "nl": "Wat als er iets kapotgaat?"
+    },
+    {
+     "key": "1lwe61ynouc",
+     "en": "Our monitoring alerts us straight away and we restore from backup if needed.",
+     "nl": "Onze monitoring waarschuwt ons direct en waar nodig zetten we een back-up terug."
+    },
+    {
+     "key": "etijdip9gm",
+     "en": "Can I cancel?",
+     "nl": "Kan ik opzeggen?"
+    },
+    {
+     "key": "dklnjurtt1",
+     "en": "Yes. If you leave, we hand over your files, database and accounts.",
+     "nl": "Ja. Als je vertrekt, dragen we je bestanden, database en accounts over."
+    },
+    {
+     "key": "my2czh1e8v",
+     "en": "Hosting & Maintenance",
+     "nl": "Hosting & onderhoud"
+    },
+    {
+     "key": "6m3omz1hsr",
+     "en": "Your site online, fast",
+     "nl": "Je site online, snel"
+    },
+    {
+     "key": "6u2nljryvo",
+     "en": "and always up to date.",
+     "nl": "en altijd up-to-date."
+    },
+    {
+     "key": "150fjql8xem",
+     "en": "We host, secure and maintain your website or app, so you can focus on your business instead of servers and updates.",
+     "nl": "Wij hosten, beveiligen en onderhouden je website of app, zodat jij je kunt richten op je bedrijf in plaats van op servers en updates."
+    },
+    {
+     "key": "1subx4xfg14",
+     "en": "Get a free health check →",
+     "nl": "Vraag een gratis check aan →"
+    },
+    {
+     "key": "4m0du0kunb",
+     "en": "Need a new site?",
+     "nl": "Nieuwe site nodig?"
+    },
+    {
+     "key": "y5epy10equ",
+     "en": "What's included",
+     "nl": "Wat je krijgt"
+    },
+    {
+     "key": "1ke7ijf6296",
+     "en": "Everything to keep your site running.",
+     "nl": "Alles om je site draaiende te houden."
+    },
+    {
+     "key": "dzwwnvhdv1",
+     "en": "Why it matters",
+     "nl": "Waarom het telt"
+    },
+    {
+     "key": "17ot89mq39w",
+     "en": "A site nobody looks after slowly breaks.",
+     "nl": "Een site waar niemand naar omkijkt, gaat langzaam stuk."
+    },
+    {
+     "key": "294kdbv0qli",
+     "en": "How it works",
+     "nl": "Zo werkt het"
+    },
+    {
+     "key": "1ec6wmhb0rq",
+     "en": "Switching is simple.",
+     "nl": "Overstappen is simpel."
+    },
+    {
+     "key": "pn63znxecq",
+     "en": "Questions about hosting.",
+     "nl": "Vragen over hosting."
+    },
+    {
+     "key": "253zegjyzl8",
+     "en": "Tell us about your site. We'll run a free health check and suggest the right plan.",
+     "nl": "Vertel ons over je site. We doen een gratis gezondheidscheck en adviseren het juiste pakket."
+    },
+    {
+     "key": "1k7vfc5qxp2",
+     "en": "Website",
+     "nl": "Website"
+    },
+    {
+     "key": "1qed6zuy8ky",
+     "en": "What do you need help with?",
+     "nl": "Waarmee kunnen we helpen?"
+    }
+   ],
+   "includes": [
+    "component:contact-form",
+    "component:contact-section",
+    "component:email-signup",
+    "component:faq",
+    "component:site-footer",
+    "component:site-header"
+   ]
+  },
+  {
    "id": "idea-to-product",
    "group": "page",
    "label": "Idea to Product",
@@ -2583,6 +3410,305 @@
     "component:contact-section",
     "component:email-signup",
     "component:legal-page",
+    "component:site-footer",
+    "component:site-header"
+   ]
+  },
+  {
+   "id": "saas-development",
+   "group": "page",
+   "label": "SaaS Development",
+   "path": "/saas-development",
+   "file": "app/[lang]/saas-development/page.tsx",
+   "texts": [
+    {
+     "key": "ygy4nk1dq",
+     "en": "SaaS Development — Finloa",
+     "nl": "SaaS-ontwikkeling — Finloa",
+     "seo": "title"
+    },
+    {
+     "key": "tl29j1hsyk",
+     "en": "We design, build and launch SaaS products: from MVP to a stable platform your customers pay for.",
+     "nl": "We ontwerpen, bouwen en lanceren SaaS-producten: van MVP tot een stabiel platform waar je klanten voor betalen.",
+     "seo": "description"
+    },
+    {
+     "key": "17kama14ttc",
+     "en": "MVP development",
+     "nl": "MVP-ontwikkeling"
+    },
+    {
+     "key": "ygjsrfoulf",
+     "en": "A focused first version with the features that prove your idea, built to grow rather than be thrown away.",
+     "nl": "Een gerichte eerste versie met de functies die je idee bewijzen, gebouwd om te groeien in plaats van weggegooid te worden."
+    },
+    {
+     "key": "1z8yfbfsdg7",
+     "en": "Scope workshop and feature priorities",
+     "nl": "Scope-workshop en prioriteiten"
+    },
+    {
+     "key": "1fxbmdm8503",
+     "en": "Clickable prototype before we build",
+     "nl": "Klikbaar prototype vóór we bouwen"
+    },
+    {
+     "key": "1ui3r4tunl3",
+     "en": "Live product in weeks, not months",
+     "nl": "Live product in weken, niet maanden"
+    },
+    {
+     "key": "1hry6is59rn",
+     "en": "Full SaaS platforms",
+     "nl": "Complete SaaS-platformen"
+    },
+    {
+     "key": "1id0h9rauhz",
+     "en": "Everything a real SaaS needs behind the scenes, so you can sell from day one.",
+     "nl": "Alles wat een echte SaaS achter de schermen nodig heeft, zodat je vanaf dag één kunt verkopen."
+    },
+    {
+     "key": "3b5qtszqid",
+     "en": "User accounts, teams and roles",
+     "nl": "Gebruikersaccounts, teams en rollen"
+    },
+    {
+     "key": "1wgilqlwll7",
+     "en": "Subscriptions and payments",
+     "nl": "Abonnementen en betalingen"
+    },
+    {
+     "key": "hkypa441is",
+     "en": "Admin dashboard and analytics",
+     "nl": "Beheeromgeving en analytics"
+    },
+    {
+     "key": "c4orupljca",
+     "en": "Integrations and AI features",
+     "nl": "Koppelingen en AI-functies"
+    },
+    {
+     "key": "13z443rnqlf",
+     "en": "Connect your product to the tools your customers already use, and add AI where it saves them time.",
+     "nl": "Koppel je product aan de tools die je klanten al gebruiken, en voeg AI toe waar het ze tijd bespaart."
+    },
+    {
+     "key": "15ht8k3wdtj",
+     "en": "APIs and third-party integrations",
+     "nl": "API's en koppelingen met andere software"
+    },
+    {
+     "key": "bxru4el9br",
+     "en": "AI assistants, search and automation",
+     "nl": "AI-assistenten, zoeken en automatisering"
+    },
+    {
+     "key": "19xvuozr5j8",
+     "en": "Webhooks and data exports",
+     "nl": "Webhooks en data-exports"
+    },
+    {
+     "key": "egzora0kbj",
+     "en": "Fast, accessible web apps built with React and Next.js",
+     "nl": "Snelle, toegankelijke webapps met React en Next.js"
+    },
+    {
+     "key": "26blvhm3s2r",
+     "en": "Secure APIs and databases that scale with your users",
+     "nl": "Veilige API's en databases die meegroeien met je gebruikers"
+    },
+    {
+     "key": "flzhch4xr",
+     "en": "Stripe subscriptions, invoices and trials",
+     "nl": "Stripe-abonnementen, facturen en proefperiodes"
+    },
+    {
+     "key": "20cpv7q5y9a",
+     "en": "Language models connected to your own data",
+     "nl": "Taalmodellen gekoppeld aan je eigen data"
+    },
+    {
+     "key": "gbf9y05vul",
+     "en": "Automated deployments, backups and monitoring",
+     "nl": "Geautomatiseerde deployments, back-ups en monitoring"
+    },
+    {
+     "key": "7yxg9h6f60",
+     "en": "Discovery",
+     "nl": "Verkenning"
+    },
+    {
+     "key": "fr9jbrn6fz",
+     "en": "We learn your market, your users and what the first version must prove.",
+     "nl": "We leren je markt, je gebruikers en wat de eerste versie moet bewijzen."
+    },
+    {
+     "key": "9bi7i84mky",
+     "en": "Design",
+     "nl": "Ontwerp"
+    },
+    {
+     "key": "bte0pwb6p2",
+     "en": "Wireframes and a clickable prototype you can test with real users.",
+     "nl": "Wireframes en een klikbaar prototype dat je met echte gebruikers kunt testen."
+    },
+    {
+     "key": "1qebgg7591e",
+     "en": "Build",
+     "nl": "Bouwen"
+    },
+    {
+     "key": "1l3j4odnxfa",
+     "en": "Short sprints with a working demo at the end of each one.",
+     "nl": "Korte sprints met aan het eind van elke sprint een werkende demo."
+    },
+    {
+     "key": "w8whg4kvxh",
+     "en": "Launch",
+     "nl": "Lancering"
+    },
+    {
+     "key": "1nn1zbc7rua",
+     "en": "We go live, set up monitoring and make sure payments work.",
+     "nl": "We gaan live, zetten monitoring op en zorgen dat betalingen werken."
+    },
+    {
+     "key": "lnvsyj7wsr",
+     "en": "Grow",
+     "nl": "Groeien"
+    },
+    {
+     "key": "1fh781qbtwp",
+     "en": "We keep improving the product based on what your users do.",
+     "nl": "We blijven het product verbeteren op basis van wat je gebruikers doen."
+    },
+    {
+     "key": "1zqm3nhjjrd",
+     "en": "How long does it take to build a SaaS MVP?",
+     "nl": "Hoe lang duurt het om een SaaS-MVP te bouwen?"
+    },
+    {
+     "key": "2cuah6c4tqs",
+     "en": "Most MVPs take six to twelve weeks, depending on scope. We agree the scope and timeline before we start.",
+     "nl": "De meeste MVP's duren zes tot twaalf weken, afhankelijk van de scope. We spreken scope en planning af voordat we beginnen."
+    },
+    {
+     "key": "ti8ma5cyn7",
+     "en": "Who owns the code?",
+     "nl": "Van wie is de code?"
+    },
+    {
+     "key": "9254m0e7lf",
+     "en": "You do. The code, designs and accounts are yours from day one.",
+     "nl": "Van jou. De code, ontwerpen en accounts zijn vanaf dag één van jou."
+    },
+    {
+     "key": "26gnens0hqo",
+     "en": "Can you take over an existing product?",
+     "nl": "Kunnen jullie een bestaand product overnemen?"
+    },
+    {
+     "key": "29u8v0131hd",
+     "en": "Yes. We start with a code review, then fix what's urgent and plan the rest.",
+     "nl": "Ja. We beginnen met een code-review, lossen op wat dringend is en plannen de rest."
+    },
+    {
+     "key": "kwtgyjanm8",
+     "en": "What happens after launch?",
+     "nl": "Wat gebeurt er na de lancering?"
+    },
+    {
+     "key": "z8pyodw7o0",
+     "en": "We can host, maintain and keep developing your product, or hand it over to your own team.",
+     "nl": "We kunnen je product hosten, onderhouden en verder ontwikkelen, of het overdragen aan je eigen team."
+    },
+    {
+     "key": "eeaurhinso",
+     "en": "SaaS Development",
+     "nl": "SaaS-ontwikkeling"
+    },
+    {
+     "key": "1xmfh3gylxj",
+     "en": "Software your customers",
+     "nl": "Software waar je klanten"
+    },
+    {
+     "key": "21car1hbvcj",
+     "en": "are happy to pay for.",
+     "nl": "graag voor betalen."
+    },
+    {
+     "key": "1zg5hiz8qk1",
+     "en": "We design, build and launch SaaS products, from a first MVP to a platform with accounts, subscriptions and integrations.",
+     "nl": "We ontwerpen, bouwen en lanceren SaaS-producten, van een eerste MVP tot een platform met accounts, abonnementen en koppelingen."
+    },
+    {
+     "key": "1wb5yezrvyv",
+     "en": "Tell us your idea →",
+     "nl": "Vertel ons je idee →"
+    },
+    {
+     "key": "1tkmwzhqprd",
+     "en": "How we work",
+     "nl": "Hoe we werken"
+    },
+    {
+     "key": "j47wo9nd8z",
+     "en": "What we build",
+     "nl": "Wat we bouwen"
+    },
+    {
+     "key": "1j55q204ezi",
+     "en": "From first version to full platform.",
+     "nl": "Van eerste versie tot compleet platform."
+    },
+    {
+     "key": "11d45cxp24w",
+     "en": "Our stack",
+     "nl": "Onze techniek"
+    },
+    {
+     "key": "p5h3p1w596",
+     "en": "Proven tools, no lock-in.",
+     "nl": "Bewezen tools, geen lock-in."
+    },
+    {
+     "key": "hzotuhazx1",
+     "en": "We use widely adopted technology, so any good developer can work on your product later.",
+     "nl": "We gebruiken breed gedragen technologie, zodat elke goede developer later aan je product kan werken."
+    },
+    {
+     "key": "294kdbv0qli",
+     "en": "How it works",
+     "nl": "Zo werkt het"
+    },
+    {
+     "key": "114tmn9tnt3",
+     "en": "From idea to paying customers in five steps.",
+     "nl": "Van idee tot betalende klanten in vijf stappen."
+    },
+    {
+     "key": "13pto1fqib8",
+     "en": "Questions about SaaS development.",
+     "nl": "Vragen over SaaS-ontwikkeling."
+    },
+    {
+     "key": "1bdno85liwq",
+     "en": "Tell us what you want to build. We'll come back with a scope, a timeline and a clear price.",
+     "nl": "Vertel ons wat je wilt bouwen. We komen terug met een scope, een planning en een duidelijke prijs."
+    },
+    {
+     "key": "13rl00ouoy2",
+     "en": "What should your product do?",
+     "nl": "Wat moet je product doen?"
+    }
+   ],
+   "includes": [
+    "component:contact-form",
+    "component:contact-section",
+    "component:email-signup",
+    "component:faq",
     "component:site-footer",
     "component:site-header"
    ]
@@ -5401,9 +6527,9 @@
      "nl": "FINLOA"
     },
     {
-     "key": "hepec8ukdz",
-     "en": "Plan Your Growth ↗",
-     "nl": "Plan je groei ↗"
+     "key": "2gc2phkudqa",
+     "en": "Tell us your idea ↗",
+     "nl": "Vertel ons je idee ↗"
     },
     {
      "key": "xe3jsnhcbp",
@@ -5955,6 +7081,8 @@
    "blog",
    "blog/[slug]",
    "careers",
+   "for-small-businesses",
+   "hosting-maintenance",
    "seo",
    "services",
    "why-finloa",
@@ -6130,7 +7258,11 @@
    "ai-marketing",
    "content-marketing",
    "for-creators",
+   "for-founders",
+   "for-small-businesses",
+   "hosting-maintenance",
    "paid-media",
+   "saas-development",
    "seo",
    "website-design"
   ],
@@ -6504,6 +7636,8 @@
   ],
   "1n3bp0l1ywl": [
    "content-marketing",
+   "for-founders",
+   "for-small-businesses",
    "paid-media",
    "website-design",
    "why-finloa"
@@ -6683,6 +7817,453 @@
   "2bbiv00kz72": [
    "for-creators"
   ],
+  "erq1nfbjgq": [
+   "for-founders"
+  ],
+  "1qgcerl44f8": [
+   "for-founders"
+  ],
+  "1qr4ogf18yh": [
+   "for-founders"
+  ],
+  "25n3htdqn6q": [
+   "for-founders"
+  ],
+  "7gaui19rw": [
+   "for-founders"
+  ],
+  "wuexbkuo73": [
+   "for-founders"
+  ],
+  "35umay6hbx": [
+   "for-founders"
+  ],
+  "1k0bnhibq0g": [
+   "for-founders"
+  ],
+  "25vv34n4tc7": [
+   "for-founders"
+  ],
+  "27whrujdrrz": [
+   "for-founders"
+  ],
+  "1r7oj0bvw8l": [
+   "for-founders"
+  ],
+  "13mza6258c8": [
+   "for-founders"
+  ],
+  "1jbmcshcnmo": [
+   "for-founders"
+  ],
+  "soh5i4941t": [
+   "for-founders"
+  ],
+  "1zihh83im8y": [
+   "for-founders"
+  ],
+  "ggugm8aw4y": [
+   "for-founders"
+  ],
+  "1wlk01yk0hm": [
+   "for-founders"
+  ],
+  "16l5vqmn3xf": [
+   "for-founders"
+  ],
+  "1qebgg7591e": [
+   "for-founders",
+   "idea-to-product",
+   "saas-development"
+  ],
+  "1ni0etzgxpb": [
+   "for-founders"
+  ],
+  "10we51fom05": [
+   "for-founders"
+  ],
+  "24nmlyvu5uh": [
+   "for-founders"
+  ],
+  "1jairr9y0zh": [
+   "for-founders",
+   "idea-to-product"
+  ],
+  "117vsefb3i8": [
+   "for-founders"
+  ],
+  "endaff4ym9": [
+   "for-founders"
+  ],
+  "1vdx940hxi7": [
+   "for-founders"
+  ],
+  "16zcwpbygx6": [
+   "for-founders"
+  ],
+  "j1yspawlmn": [
+   "for-founders"
+  ],
+  "sfikgx4nri": [
+   "for-founders"
+  ],
+  "1ewvb38wcu2": [
+   "for-founders"
+  ],
+  "22jilv4jumk": [
+   "for-founders",
+   "idea-to-product"
+  ],
+  "2dn2pwz648v": [
+   "for-founders"
+  ],
+  "vx8il4ozlq": [
+   "for-founders"
+  ],
+  "184ido8x1hl": [
+   "for-founders"
+  ],
+  "1oaompt18gv": [
+   "for-founders"
+  ],
+  "1wb5yezrvyv": [
+   "for-founders",
+   "saas-development",
+   "component:idea-to-product"
+  ],
+  "jbidqsmvul": [
+   "for-founders"
+  ],
+  "1nrzl4re56g": [
+   "for-founders",
+   "for-small-businesses"
+  ],
+  "1209zjsrujr": [
+   "for-founders"
+  ],
+  "c9li3wub9f": [
+   "for-founders"
+  ],
+  "2cfzgvm44rx": [
+   "for-founders"
+  ],
+  "160i9hhfxxh": [
+   "for-founders"
+  ],
+  "12tyt0hmv2g": [
+   "for-founders"
+  ],
+  "1add9trmlaf": [
+   "for-founders",
+   "component:idea-to-product"
+  ],
+  "1vsfvwcwp88": [
+   "for-founders"
+  ],
+  "rl07xpwaab": [
+   "for-founders"
+  ],
+  "272b2axofx6": [
+   "for-small-businesses"
+  ],
+  "2gewejrmakm": [
+   "for-small-businesses"
+  ],
+  "58amveioky": [
+   "for-small-businesses"
+  ],
+  "23mdftw6oc3": [
+   "for-small-businesses"
+  ],
+  "2bscbkcn4hs": [
+   "for-small-businesses"
+  ],
+  "f3oyjm0ofd": [
+   "for-small-businesses"
+  ],
+  "1v940j54si": [
+   "for-small-businesses"
+  ],
+  "1w8dt77uth0": [
+   "for-small-businesses"
+  ],
+  "1nj2h1fo4ba": [
+   "for-small-businesses"
+  ],
+  "26l923jhhei": [
+   "for-small-businesses"
+  ],
+  "1rajtctyg8m": [
+   "for-small-businesses"
+  ],
+  "hrq32xme15": [
+   "for-small-businesses"
+  ],
+  "qfwfpfme0x": [
+   "for-small-businesses"
+  ],
+  "mdnmlxk5m8": [
+   "for-small-businesses"
+  ],
+  "2g1zwyny5t2": [
+   "for-small-businesses"
+  ],
+  "uviiqvajxt": [
+   "for-small-businesses"
+  ],
+  "26e8yhqalb6": [
+   "for-small-businesses"
+  ],
+  "16rci06zdst": [
+   "for-small-businesses"
+  ],
+  "1xxqxor3l8u": [
+   "for-small-businesses"
+  ],
+  "1g7vecjopnp": [
+   "for-small-businesses"
+  ],
+  "1t5u3emh2fr": [
+   "for-small-businesses"
+  ],
+  "1l33wf3qf19": [
+   "for-small-businesses"
+  ],
+  "10519ttg21x": [
+   "for-small-businesses"
+  ],
+  "102gtfurk13": [
+   "for-small-businesses"
+  ],
+  "10avyj44ph": [
+   "for-small-businesses"
+  ],
+  "1hkl1y2ppwx": [
+   "for-small-businesses"
+  ],
+  "cuokcnt8yf": [
+   "for-small-businesses"
+  ],
+  "jzw37r1a0w": [
+   "for-small-businesses"
+  ],
+  "1hzvmkez7is": [
+   "for-small-businesses"
+  ],
+  "2cex9ti2on8": [
+   "for-small-businesses"
+  ],
+  "20lggbtgy7u": [
+   "for-small-businesses"
+  ],
+  "p5phf41lw5": [
+   "for-small-businesses"
+  ],
+  "lca0613g8s": [
+   "for-small-businesses"
+  ],
+  "8wmc1gm946": [
+   "for-small-businesses"
+  ],
+  "2eigjnzlmye": [
+   "for-small-businesses"
+  ],
+  "243r1k3wi7i": [
+   "for-small-businesses"
+  ],
+  "1wuaj9oj4pz": [
+   "for-small-businesses"
+  ],
+  "2cdlv5xd2yc": [
+   "for-small-businesses"
+  ],
+  "1oibmf4v13h": [
+   "for-small-businesses"
+  ],
+  "dqof899sga": [
+   "for-small-businesses"
+  ],
+  "vu76tz0uyn": [
+   "for-small-businesses"
+  ],
+  "cfmpul8w12": [
+   "for-small-businesses"
+  ],
+  "ek2y4oesqw": [
+   "for-small-businesses"
+  ],
+  "3fqku54wuw": [
+   "for-small-businesses"
+  ],
+  "1jk6ahv067b": [
+   "for-small-businesses"
+  ],
+  "146ssmmngg9": [
+   "for-small-businesses"
+  ],
+  "z5cj4m2a9m": [
+   "for-small-businesses"
+  ],
+  "2cqozzxsjig": [
+   "hosting-maintenance"
+  ],
+  "1ke63foe5ka": [
+   "hosting-maintenance"
+  ],
+  "1hl7612ylsj": [
+   "hosting-maintenance"
+  ],
+  "e8jt9omyzr": [
+   "hosting-maintenance"
+  ],
+  "4fx4qzfaw0": [
+   "hosting-maintenance"
+  ],
+  "2g27f55j00r": [
+   "hosting-maintenance"
+  ],
+  "1x0u3x0ev37": [
+   "hosting-maintenance"
+  ],
+  "a8bazpr0nz": [
+   "hosting-maintenance"
+  ],
+  "7c4ctq7o2y": [
+   "hosting-maintenance"
+  ],
+  "1sd5qoxanlk": [
+   "hosting-maintenance"
+  ],
+  "1d07dn6i2a0": [
+   "hosting-maintenance"
+  ],
+  "16u4rjnszde": [
+   "hosting-maintenance"
+  ],
+  "142cn5r8474": [
+   "hosting-maintenance"
+  ],
+  "azrfp4amno": [
+   "hosting-maintenance"
+  ],
+  "1gq42qfy9i5": [
+   "hosting-maintenance"
+  ],
+  "13g7jc00qnd": [
+   "hosting-maintenance"
+  ],
+  "vc9d2p297l": [
+   "hosting-maintenance"
+  ],
+  "16svug9trcu": [
+   "hosting-maintenance"
+  ],
+  "4a95ufp05n": [
+   "hosting-maintenance"
+  ],
+  "26i5zpb0vy3": [
+   "hosting-maintenance"
+  ],
+  "b7lymrkuy9": [
+   "hosting-maintenance"
+  ],
+  "fn3neh9xjf": [
+   "hosting-maintenance"
+  ],
+  "aloo8l93jx": [
+   "hosting-maintenance"
+  ],
+  "ai6z5kvh3o": [
+   "hosting-maintenance"
+  ],
+  "1g6idockrnv": [
+   "hosting-maintenance"
+  ],
+  "1ta0zytmrhr": [
+   "hosting-maintenance"
+  ],
+  "tyepugcaau": [
+   "hosting-maintenance"
+  ],
+  "5zpfpu5f3o": [
+   "hosting-maintenance"
+  ],
+  "26o13sihk6m": [
+   "hosting-maintenance"
+  ],
+  "2f54zqxcq9m": [
+   "hosting-maintenance"
+  ],
+  "1sdimrw043k": [
+   "hosting-maintenance"
+  ],
+  "2bcfpd9u5zb": [
+   "hosting-maintenance"
+  ],
+  "1n5ilfiz38u": [
+   "hosting-maintenance"
+  ],
+  "15u0zgsmdje": [
+   "hosting-maintenance"
+  ],
+  "1ypm8isj4rk": [
+   "hosting-maintenance"
+  ],
+  "31xruo2est": [
+   "hosting-maintenance"
+  ],
+  "1lwe61ynouc": [
+   "hosting-maintenance"
+  ],
+  "etijdip9gm": [
+   "hosting-maintenance"
+  ],
+  "dklnjurtt1": [
+   "hosting-maintenance"
+  ],
+  "my2czh1e8v": [
+   "hosting-maintenance"
+  ],
+  "6m3omz1hsr": [
+   "hosting-maintenance"
+  ],
+  "6u2nljryvo": [
+   "hosting-maintenance"
+  ],
+  "150fjql8xem": [
+   "hosting-maintenance"
+  ],
+  "1subx4xfg14": [
+   "hosting-maintenance"
+  ],
+  "4m0du0kunb": [
+   "hosting-maintenance"
+  ],
+  "y5epy10equ": [
+   "hosting-maintenance",
+   "seo"
+  ],
+  "1ke7ijf6296": [
+   "hosting-maintenance"
+  ],
+  "dzwwnvhdv1": [
+   "hosting-maintenance"
+  ],
+  "17ot89mq39w": [
+   "hosting-maintenance"
+  ],
+  "1ec6wmhb0rq": [
+   "hosting-maintenance"
+  ],
+  "pn63znxecq": [
+   "hosting-maintenance"
+  ],
+  "253zegjyzl8": [
+   "hosting-maintenance"
+  ],
+  "1qed6zuy8ky": [
+   "hosting-maintenance"
+  ],
   "evj7jht5r7": [
    "idea-to-product"
   ],
@@ -6699,15 +8280,13 @@
    "idea-to-product"
   ],
   "9bi7i84mky": [
-   "idea-to-product"
+   "idea-to-product",
+   "saas-development"
   ],
   "2ethz8goulb": [
    "idea-to-product"
   ],
   "19r3pituonk": [
-   "idea-to-product"
-  ],
-  "1qebgg7591e": [
    "idea-to-product"
   ],
   "1qpjpygvdbg": [
@@ -6879,9 +8458,6 @@
   "257idqzw43z": [
    "idea-to-product"
   ],
-  "1jairr9y0zh": [
-   "idea-to-product"
-  ],
   "hs55nnnn8v": [
    "idea-to-product"
   ],
@@ -6904,7 +8480,8 @@
    "idea-to-product"
   ],
   "kwtgyjanm8": [
-   "idea-to-product"
+   "idea-to-product",
+   "saas-development"
   ],
   "gjapx3x6ru": [
    "idea-to-product"
@@ -6913,9 +8490,6 @@
    "idea-to-product"
   ],
   "wsqlfibfi2": [
-   "idea-to-product"
-  ],
-  "22jilv4jumk": [
    "idea-to-product"
   ],
   "2eowhfq4m8a": [
@@ -7158,6 +8732,160 @@
   "21tqhutku42": [
    "privacy"
   ],
+  "ygy4nk1dq": [
+   "saas-development"
+  ],
+  "tl29j1hsyk": [
+   "saas-development"
+  ],
+  "17kama14ttc": [
+   "saas-development"
+  ],
+  "ygjsrfoulf": [
+   "saas-development"
+  ],
+  "1z8yfbfsdg7": [
+   "saas-development"
+  ],
+  "1fxbmdm8503": [
+   "saas-development"
+  ],
+  "1ui3r4tunl3": [
+   "saas-development"
+  ],
+  "1hry6is59rn": [
+   "saas-development"
+  ],
+  "1id0h9rauhz": [
+   "saas-development"
+  ],
+  "3b5qtszqid": [
+   "saas-development"
+  ],
+  "1wgilqlwll7": [
+   "saas-development"
+  ],
+  "hkypa441is": [
+   "saas-development"
+  ],
+  "c4orupljca": [
+   "saas-development"
+  ],
+  "13z443rnqlf": [
+   "saas-development"
+  ],
+  "15ht8k3wdtj": [
+   "saas-development"
+  ],
+  "bxru4el9br": [
+   "saas-development"
+  ],
+  "19xvuozr5j8": [
+   "saas-development"
+  ],
+  "egzora0kbj": [
+   "saas-development"
+  ],
+  "26blvhm3s2r": [
+   "saas-development"
+  ],
+  "flzhch4xr": [
+   "saas-development"
+  ],
+  "20cpv7q5y9a": [
+   "saas-development"
+  ],
+  "gbf9y05vul": [
+   "saas-development"
+  ],
+  "7yxg9h6f60": [
+   "saas-development"
+  ],
+  "fr9jbrn6fz": [
+   "saas-development"
+  ],
+  "bte0pwb6p2": [
+   "saas-development"
+  ],
+  "1l3j4odnxfa": [
+   "saas-development"
+  ],
+  "w8whg4kvxh": [
+   "saas-development",
+   "component:netherlands"
+  ],
+  "1nn1zbc7rua": [
+   "saas-development"
+  ],
+  "lnvsyj7wsr": [
+   "saas-development"
+  ],
+  "1fh781qbtwp": [
+   "saas-development"
+  ],
+  "1zqm3nhjjrd": [
+   "saas-development"
+  ],
+  "2cuah6c4tqs": [
+   "saas-development"
+  ],
+  "ti8ma5cyn7": [
+   "saas-development"
+  ],
+  "9254m0e7lf": [
+   "saas-development"
+  ],
+  "26gnens0hqo": [
+   "saas-development"
+  ],
+  "29u8v0131hd": [
+   "saas-development"
+  ],
+  "z8pyodw7o0": [
+   "saas-development"
+  ],
+  "eeaurhinso": [
+   "saas-development"
+  ],
+  "1xmfh3gylxj": [
+   "saas-development"
+  ],
+  "21car1hbvcj": [
+   "saas-development"
+  ],
+  "1zg5hiz8qk1": [
+   "saas-development"
+  ],
+  "1tkmwzhqprd": [
+   "saas-development"
+  ],
+  "j47wo9nd8z": [
+   "saas-development"
+  ],
+  "1j55q204ezi": [
+   "saas-development"
+  ],
+  "11d45cxp24w": [
+   "saas-development"
+  ],
+  "p5h3p1w596": [
+   "saas-development"
+  ],
+  "hzotuhazx1": [
+   "saas-development"
+  ],
+  "114tmn9tnt3": [
+   "saas-development"
+  ],
+  "13pto1fqib8": [
+   "saas-development"
+  ],
+  "1bdno85liwq": [
+   "saas-development"
+  ],
+  "13rl00ouoy2": [
+   "saas-development"
+  ],
   "9r47glenpf": [
    "seo"
   ],
@@ -7348,9 +9076,6 @@
    "seo"
   ],
   "283kkzv57b3": [
-   "seo"
-  ],
-  "y5epy10equ": [
    "seo"
   ],
   "1icexxk1wuf": [
@@ -8034,15 +9759,9 @@
   "2fhvnzrkdmk": [
    "component:hero"
   ],
-  "1wb5yezrvyv": [
-   "component:idea-to-product"
-  ],
   "mxhrk3ngrx": [
    "component:idea-to-product",
    "component:netherlands"
-  ],
-  "1add9trmlaf": [
-   "component:idea-to-product"
   ],
   "2dho4mpgkcn": [
    "component:idea-to-product"
@@ -8175,9 +9894,6 @@
    "component:netherlands"
   ],
   "22qa6763asg": [
-   "component:netherlands"
-  ],
-  "w8whg4kvxh": [
    "component:netherlands"
   ],
   "1th21xcek5z": [
@@ -8469,7 +10185,7 @@
    "component:site-footer",
    "component:site-header"
   ],
-  "hepec8ukdz": [
+  "2gc2phkudqa": [
    "component:site-footer"
   ],
   "xe3jsnhcbp": [
