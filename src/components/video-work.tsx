@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useLocale, useT } from "@/i18n/client";
 import type { PortfolioVideo } from "@/lib/api";
+import { YtThumb } from "./yt-thumb";
 
 export const NICHES = [
   { slug: "software-learning", name: "Software & Learning", nl: "Software & onderwijs" },
@@ -15,7 +16,6 @@ export const NICHES = [
 
 const SLOTS = 4;
 const pad = (n: number) => String(n + 1).padStart(2, "0");
-const thumb = (id?: string) => (id ? `url(https://img.youtube.com/vi/${id}/hqdefault.jpg)` : "none");
 
 /** Always 4 slots, filling empty ones with placeholders like the design. */
 function slots(videos: PortfolioVideo[]) {
@@ -122,7 +122,7 @@ export function VideoWork({ videos }: { videos: PortfolioVideo[] }) {
                 }`}
               >
                 <div className="relative aspect-video w-[104px] flex-none overflow-hidden rounded-[9px] bg-[linear-gradient(135deg,#1E2A55,#0B1020)]">
-                  <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: thumb(v?.youtubeId) }} />
+                  {v && <YtThumb id={v.youtubeId} />}
                   <div className="absolute bottom-2 left-2 flex size-[22px] items-center justify-center rounded-full bg-white">
                     <PlayIcon size={[7, 4.5]} color="#0B1020" offset={2} />
                   </div>
@@ -162,7 +162,7 @@ export function VideoWork({ videos }: { videos: PortfolioVideo[] }) {
                     aria-label={s ? t(`Play short ${pad(i)}`, `Short ${pad(i)} afspelen`) : t(`Short ${pad(i)} coming soon`, `Short ${pad(i)} volgt binnenkort`)}
                     className={`absolute inset-0 border-0 bg-transparent p-0 ${s ? "cursor-pointer" : "cursor-default"}`}
                   >
-                    <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: thumb(s?.youtubeId) }} />
+                    {s && <YtThumb id={s.youtubeId} kind="short" />}
                     <div className="absolute inset-0 bg-[linear-gradient(to_top,oklch(0.15_0.03_265/0.75),transparent_45%)]" />
                     <div className="absolute top-1/2 left-1/2 flex size-[54px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white">
                       <PlayIcon size={[16, 10]} color="#0B1020" offset={4} />

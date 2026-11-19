@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/i18n/config";
-import { getPosts } from "@/lib/data";
+import { getPages, getPosts } from "@/lib/data";
 
 /** Every page exists in English (finloa.com) and Dutch (nl.finloa.com). */
 const languages = (path: string) => ({ en: `${SITE_URL.en}${path}`, "nl-NL": `${SITE_URL.nl}${path}` });
@@ -25,13 +25,11 @@ const PAGES: { path: string; changeFrequency: "weekly" | "monthly" | "yearly"; p
   { path: "/netherlands", changeFrequency: "monthly", priority: 0.7 },
   { path: "/blog", changeFrequency: "weekly", priority: 0.8 },
   { path: "/careers", changeFrequency: "monthly", priority: 0.5 },
-  { path: "/privacy", changeFrequency: "yearly", priority: 0.2 },
-  { path: "/terms", changeFrequency: "yearly", priority: 0.2 },
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // getPosts is cached for minutes, so new posts appear without a rebuild
-  const posts = await getPosts();
+  // Cached for minutes, so new posts and pages appear without a rebuild
+  const [posts, pages] = await Promise.all([getPosts(), getPages()]);
 
   return Object.values(SITE_URL).flatMap((site) => [
     ...PAGES.map(({ path, changeFrequency, priority }) => ({
@@ -39,6 +37,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency,
       priority,
       alternates: { languages: languages(path) },
+    })),
+    // Content pages from Admin → Pages (Terms, Privacy, …)
+    ...pages.map((page) => ({
+      url: `${site}/${page.slug}`,
+      lastModified: page.updatedAt,
+      changeFrequency: "yearly" as const,
+      priority: 0.3,
+      alternates: { languages: languages(`/${page.slug}`) },
     })),
     ...posts.map((post) => ({
       url: `${site}/blog/${post.slug}`,

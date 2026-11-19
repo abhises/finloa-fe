@@ -9,7 +9,7 @@ import { EmailSignup } from "./email-signup";
 
 const mono = "font-mono text-xs tracking-[0.16em]";
 
-/** "a [[b]] c" → text with the [[…]] parts wrapped in a span with `className` (edited in Admin → Pages) */
+/** "a [[b]] c" → text with the [[…]] parts wrapped in a span with `className` (edited in Admin → Site texts) */
 function marked(text: string, className: string) {
   return text.split(/\[\[(.+?)\]\]/).map((part, i) => (i % 2 ? <span key={i} className={className}>{part}</span> : part));
 }

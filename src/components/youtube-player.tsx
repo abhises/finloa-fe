@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useT } from "@/i18n/client";
+import { YtThumb } from "./yt-thumb";
 
 /** Poster with a play button; loads the (privacy-enhanced) YouTube player only when clicked. */
 export function YoutubePlayer({ youtubeId, title, label }: { youtubeId: string; title: string; label?: string }) {
@@ -26,11 +27,7 @@ export function YoutubePlayer({ youtubeId, title, label }: { youtubeId: string; 
       aria-label={`${t("Play video", "Video afspelen")}: ${title}`}
       className="group absolute inset-0 w-full cursor-pointer overflow-hidden rounded-[14px] border-0 bg-[radial-gradient(ellipse_60%_70%_at_40%_40%,#3A6BFF_0%,#16286B_45%,#0A1022_85%)] p-0"
     >
-      <span
-        className="absolute inset-0 bg-cover bg-center opacity-80 transition-opacity group-hover:opacity-100"
-        style={{ backgroundImage: `url(https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg)` }}
-        aria-hidden
-      />
+<YtThumb id={youtubeId} className="opacity-80 transition-opacity group-hover:opacity-100" />
       <span className="absolute inset-0 bg-[linear-gradient(to_top,rgba(10,16,34,.7),transparent_55%)]" aria-hidden />
       <span className="absolute top-1/2 left-1/2 flex size-[76px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white transition-transform group-hover:scale-105">
         <span className="ml-1.5 h-0 w-0 border-y-[12px] border-l-[20px] border-y-transparent border-l-ink" />

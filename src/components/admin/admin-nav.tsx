@@ -19,7 +19,16 @@ const MENU: Group[] = [
       { href: "/admin/sections", label: "Sections" },
     ],
   },
-  { href: "/admin/pages", label: "Pages (EN / NL)", icon: "pages" },
+  {
+    href: "/admin/pages",
+    label: "Pages",
+    icon: "pages",
+    items: [
+      { href: "/admin/pages", label: "All pages" },
+      { href: "/admin/pages/new", label: "Add new" },
+      { href: "/admin/texts", label: "Site texts (EN / NL)" },
+    ],
+  },
   { href: "/admin/media", label: "Media", icon: "media" },
   { href: "/admin/categories", label: "Categories", icon: "categories" },
   { href: "/admin/authors", label: "Authors", icon: "authors" },

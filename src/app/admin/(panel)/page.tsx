@@ -29,7 +29,7 @@ const GLANCE: [keyof Counts, string, string][] = [
   ["posts", "Published posts", "/admin/posts"],
   ["drafts", "Drafts", "/admin/posts"],
   ["untranslated", "Posts without Dutch", "/admin/posts"],
-  ["texts", "Edited page texts", "/admin/pages"],
+  ["texts", "Edited page texts", "/admin/texts"],
   ["media", "Media files", "/admin/media"],
   ["categories", "Categories", "/admin/categories"],
   ["authors", "Authors", "/admin/authors"],
@@ -83,8 +83,11 @@ export default function DashboardPage() {
             <Link className="ad-btn ad-btn--primary" href="/admin/posts/new">
               + New blog post
             </Link>
-            <Link className="ad-btn" href="/admin/pages">
-              Edit page texts (EN / NL)
+            <Link className="ad-btn" href="/admin/pages/new">
+              + New page
+            </Link>
+            <Link className="ad-btn" href="/admin/texts">
+              Edit site texts (EN / NL)
             </Link>
             <Link className="ad-btn" href="/admin/media">
               Upload media

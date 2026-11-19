@@ -142,3 +142,19 @@ export type PortfolioVideo = {
   title: string | null;
   sortOrder: number;
 };
+
+/** A content page (Terms, Privacy, pages added in Admin → Pages) from GET /api/pages/:slug?lang= */
+export type ContentPage = {
+  slug: string;
+  title: string;
+  /** Small label above the title; empty hides it */
+  eyebrow: string;
+  html: string;
+  css: string;
+  seoTitle: string | null;
+  seoDescription: string | null;
+  jsonLd: string | null;
+  /** false when Dutch was asked for but the page has no Dutch text yet (English is shown) */
+  translated: boolean;
+  updatedAt: string;
+};

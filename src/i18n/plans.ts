@@ -5,7 +5,7 @@ type PlanCopy = Pick<Plan, "name" | "tagline" | "description" | "ctaLabel" | "fe
 
 /**
  * Text of the video plans in both languages, matched by slug (prices and counts come from the API).
- * Written as t("English", "Nederlands") so every line can be edited under Admin → Pages → Video plans.
+ * Written as t("English", "Nederlands") so every line can be edited under Admin → Site texts → Video plans.
  */
 const COPY = (t: T): Record<string, PlanCopy> => ({
   starter: {
@@ -74,7 +74,7 @@ const COPY = (t: T): Record<string, PlanCopy> => ({
 const DEFAULTS = COPY((en) => en);
 
 /**
- * Plans with the text from Admin → Pages. Dutch always uses it (the API is English only); English uses it
+ * Plans with the text from Admin → Site texts. Dutch always uses it (the API is English only); English uses it
  * wherever the API still has the default text, so a plan changed in the database keeps its own wording.
  */
 export function localizePlans(plans: Plan[], locale: "en" | "nl", t: T): Plan[] {

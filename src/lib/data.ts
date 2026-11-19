@@ -1,7 +1,7 @@
 import "server-only";
 import { cacheLife, cacheTag } from "next/cache";
 import type { Locale, TextOverrides } from "@/i18n/config";
-import { API_URL, type Plan, type PortfolioVideo, type Post, type PostDetail } from "./api";
+import { API_URL, type ContentPage, type Plan, type PortfolioVideo, type Post, type PostDetail } from "./api";
 
 /** Server-side fetches use the internal address when running in Docker (e.g. http://backend:4000). */
 export const SERVER_API_URL = process.env.API_INTERNAL_URL ?? API_URL;
@@ -142,7 +142,7 @@ export async function getPost(slug: string, locale: Locale = "en"): Promise<Post
   return ((await res.json()) as { data: PostDetail }).data;
 }
 
-/** Site texts edited under Admin → Pages. Empty when none are edited or the API is unreachable (defaults show). */
+/** Site texts edited under Admin → Site texts. Empty when none are edited or the API is unreachable (defaults show). */
 export async function getTextOverrides(): Promise<TextOverrides> {
   "use cache";
   cacheLife("minutes");
@@ -155,4 +155,35 @@ export async function getTextOverrides(): Promise<TextOverrides> {
     console.warn(`[finloa] Could not load edited texts from ${SERVER_API_URL}, using the defaults.`, err);
     return {};
   }
+}
+
+/** Published content pages (Admin → Pages), for the sitemap. Empty when the API is unreachable. */
+export async function getPages(): Promise<{ slug: string; title: string; updatedAt: string }[]> {
+  "use cache";
+  cacheLife("minutes");
+  cacheTag("pages");
+  try {
+    const res = await fetch(`${SERVER_API_URL}/api/pages`, { signal: AbortSignal.timeout(4000) });
+    if (!res.ok) throw new Error(`API responded ${res.status}`);
+    return ((await res.json()) as { data: { slug: string; title: string; updatedAt: string }[] }).data;
+  } catch (err) {
+    console.warn(`[finloa] Could not load pages from ${SERVER_API_URL}.`, err);
+    return [];
+  }
+}
+
+/**
+ * One published content page, or null when it doesn't exist. Throws when the API is unreachable, so an outage
+ * shows an error instead of caching a "not found" page.
+ */
+export async function getPage(slug: string, locale: Locale = "en"): Promise<ContentPage | null> {
+  "use cache";
+  cacheLife("minutes");
+  cacheTag("pages", `page:${slug}`);
+  const res = await fetch(`${SERVER_API_URL}/api/pages/${encodeURIComponent(slug)}?lang=${locale}`, {
+    signal: AbortSignal.timeout(4000),
+  });
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(`[finloa] API responded ${res.status} for page "${slug}"`);
+  return ((await res.json()) as { data: ContentPage }).data;
 }

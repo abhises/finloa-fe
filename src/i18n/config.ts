@@ -11,7 +11,7 @@ export const HTML_LANG: Record<Locale, string> = { en: "en", nl: "nl-NL" };
 /** `t("English", "Nederlands")` picks the string for the current locale. */
 export type T = (en: string, nl: string) => string;
 
-/** Texts edited in the admin (Admin → Pages), by textKey(). A missing language uses the default from the code. */
+/** Texts edited in the admin (Admin → Site texts), by textKey(). A missing language uses the default from the code. */
 export type TextOverrides = Record<string, { en?: string; nl?: string }>;
 
 /**
