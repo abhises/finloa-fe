@@ -74,6 +74,44 @@ const extrasFrom = (r: ExtrasRow): Extras => ({
 });
 const extrasKey = (e: Extras) => JSON.stringify(e);
 
+const VOID_TAGS = new Set(["area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr", "path", "circle", "rect", "line", "polyline", "polygon", "stop", "use"]);
+const INLINE_TAGS = new Set(["a", "abbr", "b", "br", "code", "em", "i", "small", "span", "strong", "sub", "sup", "u", "s", "mark", "time"]);
+
+/** Indents HTML one block element per line, so a page's markup is readable in the HTML tab */
+function prettyHtml(html: string) {
+  const out: string[] = [];
+  let depth = 0;
+  let line = "";
+  const flush = () => {
+    if (line.trim()) out.push(`${"  ".repeat(Math.max(depth, 0))}${line.trim()}`);
+    line = "";
+  };
+  for (const tok of html.replace(/\s+/g, " ").split(/(<!--[\s\S]*?-->|<\/?[a-zA-Z][^>]*>)/)) {
+    if (!tok) continue;
+    const m = tok.match(/^<(\/?)([a-zA-Z][\w-]*)/);
+    if (!m || INLINE_TAGS.has(m[2].toLowerCase()) || tok.startsWith("<!--")) {
+      if (tok.startsWith("<!--")) flush();
+      line += tok;
+      if (tok.startsWith("<!--")) flush();
+      continue;
+    }
+    const tag = m[2].toLowerCase();
+    if (m[1]) {
+      flush();
+      depth--;
+      line = tok;
+      flush();
+    } else {
+      flush();
+      line = tok;
+      flush();
+      if (!VOID_TAGS.has(tag) && !tok.endsWith("/>")) depth++;
+    }
+  }
+  flush();
+  return out.join("\n");
+}
+
 /** Where new sections go by default: right before the contact form, otherwise after the last block */
 function defaultAnchor(blocks: PageBlock[] | null, layout: DesignLayout | null) {
   if (!blocks?.length) return undefined;
@@ -111,6 +149,8 @@ export function DesignPageEditor({ sectionId, title, intro, groups }: { sectionI
   const paintedParts = useRef(new WeakMap<Document, string>());
   /** The preview page has hydrated: only then is it safe to change its DOM */
   const [frameReady, setFrameReady] = useState(0);
+  /** The whole page's HTML (designed blocks + your sections), read from the preview for the HTML tab */
+  const [pageHtml, setPageHtml] = useState<string | null>(null);
   /** The blocks of the page, in the coded order (found in the English preview) */
   const [pageBlocks, setPageBlocks] = useState<PageBlock[] | null>(null);
   const nlOrigin = useNlOrigin();
@@ -515,6 +555,40 @@ export function DesignPageEditor({ sectionId, title, intro, groups }: { sectionI
     };
   });
 
+  /** Reads the page from the preview, in the order it shows: designed blocks (marked) and your sections */
+  const readPageHtml = () => {
+    const main = frameDoc()?.querySelector("main");
+    if (!main)
+      return setPageHtml(
+        previewLang === "nl"
+          ? "<!-- The Dutch preview runs on nl.finloa.com, so its HTML can't be read here. Switch to English to see the page's HTML. -->"
+          : null,
+      );
+    const win = main.ownerDocument.defaultView!;
+    const kids = ([...main.children] as HTMLElement[]).filter((el) => !el.matches("style, script"));
+    const sorted = kids
+      .map((el, i) => ({ el, i, order: Number(win.getComputedStyle(el).order) || 0 }))
+      .sort((a, b) => a.order - b.order || a.i - b.i);
+    const blockIndex = new Map(([...main.querySelectorAll(":scope > :not(.fl-x)")] as HTMLElement[]).map((el, i) => [el, `b${i}`]));
+    const parts = sorted.map(({ el }) => {
+      if (el.classList.contains("fl-x-sec")) {
+        const inner = el.firstElementChild?.innerHTML ?? "";
+        return `<!-- ===== Your section (edit it in Sections, or with “Edit HTML by hand”) ===== -->\n${prettyHtml(inner)}`;
+      }
+      const id = blockIndex.get(el) ?? "";
+      const name = byBlock.get(id)?.title ?? id;
+      if (layoutNow?.hidden.includes(id)) return `<!-- ===== ${name} · designed block · HIDDEN on the site ===== -->`;
+      return `<!-- ===== ${name} · designed block (layout in the code; edit its texts in Sections) ===== -->\n${prettyHtml(el.outerHTML)}`;
+    });
+    setPageHtml(parts.join("\n\n"));
+  };
+  useEffect(() => {
+    if (tab !== "html" || !frameReady) return;
+    const t = setTimeout(readPageHtml, 400);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tab, frameReady, previewParts, extras?.layout, pageBlocks]);
+
   const select = (id: string | null) => {
     setSelected(id);
     if (!id) return;
@@ -624,13 +698,17 @@ export function DesignPageEditor({ sectionId, title, intro, groups }: { sectionI
       <div className="ad-code-wrap">
         <div className="se-htmlbar">
           <span className="ad-hint">
-            Generated from your sections (shown below the design). {rendered[lang].error && <span className="ad-field__err">{rendered[lang].error}</span>}
+            The whole page as it shows now, top to bottom (read-only). Designed blocks are built in the code: edit their texts under Sections.
+{" "}
+            {rendered[lang].error && <span className="ad-field__err">{rendered[lang].error}</span>}
           </span>
-          <button type="button" className="ad-btn ad-btn--sm" onClick={useHtmlMode}>
-            Edit HTML by hand
-          </button>
+          {doc.items.length > 0 && (
+            <button type="button" className="ad-btn ad-btn--sm" onClick={useHtmlMode} title="Turn your sections into HTML you write yourself">
+              Edit HTML by hand
+            </button>
+          )}
         </div>
-        {code(rendered[lang].html, null, "html")}
+        {code(pageHtml ?? "<!-- Loading the page… -->", null, "html")}
       </div>
     );
   else if (lang === "nl" && nlEmpty)
