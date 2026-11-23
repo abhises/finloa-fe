@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import { SectionForm } from "@/components/admin/section-form";
 import { byGroup, emptyData, fillLabel, newId, type SectionItem, type SectionsDoc, type SectionType } from "@/lib/sections";
 
@@ -24,40 +24,101 @@ const LAYOUTS: [SectionsDoc["layout"], string][] = [
   ["wide", "Without contents list"],
 ];
 
+/** A block of a coded design (designed pages): its layout is fixed, but it can be hidden and moved; `body` is its editor. */
+export type FixedBlock = { id: string; name: string; sub?: string; body: ReactNode; hidden?: boolean };
+
+type Row = { kind: "fixed"; f: FixedBlock } | { kind: "item"; s: SectionItem };
+
 export function SectionsEditor({
   doc,
   onChange,
   selected,
   onSelect,
   types,
+  fixed,
+  onFixed,
+  defaultAfter,
+  itemsNote,
 }: {
   doc: SectionsDoc;
   onChange: (d: SectionsDoc) => void;
   selected: string | null;
   onSelect: (id: string | null) => void;
   types: SectionType[];
+  /** Designed blocks, in page order. Your sections are placed between them with their `after` anchor. */
+  fixed?: FixedBlock[];
+  /** The designed blocks were moved or hidden */
+  onFixed?: (next: { order: string[]; hidden: string[] }) => void;
+  /** Block a section without (a valid) anchor follows */
+  defaultAfter?: string;
+  /** Shown instead of the editable sections (e.g. the extra content is hand-written HTML) */
+  itemsNote?: ReactNode;
 }) {
   const [adding, setAdding] = useState(false);
   const byKey = useMemo(() => new Map(types.map((t) => [t.key, t])), [types]);
   const items = doc.items;
   const sel = items.find((s) => s.id === selected) ?? null;
   const selType = sel ? byKey.get(sel.type) : undefined;
+  const blocks = fixed ?? [];
+  const designed = blocks.length > 0;
+  const selFixed = blocks.find((f) => f.id === selected) ?? null;
+  const fixedIds = new Set(blocks.map((f) => f.id));
+  const fallback = defaultAfter && fixedIds.has(defaultAfter) ? defaultAfter : (blocks.at(-1)?.id ?? "start");
+  const anchorOf = (s: SectionItem) => (s.after && (s.after === "start" || fixedIds.has(s.after)) ? s.after : fallback);
+
+  /** Everything in page order: designed blocks with the sections that follow each of them */
+  const shownItems = itemsNote ? [] : items;
+  const rows: Row[] = designed
+    ? [
+        ...shownItems.filter((s) => anchorOf(s) === "start").map((s) => ({ kind: "item" as const, s })),
+        ...blocks.flatMap((f) => [{ kind: "fixed" as const, f }, ...shownItems.filter((s) => anchorOf(s) === f.id).map((s) => ({ kind: "item" as const, s }))]),
+      ]
+    : shownItems.map((s) => ({ kind: "item" as const, s }));
 
   const setItems = (next: SectionItem[]) => onChange({ ...doc, items: next });
   const update = (id: string, patch: Partial<SectionItem>) => setItems(items.map((s) => (s.id === id ? { ...s, ...patch } : s)));
+  const hiddenIds = () => blocks.filter((f) => f.hidden).map((f) => f.id);
+  /** New page order → designed block order + each section's anchor + section order */
+  const applyRows = (next: Row[]) => {
+    if (!designed) return setItems(next.map((r) => (r as { s: SectionItem }).s));
+    let anchor = "start";
+    const order: string[] = [];
+    const nextItems: SectionItem[] = [];
+    for (const r of next) {
+      if (r.kind === "fixed") {
+        order.push(r.f.id);
+        anchor = r.f.id;
+      } else nextItems.push({ ...r.s, after: anchor });
+    }
+    if (order.join() !== blocks.map((f) => f.id).join()) onFixed?.({ order, hidden: hiddenIds() });
+    setItems([...nextItems, ...items.filter((s) => !nextItems.some((n) => n.id === s.id))]);
+  };
   const move = (i: number, d: number) => {
     const j = i + d;
-    if (j < 0 || j >= items.length) return;
-    const n = [...items];
+    if (j < 0 || j >= rows.length) return;
+    const n = [...rows];
     [n[i], n[j]] = [n[j], n[i]];
-    setItems(n);
+    applyRows(n);
   };
   const add = (t: SectionType) => {
     const item: SectionItem = { id: newId(), type: t.key, data: emptyData(t.fields) };
-    const at = sel ? items.findIndex((s) => s.id === sel.id) + 1 : items.length;
-    setItems([...items.slice(0, at), item, ...items.slice(at)]);
+    if (designed) {
+      // right after the selected block or section, otherwise after the default block
+      const anchor = selFixed ? selFixed.id : sel ? anchorOf(sel) : fallback;
+      item.after = anchor;
+      const at = sel ? items.findIndex((s) => s.id === sel.id) + 1 : selFixed ? items.findIndex((s) => anchorOf(s) === anchor) : -1;
+      const pos = at < 0 ? items.length : at;
+      setItems([...items.slice(0, pos), item, ...items.slice(pos)]);
+    } else {
+      const at = sel ? items.findIndex((s) => s.id === sel.id) + 1 : items.length;
+      setItems([...items.slice(0, at), item, ...items.slice(at)]);
+    }
     onSelect(item.id);
     setAdding(false);
+  };
+  const toggleFixed = (f: FixedBlock) => {
+    const hidden = hiddenIds().filter((id) => id !== f.id);
+    onFixed?.({ order: blocks.map((b) => b.id), hidden: f.hidden ? hidden : [...hidden, f.id] });
   };
   const label = (s: SectionItem) => {
     const t = byKey.get(s.type);
@@ -67,25 +128,54 @@ export function SectionsEditor({
     return { name: t?.name ?? `Unknown type "${s.type}"`, sub };
   };
 
+  const ops = (i: number, name: string) => (
+    <span className="se-item__ops">
+      <button type="button" title="Move up" aria-label={`Move ${name} up`} onClick={() => move(i, -1)} disabled={i === 0}>
+        ↑
+      </button>
+      <button type="button" title="Move down" aria-label={`Move ${name} down`} onClick={() => move(i, 1)} disabled={i === rows.length - 1}>
+        ↓
+      </button>
+    </span>
+  );
+
   return (
     <div className="se">
       <div className="se-outline">
         <div className="se-outline__head">
-          <span>Sections</span>
-          <select aria-label="Page layout" value={doc.layout} onChange={(e) => onChange({ ...doc, layout: e.target.value as SectionsDoc["layout"] })}>
-            {LAYOUTS.map(([v, l]) => (
-              <option key={v} value={v}>
-                {l}
-              </option>
-            ))}
-          </select>
+          <span>{designed ? "Page blocks" : "Sections"}</span>
+          {!designed && (
+            <select aria-label="Page layout" value={doc.layout} onChange={(e) => onChange({ ...doc, layout: e.target.value as SectionsDoc["layout"] })}>
+              {LAYOUTS.map(([v, l]) => (
+                <option key={v} value={v}>
+                  {l}
+                </option>
+              ))}
+            </select>
+          )}
         </div>
-        {items.length === 0 && (
+        {rows.length === 0 && (
           <p className="ad-hint" style={{ padding: 10, margin: 0 }}>
             No sections yet. Add the first one below.
           </p>
         )}
-        {items.map((s, i) => {
+        {rows.map((r, i) => {
+          if (r.kind === "fixed") {
+            const f = r.f;
+            return (
+              <div key={f.id} className={`se-item se-item--fixed${f.id === selected ? " is-selected" : ""}${f.hidden ? " is-hidden" : ""}`}>
+                <button type="button" className="se-item__main" onClick={() => onSelect(f.id === selected ? null : f.id)} aria-pressed={f.id === selected}>
+                  <b>
+                    {f.name} <span className="se-item__lock">Design</span>
+                  </b>
+                  {f.sub && <small>{f.sub}</small>}
+                  {f.hidden && <small className="se-item__flag">Hidden</small>}
+                </button>
+                {onFixed && ops(i, f.name)}
+              </div>
+            );
+          }
+          const s = r.s;
           const l = label(s);
           return (
             <div key={s.id} className={`se-item${s.id === selected ? " is-selected" : ""}${s.hidden ? " is-hidden" : ""}`}>
@@ -94,24 +184,40 @@ export function SectionsEditor({
                 {l.sub && <small>{l.sub}</small>}
                 {s.hidden && <small className="se-item__flag">Hidden</small>}
               </button>
-              <span className="se-item__ops">
-                <button type="button" title="Move up" aria-label={`Move ${l.name} up`} onClick={() => move(i, -1)} disabled={i === 0}>
-                  ↑
-                </button>
-                <button type="button" title="Move down" aria-label={`Move ${l.name} down`} onClick={() => move(i, 1)} disabled={i === items.length - 1}>
-                  ↓
-                </button>
-              </span>
+              {ops(i, l.name)}
             </div>
           );
         })}
-        <button type="button" className="se-add" onClick={() => setAdding(true)}>
-          + Add section
-        </button>
+        {itemsNote ? (
+          <div className="ad-hint" style={{ padding: 10 }}>
+            {itemsNote}
+          </div>
+        ) : (
+          <button type="button" className="se-add" onClick={() => setAdding(true)}>
+            + Add section{designed && (selFixed || sel) ? " here" : ""}
+          </button>
+        )}
       </div>
 
       <div className="se-form">
-        {!sel ? (
+        {selFixed ? (
+          <>
+            <div className="se-form__head">
+              <strong>
+                {selFixed.name} <span className="se-item__lock">Design</span>
+              </strong>
+              {onFixed && (
+                <span className="se-form__ops">
+                  <button type="button" className="ad-btn ad-btn--sm" onClick={() => toggleFixed(selFixed)}>
+                    {selFixed.hidden ? "Show" : "Hide"}
+                  </button>
+                </span>
+              )}
+            </div>
+            {selFixed.hidden && <p className="ad-fallback">This block is hidden on the site (both languages). Its texts are kept.</p>}
+            {selFixed.body}
+          </>
+        ) : !sel ? (
           <p className="ad-hint">Select a section on the left to edit it, or add a new one.</p>
         ) : (
           <>

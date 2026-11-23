@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DesignExtras } from "@/components/design-extras";
 import { ContactSection } from "@/components/contact-section";
 import { FaqSection, type FaqItem } from "@/components/faq";
 import { PageShell } from "@/components/page-shell";
@@ -135,6 +136,7 @@ export default async function ForFoundersPage() {
         </div>
       </Section>
       <FaqSection title={t("Questions from founders.", "Vragen van founders.")} items={faqs(t)} />
+      <DesignExtras page="for-founders" />
       <ContactSection
         source="for-founders"
         title={t("Tell us your idea.", "Vertel ons je idee.")}

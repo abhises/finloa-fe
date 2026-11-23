@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DesignExtras } from "@/components/design-extras";
 import { BlogList } from "@/components/blog-list";
 import { ContactSection } from "@/components/contact-section";
 import { PageShell } from "@/components/page-shell";
@@ -40,6 +41,7 @@ export default async function BlogPage() {
           <BlogList posts={posts} />
         </div>
       </section>
+      <DesignExtras page="blog" />
       <ContactSection
         source="blog"
         intro={t(

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DesignExtras } from "@/components/design-extras";
 import { ContactSection } from "@/components/contact-section";
 import { PageShell } from "@/components/page-shell";
 import { DarkCards, NumberedCards, PageHero, Section, SectionHeading, type NumberedItem } from "@/components/ui";
@@ -139,6 +140,7 @@ export default async function WhyFinloaPage() {
           ))}
         </ul>
       </Section>
+      <DesignExtras page="why-finloa" />
       <ContactSection
         source="why-finloa"
         intro={t(

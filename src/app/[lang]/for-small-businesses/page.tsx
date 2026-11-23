@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DesignExtras } from "@/components/design-extras";
 import { ContactSection } from "@/components/contact-section";
 import { FaqSection, type FaqItem } from "@/components/faq";
 import { PageShell } from "@/components/page-shell";
@@ -142,6 +143,7 @@ export default async function ForSmallBusinessesPage() {
         <StepList eyebrow={t("How it works", "Zo werkt het")} title={t("Simple from the first call.", "Eenvoudig vanaf het eerste gesprek.")} items={steps(t)} />
       </Section>
       <FaqSection title={t("Questions from business owners.", "Vragen van ondernemers.")} items={faqs(t)} />
+      <DesignExtras page="for-small-businesses" />
       <ContactSection
         source="for-small-businesses"
         intro={t(

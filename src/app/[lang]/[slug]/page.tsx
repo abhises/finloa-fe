@@ -65,6 +65,7 @@ export default async function ContentPageRoute({ params }: PageProps<"/[lang]/[s
         updated={`${t("Last updated", "Laatst bijgewerkt op")} ${updated}`}
         html={page.html}
         css={page.css}
+        sections={page.sections}
       />
       <ContactSection
         source={legal ? "legal" : `page-${page.slug}`.slice(0, 40)}

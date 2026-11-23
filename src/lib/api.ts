@@ -150,6 +150,8 @@ export type ContentPage = {
   /** Small label above the title; empty hides it */
   eyebrow: string;
   html: string;
+  /** true when the body is built from sections in Admin → Pages (it then gets the article styles) */
+  sections?: boolean;
   css: string;
   seoTitle: string | null;
   seoDescription: string | null;

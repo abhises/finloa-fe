@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DesignExtras } from "@/components/design-extras";
 import Image from "next/image";
 import { FaqSection, type FaqItem } from "@/components/faq";
 import { IdeaContact, IdeaHeroForm } from "@/components/idea-to-product";
@@ -472,6 +473,7 @@ export default async function IdeaToProductPage() {
 
       <FaqSection title={t("Good questions.", "Goede vragen.")} items={faqs(t)} />
       <IdeaContact />
+      <DesignExtras page="idea-to-product" />
     </PageShell>
   );
 }

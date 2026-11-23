@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DesignExtras } from "@/components/design-extras";
 import { ContactSection } from "@/components/contact-section";
 import { FaqSection, type FaqItem } from "@/components/faq";
 import { PageShell } from "@/components/page-shell";
@@ -255,6 +256,7 @@ export default async function SeoPage() {
         <DarkStepGrid items={steps(t)} />
       </Section>
       <FaqSection title={t("Questions about search.", "Vragen over vindbaarheid.")} items={faqs(t)} />
+      <DesignExtras page="seo" />
       <ContactSection
         source="seo"
         intro={t(

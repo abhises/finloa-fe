@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DesignExtras } from "@/components/design-extras";
 import { ContactSection } from "@/components/contact-section";
 import { FaqSection, type FaqItem } from "@/components/faq";
 import { PageShell } from "@/components/page-shell";
@@ -170,6 +171,7 @@ export default async function ContentMarketingPage() {
         <DarkCards items={reasons(t)} moreLabel={t("Learn more →", "Meer weten →")} />
       </Section>
       <FaqSection title={t("Questions about content marketing.", "Vragen over contentmarketing.")} items={faqs(t)} />
+      <DesignExtras page="content-marketing" />
       <ContactSection
         source="content-marketing"
         intro={t(

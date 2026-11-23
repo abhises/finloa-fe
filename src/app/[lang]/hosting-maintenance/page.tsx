@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DesignExtras } from "@/components/design-extras";
 import { ContactSection } from "@/components/contact-section";
 import { FaqSection, type FaqItem } from "@/components/faq";
 import { PageShell } from "@/components/page-shell";
@@ -156,6 +157,7 @@ export default async function HostingMaintenancePage() {
         <StepList eyebrow={t("How it works", "Zo werkt het")} title={t("Switching is simple.", "Overstappen is simpel.")} items={steps(t)} />
       </Section>
       <FaqSection title={t("Questions about hosting.", "Vragen over hosting.")} items={faqs(t)} />
+      <DesignExtras page="hosting-maintenance" />
       <ContactSection
         source="hosting-maintenance"
         intro={t(

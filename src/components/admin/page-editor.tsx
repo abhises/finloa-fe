@@ -11,8 +11,10 @@ import { useCallback, useDeferredValue, useEffect, useMemo, useState } from "rea
 import { useConfirm } from "@/components/admin/confirm-dialog";
 import { MediaPicker } from "@/components/admin/media-library";
 import { PreviewFrame } from "@/components/admin/post-preview";
+import { cloneDoc, SectionsEditor } from "@/components/admin/sections-editor";
 import { ContentArticle } from "@/components/content-article";
 import { adminApi, useNlOrigin, type AdminError } from "@/lib/admin-client";
+import { emptyData, newId, type SectionsDoc, type SectionType } from "@/lib/sections";
 
 export type AdminPage = {
   id: string;
@@ -23,6 +25,9 @@ export type AdminPage = {
   eyebrowNl: string;
   html: string;
   htmlNl: string;
+  /** Section-based body per language; null = hand-written HTML */
+  sections: SectionsDoc | null;
+  sectionsNl: SectionsDoc | null;
   css: string;
   seoTitle: string | null;
   seoTitleNl: string | null;
@@ -39,7 +44,13 @@ const LANGS: Lang[] = ["en", "nl"];
 const LANG_LABEL: Record<Lang, string> = { en: "English", nl: "Nederlands" };
 /** The fields that exist in both languages */
 type Copy = { title: string; eyebrow: string; html: string; seoTitle: string; seoDescription: string };
-type Tab = "html" | "css" | "jsonld" | "preview";
+type Tab = "sections" | "html" | "css" | "jsonld" | "preview";
+
+/** The sections a new page starts with */
+function pageStarterDoc(types: SectionType[]): SectionsDoc {
+  const text = types.find((t) => t.key === "text");
+  return { layout: "wide", items: text ? [0, 1].map(() => ({ id: newId(), type: "text", data: emptyData(text.fields) })) : [] };
+}
 
 const copyFrom = (p: AdminPage | undefined, lang: Lang): Copy =>
   !p
@@ -75,7 +86,19 @@ export function PageEditor({ page }: { page?: AdminPage }) {
   const [sortOrder, setSortOrder] = useState(String(page?.sortOrder ?? 0));
   const [updatedAt, setUpdatedAt] = useState(page?.updatedAt ?? null);
 
-  const [tab, setTab] = useState<Tab>("html");
+  /** Body per language: sections (the server turns them into HTML) or null when the HTML is written by hand */
+  const [sections, setSectionsState] = useState<Record<Lang, SectionsDoc | null>>(() => ({
+    en: page ? page.sections : { layout: "wide", items: [] },
+    nl: page?.sectionsNl ?? null,
+  }));
+  /** HTML generated from each language's sections (live, before saving) + CSS of the custom section types used */
+  const [rendered, setRendered] = useState<Record<Lang, { html: string; css: string; error: string }>>({
+    en: { html: page?.sections ? page.html : "", css: "", error: "" },
+    nl: { html: page?.sectionsNl ? page.htmlNl : "", css: "", error: "" },
+  });
+  const [types, setTypes] = useState<SectionType[]>([]);
+  const [selected, setSelected] = useState<string | null>(null);
+  const [tab, setTab] = useState<Tab>(!page || page.sections ? "sections" : "html");
   const [split, setSplit] = useState(true);
   const [mobile, setMobile] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -86,9 +109,22 @@ export function PageEditor({ page }: { page?: AdminPage }) {
   const [codeView, setCodeView] = useState<EditorView | null>(null);
   const nlOrigin = useNlOrigin();
 
+  useEffect(() => {
+    adminApi<{ data: SectionType[] }>("/section-types")
+      .then((r) => {
+        setTypes(r.data);
+        // a new page starts from a few sections
+        if (isNew) setSectionsState((s) => (s.en && !s.en.items.length ? { ...s, en: pageStarterDoc(r.data) } : s));
+      })
+      .catch((e: Error) => setMsg({ ok: false, text: `Could not load the section types: ${e.message}` }));
+  }, [isNew]);
+
   const c = copy[lang];
   const en = copy.en;
-  const nlEmpty = !copy.nl.html.trim();
+  const doc = sections[lang];
+  /** The Dutch body hasn't been started: nl.finloa.com shows the English one */
+  const nlEmpty = sections.nl === null && !copy.nl.html.trim();
+  const usesSections = doc !== null || (lang === "nl" && nlEmpty);
   const changed = () => {
     setDirty(true);
     setMsg(null);
@@ -104,6 +140,30 @@ export function PageEditor({ page }: { page?: AdminPage }) {
       fn(v);
       changed();
     };
+  const setDoc = (d: SectionsDoc | null, l: Lang = lang) => {
+    setSectionsState((s) => ({ ...s, [l]: d }));
+    changed();
+  };
+
+  // Render the sections into HTML on the server (same templates as the live site), debounced so typing stays smooth
+  const renderKey = JSON.stringify([sections, slug, copy.en.title, copy.nl.title]);
+  useEffect(() => {
+    const t = setTimeout(() => {
+      for (const l of LANGS) {
+        const d = sections[l];
+        if (!d) continue;
+        adminApi<{ html: string; css: string }>("/pages/preview", {
+          method: "POST",
+          json: { sections: d, lang: l, slug: slug || "preview", title: copy[l].title || copy.en.title },
+        })
+          .then((r) => setRendered((all) => ({ ...all, [l]: { html: r.html, css: r.css, error: "" } })))
+          .catch((e: Error) => setRendered((all) => ({ ...all, [l]: { ...all[l], error: e.message } })));
+      }
+    }, 350);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [renderKey]);
+  const bodyOf = (l: Lang) => (sections[l] ? rendered[l].html : copy[l].html);
 
   const save = useCallback(
     async (override?: { published?: boolean }) => {
@@ -134,8 +194,11 @@ export function PageEditor({ page }: { page?: AdminPage }) {
         titleNl: nl.title,
         eyebrow: en.eyebrow,
         eyebrowNl: nl.eyebrow,
-        html: en.html,
-        htmlNl: nl.html,
+        // the body: sections (the server renders them into HTML) or hand-written HTML
+        sections: sections.en,
+        sectionsNl: sections.nl,
+        html: sections.en ? rendered.en.html : en.html,
+        htmlNl: sections.nl ? rendered.nl.html : nl.html,
         css,
         seoTitle: en.seoTitle,
         seoTitleNl: nl.seoTitle,
@@ -166,7 +229,7 @@ export function PageEditor({ page }: { page?: AdminPage }) {
         setSaving(false);
       }
     },
-    [copy, css, jsonLd, slug, published, sortOrder, isNew, page, router],
+    [copy, sections, rendered, css, jsonLd, slug, published, sortOrder, isNew, page, router],
   );
 
   // Ctrl/⌘+S saves; warn before leaving with unsaved changes
@@ -198,16 +261,49 @@ export function PageEditor({ page }: { page?: AdminPage }) {
     }
   }
 
-  /** Fill the empty Dutch fields with the English ones, as a starting point for translating */
+  /** Fill the empty Dutch fields (and an empty Dutch body) with the English ones, as a starting point for translating */
   function fillFromEnglish() {
     setCopy((all) => {
       const n = { ...all.nl };
       (Object.keys(n) as (keyof Copy)[]).forEach((k) => {
+        if (k === "html" && sections.en) return;
         if (!n[k].trim()) n[k] = all.en[k];
       });
       return { ...all, nl: n };
     });
+    if (nlEmpty && sections.en) setDoc(cloneDoc(sections.en), "nl");
     changed();
+  }
+
+  /** Hand-written HTML -> sections: the current HTML becomes one Custom HTML section, so the page looks the same. */
+  async function useSectionsMode() {
+    if (
+      !(await confirm({
+        title: "Edit this page with sections?",
+        message: "The current HTML becomes one “Custom HTML” section, so the page looks the same. You can then add sections around it, or rebuild it section by section.",
+        confirmLabel: "Use sections",
+      }))
+    )
+      return;
+    const items = c.html.trim() ? [{ id: newId(), type: "custom-html", data: { html: c.html } }] : [];
+    setDoc({ layout: "wide", items });
+    setSelected(items[0]?.id ?? null);
+    setTab("sections");
+  }
+
+  /** Sections -> hand-written HTML, starting from the HTML the sections produce now. */
+  async function useHtmlMode() {
+    if (
+      !(await confirm({
+        title: "Edit the HTML by hand?",
+        message: `The ${LANG_LABEL[lang]} page stops using sections. You keep the HTML they produce now and edit it directly.`,
+        confirmLabel: "Edit HTML",
+      }))
+    )
+      return;
+    setC("html", rendered[lang].html);
+    setDoc(null);
+    setTab("html");
   }
 
   function onPicked(url: string, alt: string) {
@@ -224,25 +320,29 @@ export function PageEditor({ page }: { page?: AdminPage }) {
   const extensions = useMemo(() => ({ html: [htmlLang(), EditorView.lineWrapping], css: [cssLang()], json: [jsonLang()] }), []);
 
   // Preview: the page as the site renders it, in the language being edited (empty Dutch fields show the English)
+  const previewLang: Lang = lang === "nl" && !nlEmpty ? "nl" : "en";
   const pick = (k: keyof Copy) => (lang === "nl" && c[k].trim() ? c[k] : en[k]);
   const preview = useDeferredValue({
     eyebrow: pick("eyebrow"),
     title: pick("title") || "Untitled",
     updated: `${lang === "nl" ? "Laatst bijgewerkt op" : "Last updated"} ${fmtDate(updatedAt && !dirty ? new Date(updatedAt) : new Date(), lang)}`,
-    html: lang === "nl" && !nlEmpty ? c.html : en.html,
-    css,
+    html: bodyOf(previewLang),
+    sections: !!sections[previewLang],
+    css: [rendered[previewLang].css, css].filter(Boolean).join("\n"),
   });
 
   const fieldErr = (k: string) => errors[k]?.[0] && <span className="ad-field__err">{errors[k]![0]}</span>;
   const path = `/${slug || slugify(en.title) || "…"}`;
   const fallback = (k: keyof Copy) => (lang === "nl" && en[k] ? en[k] : undefined);
 
-  const code = (value: string, onChange: (v: string) => void, ext: keyof typeof extensions, placeholder: string, trackView = false) => (
+  const code = (value: string, onChange: ((v: string) => void) | null, ext: keyof typeof extensions, placeholder: string, trackView = false) => (
     <div className="ad-code">
       <CodeMirror
         value={value}
         extensions={extensions[ext]}
-        onChange={onChange}
+        onChange={onChange ?? undefined}
+        readOnly={!onChange}
+        editable={!!onChange}
         placeholder={placeholder}
         onCreateEditor={trackView ? setCodeView : undefined}
         basicSetup={{ foldGutter: true }}
@@ -251,15 +351,48 @@ export function PageEditor({ page }: { page?: AdminPage }) {
   );
 
   const previewPane = (
-    <PreviewFrame mobile={mobile}>
+    <PreviewFrame mobile={mobile} selected={tab === "sections" ? selected : null}>
       <ContentArticle {...preview} />
     </PreviewFrame>
   );
 
+  /** Dutch body not started yet: start it from the English one or empty */
+  const nlStart = (
+    <div className="ad-pane ad-pane--center">
+      <h2>No Dutch page yet</h2>
+      <p className="ad-hint">Until you add one, nl.finloa.com shows the English page. The preview shows it too.</p>
+      <div className="ad-quick">
+        <button type="button" className="ad-btn ad-btn--primary" onClick={() => (sections.en ? setDoc(cloneDoc(sections.en)) : setC("html", en.html))}>
+          Start from the English {sections.en ? "sections" : "HTML"}
+        </button>
+        <button type="button" className="ad-btn" onClick={() => setDoc({ layout: "wide", items: [] })}>
+          Start empty
+        </button>
+      </div>
+    </div>
+  );
+
+  const effectiveTab: Tab = tab === "sections" && !usesSections ? "html" : tab;
   let work: React.ReactNode;
-  if (tab === "preview") work = previewPane;
-  else if (tab === "css") work = code(css, touch(setCss), "css", "/* CSS for this page, in both languages. E.g. */\n.content-page__body h2 { color: #2f6bff; }", true);
-  else if (tab === "jsonld") work = code(jsonLd, touch(setJsonLd), "json", '{\n  "@context": "https://schema.org",\n  "@type": "WebPage",\n  …\n}');
+  if (effectiveTab === "preview") work = previewPane;
+  else if (effectiveTab === "sections")
+    work = doc ? <SectionsEditor doc={doc} onChange={(d) => setDoc(d)} selected={selected} onSelect={setSelected} types={types} /> : nlStart;
+  else if (effectiveTab === "css") work = code(css, touch(setCss), "css", "/* CSS for this page, in both languages. E.g. */\n.content-page__body h2 { color: #2f6bff; }", true);
+  else if (effectiveTab === "jsonld") work = code(jsonLd, touch(setJsonLd), "json", '{\n  "@context": "https://schema.org",\n  "@type": "WebPage",\n  …\n}');
+  else if (doc)
+    work = (
+      <div className="ad-code-wrap">
+        <div className="se-htmlbar">
+          <span className="ad-hint">
+            Generated from the sections. {rendered[lang].error && <span className="ad-field__err">{rendered[lang].error}</span>}
+          </span>
+          <button type="button" className="ad-btn ad-btn--sm" onClick={useHtmlMode}>
+            Edit HTML by hand
+          </button>
+        </div>
+        {code(rendered[lang].html, null, "html", "")}
+      </div>
+    );
   else
     work = code(
       c.html,
@@ -271,6 +404,7 @@ export function PageEditor({ page }: { page?: AdminPage }) {
 
   const L = lang.toUpperCase();
   const tabs: [Tab, string][] = [
+    ...(usesSections ? ([["sections", `Sections (${L})`]] as [Tab, string][]) : []),
     ["html", `HTML (${L})`],
     ["css", "CSS"],
     ["jsonld", "JSON-LD"],
@@ -339,7 +473,7 @@ export function PageEditor({ page }: { page?: AdminPage }) {
             )}
           </div>
           {lang === "nl" && nlEmpty && (
-            <p className="ad-fallback">No Dutch HTML yet. Until you add it, nl.finloa.com shows the English page. Empty Dutch fields use the English text.</p>
+            <p className="ad-fallback">No Dutch body yet. Until you add it, nl.finloa.com shows the English page. Empty Dutch fields use the English text.</p>
           )}
 
           <label>
@@ -399,12 +533,17 @@ export function PageEditor({ page }: { page?: AdminPage }) {
         <div className="ad-editor__work">
           <div className="ad-tabs" role="tablist">
             {tabs.map(([k, l]) => (
-              <button key={k} type="button" role="tab" aria-selected={tab === k} onClick={() => setTab(k)}>
+              <button key={k} type="button" role="tab" aria-selected={effectiveTab === k} onClick={() => setTab(k)}>
                 {l}
               </button>
             ))}
             <span className="ad-tabs__spacer" />
-            {(tab === "html" || tab === "css") && (
+            {!usesSections && (
+              <button type="button" onClick={useSectionsMode} title="Build this page from sections">
+                Use sections
+              </button>
+            )}
+            {((effectiveTab === "html" && !doc) || effectiveTab === "css") && (
               <button type="button" onClick={() => setPicker(true)} title="Upload or pick an image and insert it at the cursor">
                 + Image
               </button>
@@ -413,7 +552,7 @@ export function PageEditor({ page }: { page?: AdminPage }) {
               type="button"
               onClick={() => {
                 setSplit(!split);
-                if (tab === "preview") setTab("html");
+                if (tab === "preview") setTab(usesSections ? "sections" : "html");
               }}
             >
               {split ? "Full-width editor" : "Side-by-side preview"}
@@ -428,7 +567,7 @@ export function PageEditor({ page }: { page?: AdminPage }) {
             {split && previewPane}
           </div>
           <p className="ad-hint">
-            Use <code>&lt;h2&gt;</code>, <code>&lt;h3&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;ul&gt;&lt;li&gt;</code>, <code>&lt;strong&gt;</code> and{" "}
+            Build the page from sections (the same blocks as the blog posts, see <Link href="/admin/sections">Section types</Link>) or write HTML: use <code>&lt;h2&gt;</code>, <code>&lt;h3&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;ul&gt;&lt;li&gt;</code>, <code>&lt;strong&gt;</code> and{" "}
             <code>&lt;a href&gt;</code>; they get the site&apos;s style. The page header, footer and contact form are added around it. The CSS applies to
             this page in both languages. Ctrl/⌘+S saves. <Link href="/admin/texts">Site texts</Link>
           </p>

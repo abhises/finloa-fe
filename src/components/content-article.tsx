@@ -9,6 +9,7 @@ export function ContentArticle({
   updated,
   html,
   css,
+  sections = false,
 }: {
   eyebrow: string;
   title: string;
@@ -16,6 +17,8 @@ export function ContentArticle({
   updated: string;
   html: string;
   css?: string;
+  /** The body is built from sections: give it the blog article styles the section types are made for */
+  sections?: boolean;
 }) {
   return (
     <section className="content-page px-6 pt-[clamp(28px,5vw,64px)] pb-24">
@@ -25,7 +28,7 @@ export function ContentArticle({
         <h1 className="text-[clamp(38px,5.4vw,60px)] leading-[1.05] font-bold tracking-[-0.045em]">{title}</h1>
         {updated && <p className="text-[14.5px]! text-subtle!">{updated}</p>}
         <div className="mt-4 h-px bg-line" />
-        <div className="content-page__body flex flex-col gap-4" dangerouslySetInnerHTML={{ __html: html }} />
+        <div className={`content-page__body flex flex-col gap-4${sections ? " post-body" : ""}`} dangerouslySetInnerHTML={{ __html: html }} />
       </article>
     </section>
   );

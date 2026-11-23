@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DesignExtras } from "@/components/design-extras";
 import { ContactSection } from "@/components/contact-section";
 import { Hero } from "@/components/hero";
 import { PageShell } from "@/components/page-shell";
@@ -28,6 +29,7 @@ export default async function VideoCreationPage() {
       <Hero />
       <Pricing plans={plans} />
       <VideoWork videos={videos} />
+      <DesignExtras page="videos" />
       <ContactSection
         source="video-creation"
         intro={t(

@@ -36,6 +36,8 @@ export interface SectionItem {
   hidden?: boolean;
   /** Name of the section's heading in the contents list; "" leaves it out */
   tocLabel?: string;
+  /** Designed pages: the block this section follows ("b3"; "start" = before the first block) */
+  after?: string;
 }
 export interface SectionsDoc {
   layout: "toc" | "wide";

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DesignExtras } from "@/components/design-extras";
 import Link from "next/link";
 import { GoalPicker } from "@/components/goal-picker";
 import { ContactSection } from "@/components/contact-section";
@@ -249,6 +250,7 @@ export default async function ServicesPage() {
         )}
         actions={[{ href: "#contact", label: t("Contact Us →", "Neem contact op →") }]}
       />
+      <DesignExtras page="services" />
       <ContactSection
         source="services"
         intro={t(

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DesignExtras } from "@/components/design-extras";
 import { DismissibleNotice } from "@/components/dismissible-notice";
 import { ContactSection } from "@/components/contact-section";
 import { PageShell } from "@/components/page-shell";
@@ -198,6 +199,7 @@ export default async function CareersPage() {
           </p>
         </div>
       </section>
+      <DesignExtras page="careers" />
       <ContactSection
         source="careers"
         intro={t(

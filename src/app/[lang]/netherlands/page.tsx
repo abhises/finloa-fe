@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DesignExtras } from "@/components/design-extras";
 import { Channels, DutchSearch, DutchVideo, LanguageSwitchHero, NlContact, Route, SpotTheTranslation } from "@/components/netherlands";
 import { PageShell } from "@/components/page-shell";
 import { getT, pageMetadata } from "@/i18n/server";
@@ -20,16 +21,15 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function NetherlandsPage() {
   const t = await getT();
   return (
-    <PageShell brandHeader ctaLabel={t("Plan Your Growth", "Plan je groei")} ctaHref="#contact">
-      <div className="overflow-x-clip bg-[#F4F6FA]">
-        <LanguageSwitchHero />
-        <SpotTheTranslation />
-        <DutchSearch />
-        <Channels />
-        <Route />
-        <DutchVideo />
-        <NlContact />
-      </div>
+    <PageShell brandHeader ctaLabel={t("Plan Your Growth", "Plan je groei")} ctaHref="#contact" mainClassName="bg-[#F4F6FA]">
+      <LanguageSwitchHero />
+      <SpotTheTranslation />
+      <DutchSearch />
+      <Channels />
+      <Route />
+      <DutchVideo />
+      <NlContact />
+      <DesignExtras page="netherlands" />
     </PageShell>
   );
 }

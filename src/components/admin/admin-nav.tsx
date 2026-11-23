@@ -26,6 +26,7 @@ const MENU: Group[] = [
     items: [
       { href: "/admin/pages", label: "All pages" },
       { href: "/admin/pages/new", label: "Add new" },
+      { href: "/admin/front-page", label: "Front page" },
       { href: "/admin/texts", label: "Site texts (EN / NL)" },
     ],
   },

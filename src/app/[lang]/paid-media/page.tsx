@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DesignExtras } from "@/components/design-extras";
 import { ContactSection } from "@/components/contact-section";
 import { FaqSection, type FaqItem } from "@/components/faq";
 import { PageShell } from "@/components/page-shell";
@@ -161,6 +162,7 @@ export default async function PaidMediaPage() {
         <DarkCards items={services(t)} moreLabel={t("Learn more →", "Meer weten →")} />
       </Section>
       <FaqSection title={t("Questions about paid media.", "Vragen over betaalde media.")} items={faqs(t)} />
+      <DesignExtras page="paid-media" />
       <ContactSection
         source="paid-media"
         intro={t(

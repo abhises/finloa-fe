@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DesignExtras } from "@/components/design-extras";
 import { ContactSection } from "@/components/contact-section";
 import { CreatorNetwork } from "@/components/creator-network";
 import { FaqSection, type FaqItem } from "@/components/faq";
@@ -246,6 +247,7 @@ export default async function ForCreatorsPage() {
 
       <FaqSection title={t("Questions creators ask us.", "Vragen die creators ons stellen.")} items={faqs(t)} />
 
+      <DesignExtras page="for-creators" />
       <ContactSection
         source="for-creators"
         title={t("Ready to earn more than views?", "Klaar om meer te verdienen dan views?")}

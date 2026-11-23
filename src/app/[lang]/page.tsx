@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { ContactSection } from "@/components/contact-section";
+import { DesignExtras } from "@/components/design-extras";
 import { GoalPicker } from "@/components/goal-picker";
 import { PageShell } from "@/components/page-shell";
 import { Eyebrow } from "@/components/ui";
@@ -163,7 +164,7 @@ export default async function LandingPage() {
 
   return (
     <PageShell brandHeader ctaLabel={t("Plan Your Growth", "Plan je groei")} ctaHref="#goals">
-      <div className="overflow-x-clip">
+      <>
         {/* ---------- Hero ---------- */}
         <section className="relative bg-brand px-6 pt-[clamp(40px,6vw,80px)] text-white">
           <div className="pointer-events-none absolute inset-0" style={grid("rgba(255,255,255,.07)")} aria-hidden />
@@ -433,7 +434,8 @@ export default async function LandingPage() {
             </a>
           </div>
         </section>
-      </div>
+      </>
+      <DesignExtras page="home" />
       <ContactSection
         source="home"
         intro={t(

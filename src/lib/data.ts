@@ -1,6 +1,7 @@
 import "server-only";
 import { cacheLife, cacheTag } from "next/cache";
 import type { Locale, TextOverrides } from "@/i18n/config";
+import type { DesignLayout, DesignPart } from "./design-layout";
 import { API_URL, type ContentPage, type Plan, type PortfolioVideo, type Post, type PostDetail } from "./api";
 
 /** Server-side fetches use the internal address when running in Docker (e.g. http://backend:4000). */
@@ -186,4 +187,21 @@ export async function getPage(slug: string, locale: Locale = "en"): Promise<Cont
   if (res.status === 404) return null;
   if (!res.ok) throw new Error(`[finloa] API responded ${res.status} for page "${slug}"`);
   return ((await res.json()) as { data: ContentPage }).data;
+}
+
+export type DesignExtras = { parts: DesignPart[]; css: string; jsonLd: string | null; layout: DesignLayout | null; sections: boolean };
+
+/** What Admin → Pages added to a designed page (sections / HTML, CSS, JSON-LD). Empty when the API is unreachable. */
+export async function getDesignExtras(key: string, locale: Locale = "en"): Promise<DesignExtras> {
+  "use cache";
+  cacheLife("minutes");
+  cacheTag("pages", `design:${key}`);
+  try {
+    const res = await fetch(`${SERVER_API_URL}/api/pages/design/${encodeURIComponent(key)}?lang=${locale}`, { signal: AbortSignal.timeout(4000) });
+    if (!res.ok) throw new Error(`API responded ${res.status}`);
+    return ((await res.json()) as { data: DesignExtras }).data;
+  } catch (err) {
+    console.warn(`[finloa] Could not load the extras of "${key}" from ${SERVER_API_URL}.`, err);
+    return { parts: [], css: "", jsonLd: null, layout: null, sections: false };
+  }
 }
